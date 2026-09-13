@@ -1,0 +1,490 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * 시맨틱 토큰 정의
+ * tailwind.config.ts의 bg/fg/cta 등이 여기의 CSS 변수를 참조합니다.
+ * 값은 `R G B` (공백 구분) 형식 — Tailwind의 <alpha-value> 치환을 위해 필요합니다.
+ */
+
+@layer base {
+  :root {
+    /* 표면 */
+    --c-bg: 255 255 255;
+    --c-surface: 246 248 250;
+    --c-surface-2: 236 240 244;
+    --c-line: 221 227 234;
+    --c-line-strong: 195 204 215;
+
+    /* 텍스트 */
+    --c-fg: 16 21 28;
+    --c-fg-muted: 68 82 99;
+    --c-fg-subtle: 88 102 119;
+    --c-fg-invert: 255 255 255;
+
+    /* 브랜드 */
+    --c-brand: 0 48 96; /* navy-700 #003060 */
+    --c-brand-ink: 0 24 48; /* navy-900 #001830 */
+
+    /* CTA 기본값 = green (data-cta 속성으로 전환) */
+    --c-cta: 72 168 48;
+    --c-cta-hover: 58 140 38;
+    --c-cta-fg: 255 255 255;
+    --c-cta-soft: 217 239 210;
+  }
+
+  /* ── CTA 변형 ─────────────────────────────────────────────
+     content/site.ts의 ctaVariant 값이 <html data-cta="..."> 로 반영됩니다.
+     A안 green : 로고 인피니티 마크의 그린 — 브랜드 일치도 최상
+     B안 azure : INFOLINK 배경/언더라인의 애저 — 네이비와 동계열, 차분함
+     C안 amber : 보색 대비 최대 — 클릭 유도력은 가장 높으나 브랜드 자산에 없는 색
+  */
+  /* :root뿐 아니라 임의 요소에도 걸 수 있게 속성 선택자로 둡니다.
+     덕분에 한 화면에서 3개 안을 나란히 비교할 수 있습니다. */
+  [data-cta='green'] {
+    --c-cta: 72 168 48;
+    --c-cta-hover: 58 140 38;
+    --c-cta-fg: 255 255 255;
+    --c-cta-soft: 217 239 210;
+  }
+
+  [data-cta='azure'] {
+    --c-cta: 24 120 192;
+    --c-cta-hover: 18 96 160;
+    --c-cta-fg: 255 255 255;
+    --c-cta-soft: 205 230 248;
+  }
+
+  [data-cta='amber'] {
+    --c-cta: 200 122 20;
+    --c-cta-hover: 168 100 14;
+    --c-cta-fg: 255 255 255;
+    --c-cta-soft: 250 232 200;
+  }
+
+  /* 다크 테마 토큰 — 토글 UI는 아직 없고 토큰만 준비 */
+  .dark {
+    --c-bg: 10 15 22;
+    --c-surface: 16 22 31;
+    --c-surface-2: 24 32 43;
+    --c-line: 36 47 61;
+    --c-line-strong: 54 68 85;
+
+    --c-fg: 226 233 241;
+    --c-fg-muted: 151 164 179;
+    --c-fg-subtle: 122 136 152;
+    --c-fg-invert: 10 15 22;
+
+    --c-brand: 110 151 194; /* navy-300 — 어두운 바탕에서 읽히도록 상향 */
+    --c-brand-ink: 208 223 238;
+  }
+
+  .dark[data-cta='green'],
+  .dark [data-cta='green'] {
+    --c-cta: 102 184 79;
+    --c-cta-hover: 139 204 119;
+    --c-cta-fg: 10 15 22;
+    --c-cta-soft: 27 63 18;
+  }
+
+  .dark[data-cta='azure'],
+  .dark [data-cta='azure'] {
+    --c-cta: 98 173 230;
+    --c-cta-hover: 155 204 241;
+    --c-cta-fg: 10 15 22;
+    --c-cta-soft: 11 59 99;
+  }
+
+  .dark[data-cta='amber'],
+  .dark [data-cta='amber'] {
+    --c-cta: 224 158 62;
+    --c-cta-hover: 238 184 106;
+    --c-cta-fg: 10 15 22;
+    --c-cta-soft: 66 42 8;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    font-feature-settings: 'ss01', 'tnum' 0;
+  }
+
+  /* 한글 줄바꿈 — 단어 단위로 끊어 가독성 확보 */
+  p,
+  li,
+  h1,
+  h2,
+  h3,
+  h4 {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-cta ring-offset-2 ring-offset-bg;
+  }
+
+  ::selection {
+    @apply bg-navy-700 text-white;
+  }
+}
+
+@layer utilities {
+  /* 영문 대문자 라벨 — 섹션 상단 표기용 */
+  .label-mono {
+    @apply text-label font-semibold uppercase tracking-[0.14em];
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-container px-gutter md:px-gutter-md lg:px-gutter-lg;
+  }
+}
+
+/**
+ * 히어로 진입 시퀀스
+ *
+ * 타이밍은 전부 CSS animation-delay가 담당하고, JS는 시작 신호 하나만 줍니다.
+ * 폰트가 늦게 오면 글자가 바뀌면서 애니메이션이 재생돼 지저분해지므로
+ * document.fonts.ready 이후에 <html data-hero-ready="true">가 붙고, 그때 재생이 시작됩니다.
+ *
+ * animation-play-state: paused + fill-mode: both 조합이라
+ * 신호가 오기 전까지는 시작 프레임(투명)에서 정지해 있습니다.
+ */
+
+.hero-seq {
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
+[data-hero-ready='true'] .hero-seq {
+  animation-play-state: running;
+}
+
+/* 슬로건 — 좌측에서 16px 슬라이드 */
+.hero-seq-label {
+  animation-name: hero-slide-left;
+  animation-delay: 0ms;
+}
+/* 제목 1행 / 2행 — 24px 페이드업 */
+.hero-seq-line1 {
+  animation-name: hero-up-24;
+  animation-delay: 150ms;
+}
+.hero-seq-line2 {
+  animation-name: hero-up-24;
+  animation-delay: 250ms;
+}
+/* 강조 어구 — 나머지 텍스트보다 200ms 늦게 */
+.hero-seq-highlight {
+  animation-name: hero-up-24;
+  animation-delay: 450ms;
+}
+/**
+ * 강조 언더라인 — 강조 어구가 다 나타난 뒤(450+700) 좌→우로 300ms.
+ *
+ * 절대배치 막대가 아니라 background-image로 그립니다.
+ * 문구가 두 줄로 접힐 때 막대는 한 줄에만 남지만,
+ * box-decoration-break: clone을 쓰면 줄마다 밑줄이 따라갑니다.
+ * padding-bottom 4px가 글자와 선 사이 간격입니다.
+ */
+.hero-seq-underline {
+  padding-bottom: 4px;
+  background-image: linear-gradient(
+    to right,
+    rgba(72, 168, 48, 0.4),
+    rgba(72, 168, 48, 0.4)
+  );
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 3px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  animation-name: hero-underline;
+  animation-duration: 300ms;
+  animation-delay: 1150ms;
+}
+/* 설명문 — 16px */
+.hero-seq-sub {
+  animation-name: hero-up-16;
+  animation-delay: 400ms;
+}
+/* 버튼 2개 — 12px, 80ms 간격 */
+.hero-seq-btn1 {
+  animation-name: hero-up-12;
+  animation-delay: 550ms;
+}
+.hero-seq-btn2 {
+  animation-name: hero-up-12;
+  animation-delay: 630ms;
+}
+@keyframes hero-slide-left {
+  from {
+    opacity: 0;
+    transform: translate3d(-16px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes hero-up-24 {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes hero-up-16 {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes hero-up-12 {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes hero-underline {
+  from {
+    background-size: 0% 3px;
+  }
+  to {
+    background-size: 100% 3px;
+  }
+}
+
+/**
+ * 슬라이드 전환 — 이동이 아니라 페이드.
+ * 이미지는 6초에 걸쳐 1.04에서 1.0으로 아주 천천히 가라앉습니다(켄번스).
+ */
+.hero-slide {
+  opacity: 0;
+  transition: opacity 800ms ease-in-out;
+}
+
+.hero-slide[data-active='true'] {
+  opacity: 1;
+}
+
+.hero-slide[data-active='true'] .hero-slide-img {
+  animation: hero-kenburns 6000ms ease-out both;
+}
+
+@keyframes hero-kenburns {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* 도트 진행 바 */
+@keyframes hero-dot-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* 히어로 우측 이미지 — 진입 시 1.05에서 1.0으로 1.2s에 걸쳐 가라앉습니다 */
+.hero-img-in {
+  animation: hero-img-scale 1200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 200ms;
+  animation-play-state: paused;
+}
+
+[data-hero-ready='true'] .hero-img-in {
+  animation-play-state: running;
+}
+
+@keyframes hero-img-scale {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 배경 번짐 — 20s / 28s 주기로 40px 이내에서 아주 천천히 떠다닙니다 */
+@keyframes hero-blob-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-24px, 20px, 0);
+  }
+}
+@keyframes hero-blob-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(28px, -16px, 0);
+  }
+}
+
+/* 스크롤 유도 — 2s 주기로 6px 위아래 */
+@keyframes hero-cue-bob {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, 6px, 0);
+  }
+}
+
+/**
+ * 뷰포트 진입 애니메이션
+ * components/motion/Reveal.tsx가 data-revealed를 세우면 전환이 시작됩니다.
+ * 순차 등장(stagger)은 쓰지 않습니다 — 물결처럼 번지면 모션이 콘텐츠보다 먼저 읽힙니다.
+ */
+[data-reveal] {
+  opacity: 0;
+  /* 30px · 700ms에서 낮췄습니다.
+     크게 움직이면 '등장'이 되고, 작게 움직이면 '정착'이 됩니다.
+     읽는 사람이 모션을 알아채는 순간 그건 이미 과한 것입니다. */
+  transform: translate3d(0, 8px, 0);
+  transition:
+    opacity 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-reveal][data-revealed='true'] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* 움직임을 끄더라도 콘텐츠는 반드시 보여야 합니다. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* 히어로 시퀀스도 즉시 최종 상태로 */
+  .hero-seq,
+  .hero-img-in,
+  .hero-slide-img {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-seq-underline {
+    background-size: 100% 3px !important;
+  }
+
+  /* 슬라이드 전환도 즉시 */
+  .hero-slide {
+    transition: none !important;
+  }
+
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   강조 모션 — 몇 곳에만
+
+   등장 애니메이션을 걷어내고 나니 페이지가 밋밋해졌습니다.
+   다시 늘리는 대신, 뜻이 있는 자리에만 남깁니다.
+
+   판단 기준
+     · 그 움직임이 내용을 설명하는가 (순서 · 인과 · 상태)
+     · 사용자가 부른 것인가 (hover처럼)
+   둘 중 하나도 아니면 장식이고, 장식은 개수만큼 소음이 됩니다.
+   ──────────────────────────────────────────────────────────── */
+
+/* 선이 왼쪽에서 오른쪽으로 그려집니다.
+   문제에서 답으로 넘어가는 구분선처럼, 선 자체가 전환을 뜻하는 자리에만 씁니다. */
+.draw-rule {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--draw-delay, 120ms);
+}
+[data-revealed='true'] .draw-rule {
+  transform: scaleX(1);
+}
+
+/* 세로선이 위에서 아래로. 결론 문단 왼쪽 표시에 씁니다. */
+.draw-rule-y {
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--draw-delay, 120ms);
+}
+[data-revealed='true'] .draw-rule-y {
+  transform: scaleY(1);
+}
+
+/* 흰 카드가 회색 바탕 위에 떠오릅니다. 스크롤이 아니라 커서에 반응합니다. */
+.card-lift {
+  transition:
+    box-shadow 260ms ease-out,
+    transform 260ms ease-out;
+}
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(0, 48, 96, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .draw-rule,
+  .draw-rule-y {
+    transform: none !important;
+    transition: none !important;
+  }
+  .card-lift,
+  .card-lift:hover {
+    transform: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,1137 @@
+<title>INFOPATH 웹사이트 기획서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap">
+<style>
+  :root {
+    --paper:        #F1F4F8;
+    --surface:      #FFFFFF;
+    --surface-2:    #E5EAF0;
+    --ink:          #0B1A2B;
+    --steel:        #56677A;
+    --rule:         #D4DCE6;
+    --rule-strong:  #AEBCCB;
+    --navy:         #003060;
+    --navy-soft:    #DCE6F1;
+    --green:        #2E7D22;
+    --green-fill:   #48A830;
+    --green-soft:   #DEF0D6;
+    --azure:        #16649F;
+    --azure-soft:   #D8E9F7;
+    --warn:         #A8590E;
+    --warn-soft:    #F7E7D2;
+
+    --f-display: "IBM Plex Sans KR", "Malgun Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
+    --f-body:    "IBM Plex Sans KR", "Malgun Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
+    --f-mono:    "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:       #080F18;
+      --surface:     #0F1926;
+      --surface-2:   #172434;
+      --ink:         #E1E9F2;
+      --steel:       #90A2B6;
+      --rule:        #223142;
+      --rule-strong: #35485D;
+      --navy:        #7BA9D8;
+      --navy-soft:   #0E2340;
+      --green:       #79C765;
+      --green-fill:  #48A830;
+      --green-soft:  #14300D;
+      --azure:       #6BB4E8;
+      --azure-soft:  #0B2C48;
+      --warn:        #DFA05A;
+      --warn-soft:   #33210C;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:       #080F18;
+    --surface:     #0F1926;
+    --surface-2:   #172434;
+    --ink:         #E1E9F2;
+    --steel:       #90A2B6;
+    --rule:        #223142;
+    --rule-strong: #35485D;
+    --navy:        #7BA9D8;
+    --navy-soft:   #0E2340;
+    --green:       #79C765;
+    --green-fill:  #48A830;
+    --green-soft:  #14300D;
+    --azure:       #6BB4E8;
+    --azure-soft:  #0B2C48;
+    --warn:        #DFA05A;
+    --warn-soft:   #33210C;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 15px;
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--navy); color: #FFFFFF; }
+
+  a { color: var(--azure); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--green-fill);
+    outline-offset: 3px;
+  }
+
+  .shell { max-width: 1160px; margin: 0 auto; padding: 0 32px 140px; }
+
+  .doc {
+    display: grid;
+    grid-template-columns: 176px minmax(0, 1fr);
+    gap: 0 64px;
+    align-items: start;
+  }
+
+  /* ── cover ── */
+  .cover {
+    grid-column: 1 / -1;
+    padding: 88px 0 52px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin: 0 0 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+
+  .cover h1 {
+    font-family: var(--f-display);
+    font-size: clamp(36px, 5.6vw, 58px);
+    font-weight: 700;
+    letter-spacing: -.035em;
+    line-height: 1.06;
+    text-wrap: balance;
+    margin: 0 0 20px;
+    word-break: keep-all;
+  }
+  .cover h1 em { font-style: normal; color: var(--navy); }
+
+  .cover .lede {
+    font-size: 18px;
+    line-height: 1.66;
+    color: var(--steel);
+    max-width: 62ch;
+    margin: 0 0 20px;
+    font-weight: 300;
+    word-break: keep-all;
+  }
+
+  .rev {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: var(--green-soft);
+    border: 1px solid var(--green-fill);
+    padding: 5px 11px;
+    margin-bottom: 34px;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .meta div { background: var(--surface); padding: 15px 17px; }
+  .meta dt {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin: 0 0 6px;
+  }
+  .meta dd { margin: 0; font-size: 13.5px; font-weight: 500; }
+
+  /* ── rail ── */
+  .rail {
+    position: sticky;
+    top: 32px;
+    padding-top: 68px;
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+  .rail ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  .rail a {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 8px;
+    padding: 6px 8px 6px 10px;
+    color: var(--steel);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: color .15s, border-color .15s;
+  }
+  .rail a span { color: var(--rule-strong); }
+  .rail a:hover { color: var(--ink); }
+  .rail a.on { color: var(--ink); border-left-color: var(--green-fill); }
+  .rail a.on span { color: var(--green); }
+
+  /* ── sections ── */
+  .body-col { min-width: 0; }
+  section { padding: 68px 0 8px; scroll-margin-top: 24px; }
+  section + section { border-top: 1px solid var(--rule); }
+
+  .sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+  .sec-num {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: .06em;
+  }
+  section > h2 {
+    font-family: var(--f-display);
+    font-size: 27px;
+    font-weight: 600;
+    letter-spacing: -.025em;
+    line-height: 1.25;
+    margin: 0;
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+  .sec-sub {
+    color: var(--steel);
+    font-size: 15px;
+    max-width: 66ch;
+    margin: 14px 0 32px;
+    word-break: keep-all;
+  }
+
+  h3 {
+    font-family: var(--f-display);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -.015em;
+    margin: 42px 0 14px;
+    word-break: keep-all;
+  }
+  h4 {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin: 30px 0 12px;
+  }
+
+  p { margin: 0 0 16px; max-width: 68ch; word-break: keep-all; }
+  .body-col ul, .body-col ol { max-width: 68ch; padding-left: 20px; margin: 0 0 16px; }
+  .body-col li { margin-bottom: 7px; word-break: keep-all; }
+  .body-col li::marker { color: var(--rule-strong); }
+
+  strong { font-weight: 600; }
+  code {
+    font-family: var(--f-mono);
+    font-size: .87em;
+    background: var(--surface-2);
+    padding: 1.5px 5px;
+    border-radius: 2px;
+  }
+
+  /* ── callouts ── */
+  .note {
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--green-fill);
+    background: var(--surface);
+    padding: 17px 21px;
+    margin: 24px 0;
+    max-width: 68ch;
+  }
+  .note.warn { border-left-color: var(--warn); }
+  .note.info { border-left-color: var(--azure); }
+  .note .tag {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .note.warn .tag { color: var(--warn); }
+  .note.info .tag { color: var(--azure); }
+  .note p:last-child { margin-bottom: 0; }
+
+  /* ── table ── */
+  .scroll { overflow-x: auto; margin: 22px 0 28px; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 560px;
+    font-size: 13.5px;
+    font-variant-numeric: tabular-nums;
+  }
+  th, td {
+    text-align: left;
+    padding: 11px 15px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    word-break: keep-all;
+  }
+  thead th {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--steel);
+    border-bottom: 1px solid var(--rule-strong);
+    white-space: nowrap;
+  }
+  tbody th { font-weight: 600; font-size: 13.5px; white-space: nowrap; color: var(--ink); }
+  tbody tr:hover td, tbody tr:hover th { background: var(--surface); }
+
+  .ok   { color: var(--green); font-weight: 600; }
+  .todo { color: var(--warn); font-weight: 600; }
+
+  /* ── sitemap ── */
+  .sitemap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 26px 0 28px;
+  }
+  .node { background: var(--surface); }
+  .node > .gnb {
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    padding: 13px 16px;
+    background: var(--navy-soft);
+    color: var(--navy);
+    border-bottom: 1px solid var(--rule);
+  }
+  .node ul { list-style: none; margin: 0; padding: 8px 0; max-width: none; }
+  .node li { padding: 5px 16px; font-size: 13px; margin: 0; color: var(--steel); }
+  .node li b { color: var(--ink); font-weight: 500; }
+  .node .path {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    color: var(--azure);
+    display: block;
+  }
+
+  /* ── wireframe ── */
+  .wire {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 24px 0 28px;
+  }
+  .block {
+    background: var(--surface);
+    display: grid;
+    grid-template-columns: 62px minmax(0, 1fr);
+    gap: 0 18px;
+    padding: 19px 21px;
+  }
+  .block.off { opacity: .62; }
+  .block .idx {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green);
+    padding-top: 3px;
+  }
+  .block.off .idx { color: var(--steel); }
+  .block h5 {
+    margin: 0 0 6px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--f-display);
+    letter-spacing: -.01em;
+  }
+  .block .role { font-size: 13px; color: var(--steel); margin: 0 0 11px; max-width: 62ch; }
+  .copy {
+    border-left: 2px solid var(--azure);
+    padding: 2px 0 2px 14px;
+    margin: 0;
+    max-width: 58ch;
+  }
+  .copy .lbl {
+    font-family: var(--f-mono);
+    font-size: 9.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--azure);
+    display: block;
+    margin-bottom: 5px;
+  }
+  .copy .h {
+    display: block;
+    font-size: 16.5px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    line-height: 1.38;
+    margin-bottom: 5px;
+  }
+  .copy .s { display: block; font-size: 13px; color: var(--steel); }
+  .copy .s em { font-style: normal; color: var(--green); font-weight: 600; }
+
+  .variants { display: flex; flex-direction: column; gap: 10px; margin: 4px 0 0; }
+  .variant {
+    border: 1px solid var(--rule);
+    padding: 12px 15px;
+    background: var(--paper);
+  }
+  .variant.active { border-color: var(--green-fill); background: var(--green-soft); }
+  .variant .vh {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    color: var(--steel);
+    display: block;
+    margin-bottom: 5px;
+  }
+  .variant.active .vh { color: var(--green); }
+  .variant .vt { font-size: 15px; font-weight: 600; line-height: 1.4; display: block; }
+  .variant .vs { font-size: 12.5px; color: var(--steel); display: block; margin-top: 4px; }
+
+  /* ── swatches ── */
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 20px 0 28px;
+  }
+  .sw { background: var(--surface); }
+  .sw .chip { height: 52px; }
+  .sw .info { padding: 10px 13px 13px; }
+  .sw .nm { font-size: 12.5px; font-weight: 600; display: block; }
+  .sw .hx { font-family: var(--f-mono); font-size: 10.5px; color: var(--steel); }
+  .sw .src { font-size: 10.5px; color: var(--steel); display: block; margin-top: 3px; line-height: 1.45; }
+
+  /* ── tree ── */
+  pre.tree {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    line-height: 1.85;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 19px 21px;
+    overflow-x: auto;
+    margin: 20px 0 28px;
+    color: var(--ink);
+  }
+  pre.tree i { font-style: normal; color: var(--steel); }
+  pre.tree b { font-weight: 500; color: var(--navy); }
+  pre.tree u { text-decoration: none; color: var(--green); }
+
+  /* ── phases ── */
+  .phases {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 22px 0 28px;
+  }
+  .phase {
+    background: var(--surface);
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr) 122px;
+    gap: 0 18px;
+    padding: 17px 21px;
+    align-items: start;
+  }
+  .phase.done { background: var(--green-soft); }
+  .phase .p-no {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--green);
+    padding-top: 3px;
+  }
+  .phase h5 { margin: 0 0 5px; font-size: 15px; font-weight: 600; font-family: var(--f-display); }
+  .phase p { margin: 0; font-size: 13px; color: var(--steel); max-width: none; }
+  .phase .out {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    color: var(--steel);
+    line-height: 1.7;
+    text-align: right;
+  }
+
+  .steps { list-style: none; padding: 0; margin: 18px 0 26px; max-width: none; }
+  .steps li {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: baseline;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+    margin: 0;
+  }
+  .steps .mark { font-family: var(--f-mono); font-size: 13px; }
+  .steps .st {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  /* ── questions ── */
+  .qs {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 22px 0 28px;
+  }
+  .q {
+    background: var(--surface);
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 96px;
+    gap: 0 16px;
+    padding: 14px 19px;
+    align-items: baseline;
+  }
+  .q.hot { background: var(--warn-soft); }
+  .q .q-no { font-family: var(--f-mono); font-size: 11px; color: var(--green); font-weight: 600; }
+  .q.hot .q-no { color: var(--warn); }
+  .q p { margin: 0; font-size: 14px; max-width: none; }
+  .q .who {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--steel);
+    text-align: right;
+  }
+
+  footer.end {
+    grid-column: 1 / -1;
+    margin-top: 68px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule-strong);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--steel);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 900px) {
+    .shell { padding: 0 20px 100px; }
+    .doc { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .rail { display: none; }
+    .cover { padding-top: 56px; }
+    .block { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .block .idx { margin-bottom: 8px; padding-top: 0; }
+    .phase { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .phase .out { text-align: left; }
+    .q { grid-template-columns: 32px minmax(0, 1fr); }
+    .q .who { grid-column: 2; text-align: left; }
+    .steps li { grid-template-columns: 22px minmax(0, 1fr); }
+    .steps .st { grid-column: 2; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+
+  html { scroll-behavior: smooth; }
+</style>
+
+<div class="shell">
+<div class="doc">
+
+  <header class="cover">
+    <p class="eyebrow">웹사이트 구축 기획 · infopath.co.kr</p>
+    <h1>검증된 플랫폼 위에서<br><em>필요한 것부터 시작합니다</em></h1>
+    <p class="lede">
+      INFOPATH 스마트팩토리 웹사이트의 정보구조·페이지 구성·디자인 시스템·기술 스택 기획서입니다.
+      1차 목표는 전체 사이트가 아니라 <strong>기본 틀과 템플릿 구축</strong>입니다.
+    </p>
+    <span class="rev">Rev. 2 · 확정 사항 반영 · Phase 1 진행 중</span>
+    <dl class="meta">
+      <div><dt>Client</dt><dd>인포패스 (INFOPATH)</dd></div>
+      <div><dt>Project</dt><dd>INFOLINK</dd></div>
+      <div><dt>Domain</dt><dd>infopath.co.kr</dd></div>
+      <div><dt>Stack</dt><dd>Next.js 15 · next-intl</dd></div>
+      <div><dt>Deploy</dt><dd>Vercel · Resend</dd></div>
+      <div><dt>Updated</dt><dd>2026-08-29</dd></div>
+    </dl>
+  </header>
+
+  <nav class="rail" aria-label="문서 목차">
+    <ol>
+      <li><a href="#s01"><span>01</span>확정 사항</a></li>
+      <li><a href="#s02"><span>02</span>벤치마킹</a></li>
+      <li><a href="#s03"><span>03</span>사이트 구조</a></li>
+      <li><a href="#s04"><span>04</span>메인 구성</a></li>
+      <li><a href="#s05"><span>05</span>페이지 정의</a></li>
+      <li><a href="#s06"><span>06</span>디자인 시스템</a></li>
+      <li><a href="#s07"><span>07</span>기술 구조</a></li>
+      <li><a href="#s08"><span>08</span>진행 현황</a></li>
+      <li><a href="#s09"><span>09</span>확인 필요</a></li>
+    </ol>
+  </nav>
+
+  <main class="body-col">
+
+  <!-- 01 -->
+  <section id="s01">
+    <div class="sec-head"><span class="sec-num">01</span><h2>확정 사항</h2></div>
+    <p class="sec-sub">Rev.1의 미확인 항목 중 다수가 해소되었습니다. 이 장의 내용이 이후 모든 결정의 근거입니다.</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>항목</th><th>확정 내용</th></tr></thead>
+        <tbody>
+          <tr><th>회사</th><td>인포패스 (INFOPATH)</td></tr>
+          <tr><th>프로젝트 / 플랫폼</th><td><strong>INFOLINK</strong> — 자체 MES 플랫폼 명칭</td></tr>
+          <tr><th>사업</th><td>스마트팩토리 MES 시스템 구축 + AI 기술 접목</td></tr>
+          <tr><th>포지셔닝</th><td>자체 MES 플랫폼 보유 + 기업별 구축. <strong>순수 SI가 아님</strong></td></tr>
+          <tr><th>차별점</th><td>검증된 범용 플랫폼 재사용 + AI 활용 → 도입 기간·비용 절감</td></tr>
+          <tr><th>문의 메일</th><td><code>gepark@infopath.co.kr</code></td></tr>
+          <tr><th>브랜드 자산</th><td>로고·배경 이미지 제공됨. <strong>임의 생성 금지</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>포지셔닝이 사이트 구조를 결정합니다</h3>
+    <p>
+      "플랫폼 보유 + 기업별 구축"이라는 위치는 순수 SI와 패키지 제품사 사이입니다.
+      이 차이가 곧 설득 논리가 됩니다 — SI는 <em>실적 수</em>로, 제품사는 <em>기능 목록</em>으로 증명하지만,
+      INFOPATH는 <strong>"이미 검증된 것을 재사용하므로 싸고 빠르다"</strong>는 구조적 이점으로 증명해야 합니다.
+    </p>
+    <p>
+      그래서 이번 개정에서 메인 페이지의 뼈대를 바꿨습니다. Rev.1의 "데이터 단절" 화법은
+      SI·컨설팅의 일반 화법이라 INFOPATH의 차별점을 담지 못합니다. 대신 <strong>도입 장벽(비용·시간·맞춤)</strong>을
+      제기하고 각 장벽에 플랫폼 재사용으로 답하는 구조로 재구성했습니다. → 04장
+    </p>
+
+    <h3>브랜드 자산에서 추출한 팔레트</h3>
+    <p>
+      제공된 로고와 배경 이미지의 픽셀을 직접 분석해 색을 뽑았습니다.
+      Rev.1의 페트롤·앰버 제안은 <strong>폐기</strong>합니다 — 실제 브랜드는 네이비+그린+애저 체계이고,
+      청록 계열은 어느 자산에도 없습니다.
+    </p>
+
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#003060"></div><div class="info"><span class="nm">navy</span><span class="hx">#003060</span><span class="src">로고 워드마크 · 인피니티 좌측</span></div></div>
+      <div class="sw"><div class="chip" style="background:#48A830"></div><div class="info"><span class="nm">green</span><span class="hx">#48A830</span><span class="src">로고 인피니티 우측 · AI 노드</span></div></div>
+      <div class="sw"><div class="chip" style="background:#1878C0"></div><div class="info"><span class="nm">azure</span><span class="hx">#1878C0</span><span class="src">INFOLINK 배경 하이라이트</span></div></div>
+      <div class="sw"><div class="chip" style="background:#001830"></div><div class="info"><span class="nm">navy deep</span><span class="hx">#001830</span><span class="src">배경 이미지 심층부</span></div></div>
+    </div>
+
+    <div class="note warn">
+      <span class="tag">여전히 미해결</span>
+      <p>
+        <code>infopath.co.kr</code>은 아직 <strong>아이네임즈 주차 페이지</strong>이고 HTTPS도 열려 있지 않습니다.
+        도메인을 Vercel로 옮길 때 <strong>MX 레코드는 절대 건드리면 안 됩니다</strong> — 그룹웨어 메일이 즉시 끊깁니다.
+        절차는 <code>docs/deploy.md</code>에 별도로 정리했습니다.
+      </p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="s02">
+    <div class="sec-head"><span class="sec-num">02</span><h2>벤치마킹</h2></div>
+    <p class="sec-sub">지정하신 두 레퍼런스의 구조 분석 결과입니다. 결론은 <strong>LS THiRA 계열 채택</strong>이되, 규모는 크게 축소합니다.</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>비교</th><th>LS THiRA-UTECH</th><th>MICube</th><th>INFOPATH 1차</th></tr></thead>
+        <tbody>
+          <tr><th>GNB</th><td>INDUSTRY 외 6분류</td><td>Industry 외 5분류</td><td><strong>SOLUTION 외 3분류</strong></td></tr>
+          <tr><th>최상위 진입</th><td>산업</td><td>산업</td><td><strong>솔루션</strong></td></tr>
+          <tr><th>히어로</th><td>산업 이슈 제기형</td><td>풀스크린 4단 슬라이더</td><td>이슈 제기형 · 단일 화면</td></tr>
+          <tr><th>설득 논리</th><td>문제 정의로 신뢰 확보</td><td>사례 물량으로 신뢰 확보</td><td>구조적 이점(재사용)으로 증명</td></tr>
+          <tr><th>페이지 수</th><td>30+</td><td>40+</td><td><strong>5</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>왜 산업이 아니라 솔루션을 최상위로 두는가</h3>
+    <p>
+      두 레퍼런스 모두 INDUSTRY가 첫 메뉴입니다. 업종별 실적이 두텁게 쌓인 회사에서는 옳은 선택입니다.
+      하지만 INFOPATH는 아직 공개 가능한 업종별 실적이 확인되지 않았고, 강점은 업종 커버리지가 아니라
+      <strong>플랫폼 재사용이라는 방식 자체</strong>에 있습니다.
+    </p>
+    <p>
+      실적이 없는 업종 메뉴를 6개 세워두면 클릭했을 때 빈 페이지가 나오고, 그 순간 신뢰를 잃습니다.
+      그래서 산업은 독립 메뉴에서 내리고 <strong>/solution 안의 "적용 가능 업종" 섹션</strong>으로 통합했습니다.
+      실적이 쌓이면 그때 승격시키면 됩니다.
+    </p>
+  </section>
+
+  <!-- 03 -->
+  <section id="s03">
+    <div class="sec-head"><span class="sec-num">03</span><h2>사이트 구조</h2></div>
+    <p class="sec-sub">1차 범위는 5페이지입니다. 템플릿과 컴포넌트를 완성하는 것이 목표이고, 콘텐츠는 더미를 허용합니다.</p>
+
+    <div class="sitemap">
+      <div class="node">
+        <div class="gnb">HOME</div>
+        <ul>
+          <li><b>메인</b><span class="path">/</span></li>
+          <li>S1~S4, S8 골격</li>
+        </ul>
+      </div>
+      <div class="node">
+        <div class="gnb">SOLUTION</div>
+        <ul>
+          <li><b>솔루션</b><span class="path">/solution</span></li>
+          <li>INFOLINK 플랫폼</li>
+          <li>도입 방식</li>
+          <li>AI 활용</li>
+          <li>적용 가능 업종</li>
+        </ul>
+      </div>
+      <div class="node">
+        <div class="gnb">ABOUT</div>
+        <ul>
+          <li><b>회사소개</b><span class="path">/about</span></li>
+          <li>사업 영역</li>
+          <li>연혁 · 조직</li>
+        </ul>
+      </div>
+      <div class="node">
+        <div class="gnb">CONTACT</div>
+        <ul>
+          <li><b>도입 문의</b><span class="path">/contact</span></li>
+          <li>문의 폼</li>
+          <li>오시는 길</li>
+        </ul>
+      </div>
+      <div class="node">
+        <div class="gnb">FOOTER</div>
+        <ul>
+          <li><b>개인정보처리방침</b><span class="path">/privacy</span></li>
+          <li>GNB 미노출</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4>Rev.1 대비 변경</h4>
+    <ul>
+      <li><strong>산업별 페이지 6종 제거</strong> → /solution 내 섹션으로 통합 (근거는 02장)</li>
+      <li><strong>CASE 메뉴 제거</strong> → 공개 가능한 사례가 확인되지 않아 2차로 연기</li>
+      <li><strong>GNB 5분류 → 3분류</strong> (SOLUTION / ABOUT / CONTACT). 24개 페이지 → 5개</li>
+    </ul>
+
+    <h3>다국어 구조</h3>
+    <p>1차에는 국문만 노출하지만, 라우팅은 처음부터 다국어로 잡았습니다. 나중에 붙이면 전 페이지를 다시 손대야 합니다.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>구분</th><th>설정</th><th>URL</th></tr></thead>
+        <tbody>
+          <tr><th>타입</th><td><code>'ko' | 'en' | 'zh'</code> — zh는 타입에만 예약</td><td>—</td></tr>
+          <tr><th>활성 라우팅</th><td><code>ko</code>, <code>en</code></td><td><code>/</code>, <code>/en</code></td></tr>
+          <tr><th>접두사 정책</th><td><code>as-needed</code> — 주 시장인 국문은 접두사 없음</td><td><code>/solution</code>, <code>/en/solution</code></td></tr>
+          <tr><th>문구 저장</th><td><code>content/messages/{ko,en}.ts</code></td><td>컴포넌트 하드코딩 금지</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="s04">
+    <div class="sec-head"><span class="sec-num">04</span><h2>메인 구성</h2></div>
+    <p class="sec-sub">1차 구현 범위는 <strong>S1~S4, S8</strong>입니다. S5·S7은 컴포넌트만 만들고 비활성, S6은 2차로 미룹니다.</p>
+
+    <div class="wire">
+
+      <div class="block">
+        <div class="idx">S1</div>
+        <div>
+          <h5>Hero — 이슈 제기</h5>
+          <p class="role">슬라이더 없는 단일 화면. 배경은 제공된 INFOLINK 이미지. 카피 3안을 모두 코드에 넣고 <code>content/site.ts</code>의 <code>HERO_VARIANT</code>로 전환합니다.</p>
+          <div class="variants">
+            <div class="variant active">
+              <span class="vh">A안 · 현재 적용</span>
+              <span class="vt">MES 도입에 필요한 건 예산이 아니라 순서입니다</span>
+              <span class="vs">검증된 플랫폼과 AI 기반 설계로, 필요한 것부터 시작합니다</span>
+            </div>
+            <div class="variant">
+              <span class="vh">B안</span>
+              <span class="vt">스마트팩토리는 대기업의 것이라는 말, 이제 맞지 않습니다</span>
+              <span class="vs">[초안] 검증된 MES 플랫폼을 현장 규모에 맞춰 구축합니다</span>
+            </div>
+            <div class="variant">
+              <span class="vh">C안</span>
+              <span class="vt">대기업 MES를 중소 제조현장의 크기로</span>
+              <span class="vs">[초안] 이미 검증된 플랫폼 위에서, 필요한 모듈만 골라 시작합니다</span>
+            </div>
+          </div>
+          <p class="role" style="margin-top:12px">공통 영문 서브 슬로건 — <strong>Start Small, Run Smart</strong></p>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="idx">S2</div>
+        <div>
+          <h5>Challenge — 도입의 세 가지 벽</h5>
+          <p class="role">Rev.1의 "수집/분석/운영 단절"을 폐기하고 <strong>도입 장벽</strong>으로 교체했습니다. 방문자가 실제로 막히는 지점에서 출발해야 다음 섹션의 해법이 설득력을 얻습니다.</p>
+          <div class="copy">
+            <span class="lbl">Copy</span>
+            <span class="h">MES 도입을 막는 세 가지 벽</span>
+            <span class="s">
+              <em>01 비용의 벽</em> — 견적을 받아보면 예산 밖입니다<br>
+              <em>02 시간의 벽</em> — 도입에 1년, 그사이 현장은 그대로입니다<br>
+              <em>03 맞춤의 벽</em> — 우리 공정에 맞추려면 처음부터 다시 만들어야 한다고 합니다
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="idx">S3</div>
+        <div>
+          <h5>Solution — 각 벽에 1:1 대응</h5>
+          <p class="role">S2의 세 벽과 순서·개수를 정확히 맞춥니다. 카드마다 어떤 벽에 답하는지 명시해 논리 연결을 눈에 보이게 합니다.</p>
+          <div class="copy">
+            <span class="lbl">Copy</span>
+            <span class="h">세 개의 벽을 넘는 세 가지 방법</span>
+            <span class="s">
+              <em>비용 →</em> 검증된 플랫폼 재사용 — 신규 개발이 아니라 검증된 MES에서 출발<br>
+              <em>시간 →</em> 필요한 모듈부터 단계 도입 — 효과 큰 지점부터 순차 적용<br>
+              <em>맞춤 →</em> AI 기반 공정 맞춤 — 설정 수준에서 맞추고 코드를 다시 쓰지 않음
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="idx">S4</div>
+        <div>
+          <h5>Industry — 적용 가능 업종</h5>
+          <p class="role">6개 업종 타일. 개별 페이지로 연결하지 않고 /solution 앵커로 보냅니다. 빈 페이지를 만들지 않기 위한 선택입니다.</p>
+          <div class="copy">
+            <span class="lbl">Copy · 초안</span>
+            <span class="h">업종이 다르면 공정이 다르고, 필요한 시스템도 다릅니다</span>
+            <span class="s">전기전자·부품 / 자동차·부품 / 화학·소재 / 기계·금속가공 / 식음료·제약 / 포장·인쇄</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block off">
+        <div class="idx">S5</div>
+        <div>
+          <h5>Numbers — 실적 지표 · 비활성</h5>
+          <p class="role">컴포넌트는 만들되 <code>SECTIONS.metrics = false</code>로 렌더링하지 않습니다. 실제 수치 확보 시 플래그만 켜면 됩니다.</p>
+        </div>
+      </div>
+
+      <div class="block off">
+        <div class="idx">S6</div>
+        <div>
+          <h5>Case — 구축사례 · 2차</h5>
+          <p class="role">공개 가능한 사례가 확인되지 않아 1차 범위에서 제외했습니다.</p>
+        </div>
+      </div>
+
+      <div class="block off">
+        <div class="idx">S7</div>
+        <div>
+          <h5>Clients — 고객사 로고 · 비활성</h5>
+          <p class="role"><code>SECTIONS.clients = false</code>. 로고 무단 게재는 실제 분쟁 사유이므로 사용 동의 확보 전까지 켜지 않습니다.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="idx">S8</div>
+        <div>
+          <h5>CTA — 도입 문의</h5>
+          <p class="role">네이비 배경 전폭 배너. 선택지를 늘리지 않고 단일 행동으로 수렴시킵니다.</p>
+          <div class="copy">
+            <span class="lbl">Copy</span>
+            <span class="h">우리 공장에는 무엇이 필요할까요?</span>
+            <span class="s">공정 현황을 알려주시면 적용 가능한 범위와 예상 일정을 정리해 회신드립니다.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="s05">
+    <div class="sec-head"><span class="sec-num">05</span><h2>페이지 정의</h2></div>
+    <p class="sec-sub">템플릿 3종으로 5페이지를 모두 커버합니다.</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>템플릿</th><th>페이지</th><th>구성</th></tr></thead>
+        <tbody>
+          <tr><th>A · 랜딩</th><td><code>/</code></td><td>S1 → S2 → S3 → S4 → S8</td></tr>
+          <tr><th>B · 콘텐츠</th><td><code>/solution</code> <code>/about</code> <code>/privacy</code></td><td>페이지 헤더 + 콘텐츠 블록 조합 + CTA</td></tr>
+          <tr><th>C · 폼</th><td><code>/contact</code></td><td>입력 폼 + 수집 동의 + 완료 상태</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note warn">
+      <span class="tag">법적 필수</span>
+      <p>
+        문의 폼은 개인정보를 수집하므로 <strong>수집·이용 동의 절차와 개인정보처리방침이 필수</strong>입니다(개인정보보호법 제15조).
+        푸터 사업자 정보 표기도 의무입니다. 두 항목은 오픈 전 반드시 채워야 하며, 현재 사업자 정보는 미확보 상태입니다(09-Q3).
+      </p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="s06">
+    <div class="sec-head"><span class="sec-num">06</span><h2>디자인 시스템</h2></div>
+    <p class="sec-sub">모든 색이 브랜드 자산에서 나옵니다. 임의 선정한 색은 없습니다.</p>
+
+    <h4>Color · 구현 완료</h4>
+    <p>
+      <code>tailwind.config.ts</code>에 고정 팔레트(navy/green/azure/steel)를 정의하고,
+      그 위에 CSS 변수 기반 시맨틱 토큰(<code>bg</code>, <code>fg</code>, <code>line</code>, <code>cta</code>…)을 얹었습니다.
+      컴포넌트는 시맨틱 토큰만 참조하므로, 색을 바꿔도 컴포넌트를 수정할 필요가 없습니다.
+    </p>
+
+    <h4>CTA 색상 · 선택 필요</h4>
+    <p>세 안을 모두 구현해두었습니다. <code>content/site.ts</code>의 <code>CTA_VARIANT</code> 한 줄로 전체가 바뀝니다.</p>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#48A830"></div><div class="info"><span class="nm">green · 현재</span><span class="hx">#48A830</span><span class="src">로고 인피니티 마크. 브랜드 일치도 최상</span></div></div>
+      <div class="sw"><div class="chip" style="background:#1878C0"></div><div class="info"><span class="nm">azure</span><span class="hx">#1878C0</span><span class="src">배경 하이라이트. 네이비와 동계열이라 차분함</span></div></div>
+      <div class="sw"><div class="chip" style="background:#C87A14"></div><div class="info"><span class="nm">amber</span><span class="hx">#C87A14</span><span class="src">대조군. 유도력 최대이나 브랜드 자산에 없음</span></div></div>
+    </div>
+
+    <h4>Typography · 구현 완료</h4>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>역할</th><th>설정</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr><th>서체</th><td>Pretendard Variable — 로컬 self-host</td><td>CDN 의존 없음</td></tr>
+          <tr><th>가변 축</th><td><code>font-weight: 45 920</code></td><td>Pretendard 실제 범위. 100~900이 아님</td></tr>
+          <tr><th>타입 스케일</th><td>display 60 / h1 44 / h2 32 / h3 24 / body 16 / caption 13</td><td>1.25 비율</td></tr>
+          <tr><th>한글 줄바꿈</th><td><code>word-break: keep-all</code> 전역 적용</td><td>단어 중간 끊김 방지</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note info">
+      <span class="tag">알려진 부담</span>
+      <p>
+        Pretendard 가변폰트 원본이 <strong>약 2MB</strong>입니다. 해시 캐시로 재방문 비용은 없지만 첫 방문은 무겁습니다.
+        Phase 4에서 공식 동적 서브셋(unicode-range 92조각)으로 전환을 검토합니다. 현 단계에서는 단일 파일 유지가 관리상 안전합니다.
+      </p>
+    </div>
+
+    <h4>Components · Radius / Motion</h4>
+    <ul>
+      <li>라운드 2~3px — 제조 IT 톤에 맞춰 과한 둥근 모서리를 배제했습니다.</li>
+      <li>모션은 스크롤 진입 시 24px 상승 + 페이드 400ms 하나로 제한. <code>prefers-reduced-motion</code> 대응 완료.</li>
+      <li>상태색(정상/주의/경고)은 CTA·브랜드색과 분리해 별도 정의했습니다.</li>
+    </ul>
+  </section>
+
+  <!-- 07 -->
+  <section id="s07">
+    <div class="sec-head"><span class="sec-num">07</span><h2>기술 구조</h2></div>
+    <p class="sec-sub">아래는 제안이 아니라 <strong>현재 저장소에 실제로 구현된 구조</strong>입니다.</p>
+
+    <pre class="tree">├─ <b>app/</b>
+│  ├─ [locale]/
+│  │  ├─ layout.tsx           <u>✓</u> <i>루트 레이아웃 · html lang · data-cta · 폰트</i>
+│  │  └─ page.tsx             <u>✓</u> <i>임시 검증 페이지 → 작업 6에서 메인으로 교체</i>
+│  ├─ api/inquiry/route.ts    <u>✓</u> <i>문의 접수 · HTTP 경계만 담당</i>
+│  └─ globals.css             <u>✓</u> <i>시맨틱 토큰 · CTA 3안 · 다크 토큰</i>
+├─ <b>content/</b>
+│  ├─ messages/ko.ts          <u>✓</u> <i>문구 원본 (source of truth)</i>
+│  ├─ messages/en.ts          <u>✓</u> <i>ko 구조를 타입으로 강제 — 키 누락 시 빌드 실패</i>
+│  └─ site.ts                 <u>✓</u> <i>HERO_VARIANT · CTA_VARIANT · SECTIONS · COMPANY</i>
+├─ <b>i18n/</b>
+│  ├─ routing.ts              <u>✓</u> <i>ko|en|zh 타입, ko|en 라우팅</i>
+│  ├─ navigation.ts           <u>✓</u> <i>로케일 유지 Link</i>
+│  └─ request.ts              <u>✓</u>
+├─ <b>lib/</b>
+│  ├─ fonts.ts                <u>✓</u> <i>Pretendard 로컬 로딩</i>
+│  └─ inquiry.ts              <u>✓</u> <i>검증 + 발송 추상화 · 전송 수단 교체 시 이 파일만</i>
+├─ <b>components/</b>          <i>작업 4에서 채웁니다</i>
+├─ <b>public/</b>
+│  ├─ images/                 <u>✓</u> <i>제공된 로고 · 배경</i>
+│  └─ fonts/                  <u>✓</u>
+├─ tailwind.config.ts         <u>✓</u> <i>컬러 · 타입 스케일 · 간격 토큰</i>
+├─ middleware.ts              <u>✓</u> <i>로케일 라우팅</i>
+├─ .env.example               <u>✓</u>
+└─ docs/deploy.md             <u>✓</u> <i>Vercel + 아이네임즈 DNS</i></pre>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>영역</th><th>선택</th><th>근거</th></tr></thead>
+        <tbody>
+          <tr><th>렌더링</th><td>SSG (<code>generateStaticParams</code>)</td><td>콘텐츠 변경이 잦지 않고 초기 로딩·SEO에 유리. <code>/ko</code> <code>/en</code> 정적 생성 확인</td></tr>
+          <tr><th>output</th><td>기본값 (지정하지 않음)</td><td><code>'export'</code>로 바꾸면 문의 API와 이미지 최적화가 모두 죽습니다</td></tr>
+          <tr><th>다국어</th><td>next-intl 3.26 · <code>as-needed</code></td><td>국문 접두사 없음, 영문만 <code>/en</code></td></tr>
+          <tr><th>문의 발송</th><td>Resend · <code>lib/inquiry.ts</code> 추상화</td><td>API Route는 HTTP만, 검증·발송은 분리. 전송 수단 교체 시 1개 파일</td></tr>
+          <tr><th>스팸 차단</th><td>허니팟 필드</td><td>봇에게는 성공으로 응답하고 발송하지 않음 — 실패를 알리면 우회를 학습</td></tr>
+          <tr><th>배포</th><td>Vercel</td><td>SSL 자동. PR마다 Preview 배포. 롤백은 이전 배포 승격</td></tr>
+          <tr><th>이미지</th><td><code>next/image</code> · AVIF/WebP</td><td>Vercel 최적화 사용</td></tr>
+          <tr><th>분석</th><td>GA4 + Search Console + 네이버 서치어드바이저</td><td>국내 B2B는 네이버 유입 비중이 큼 — 등록 누락 주의</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>검증 결과</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>항목</th><th>결과</th></tr></thead>
+        <tbody>
+          <tr><th>타입 검사</th><td class="ok">통과 · 오류 0</td></tr>
+          <tr><th>프로덕션 빌드</th><td class="ok">통과 · <code>/ko</code> <code>/en</code> 정적 생성, <code>/api/inquiry</code> 동적</td></tr>
+          <tr><th>로케일 전환</th><td class="ok">확인 · <code>/</code>는 국문, <code>/en</code>은 영문 응답</td></tr>
+          <tr><th>폰트 로딩</th><td class="ok">확인 · <code>@font-face</code> + <code>font-weight:45 920</code> + 프리로드</td></tr>
+          <tr><th>CTA 토큰</th><td class="ok">확인 · 3개 변형 모두 CSS에 존재</td></tr>
+          <tr><th>문의 API</th><td class="ok">확인 · 검증 400 / 허니팟 무음 처리 / 설정 오류 상세 비노출</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section id="s08">
+    <div class="sec-head"><span class="sec-num">08</span><h2>진행 현황</h2></div>
+    <p class="sec-sub">Phase 1은 6개 작업으로 나뉘며, 작업 1~3 완료 후 확인을 받기로 했습니다.</p>
+
+    <ol class="steps">
+      <li><span class="mark ok">✓</span><span>Next.js App Router + TypeScript + Tailwind + next-intl 셋업</span><span class="st ok">완료</span></li>
+      <li><span class="mark ok">✓</span><span><code>tailwind.config.ts</code> 컬러 토큰 · CTA 3안 비교 가능</span><span class="st ok">완료</span></li>
+      <li><span class="mark ok">✓</span><span>Pretendard 가변폰트 로컬 적용</span><span class="st ok">완료</span></li>
+      <li><span class="mark todo">—</span><span>공통 컴포넌트 · Button, Card, SectionLabel, Header(언어 전환), Footer</span><span class="st todo">대기</span></li>
+      <li><span class="mark todo">—</span><span><code>content/</code> 데이터 레이어 + messages 분리</span><span class="st todo">일부 완료</span></li>
+      <li><span class="mark todo">—</span><span>메인 S1~S4, S8 골격 구현</span><span class="st todo">대기</span></li>
+    </ol>
+
+    <p>
+      작업 5는 문의 폼과 검증 페이지를 띄우기 위해 <strong>메시지 구조와 site.ts를 먼저 만들어 두었습니다.</strong>
+      확정하신 히어로 3안과 S2 세 벽 카피는 이미 <code>content/messages/ko.ts</code>에 들어가 있고, 영문도 함께 작성했습니다.
+    </p>
+
+    <div class="phases">
+      <div class="phase done">
+        <div class="p-no">Phase 1</div>
+        <div><h5>기본 틀 · 템플릿 구축 <span style="color:var(--green)">— 진행 중</span></h5>
+        <p>작업 1~3 완료. 작업 4~6은 확인 후 착수</p></div>
+        <div class="out">토큰 · 폰트<br>i18n 배선</div>
+      </div>
+      <div class="phase">
+        <div class="p-no">Phase 2</div>
+        <div><h5>서브 페이지 3종</h5>
+        <p>/solution · /about · /contact · /privacy 구현, 문의 폼 연동</p></div>
+        <div class="out">5페이지 완성</div>
+      </div>
+      <div class="phase">
+        <div class="p-no">Phase 3</div>
+        <div><h5>콘텐츠 확정</h5>
+        <p>더미 → 실제 문구 교체, 영문 카피 검수, 사업자 정보 입력</p></div>
+        <div class="out">운영 콘텐츠</div>
+      </div>
+      <div class="phase">
+        <div class="p-no">Phase 4</div>
+        <div><h5>최적화 · 오픈</h5>
+        <p>SEO 메타·구조화 데이터, 폰트 서브셋, Vercel 도메인 연결, 검색엔진 등록</p></div>
+        <div class="out">운영 사이트</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section id="s09">
+    <div class="sec-head"><span class="sec-num">09</span><h2>확인 필요</h2></div>
+    <p class="sec-sub">Rev.1의 Q1·Q2·Q3·Q8·Q10은 해소되었습니다. 남은 항목과 새로 생긴 항목입니다.</p>
+
+    <div class="qs">
+      <div class="q hot"><span class="q-no">Q1</span><p><strong>CTA 색상</strong> — green / azure / amber 중 무엇으로 갈까요? 검증 페이지에서 세 안을 나란히 볼 수 있습니다. 기본값은 green입니다.</p><span class="who">작업 4 전</span></div>
+      <div class="q hot"><span class="q-no">Q2</span><p><strong>히어로 카피</strong> — A / B / C 중 확정안은? 현재 A안이 적용되어 있습니다. B·C안의 서브카피는 제가 쓴 초안이라 검수가 필요합니다.</p><span class="who">작업 6 전</span></div>
+      <div class="q hot"><span class="q-no">Q3</span><p><strong>사업자 정보</strong> — 대표자명, 사업자등록번호, 본사 주소, 대표전화. 푸터 법적 표기 의무 항목입니다.</p><span class="who">Phase 2</span></div>
+      <div class="q"><span class="q-no">Q4</span><p><strong>적용 업종 6종</strong> — 현재 목록은 제 초안입니다. 실제 구축 실적이 있는 업종으로 교체가 필요합니다.</p><span class="who">Phase 3</span></div>
+      <div class="q"><span class="q-no">Q5</span><p><strong>INFOLINK 플랫폼 상세</strong> — /solution 페이지를 채우려면 모듈 구성(생산·설비·품질 등), AI 적용 지점, 실제 절감 효과 수치가 필요합니다.</p><span class="who">Phase 2</span></div>
+      <div class="q"><span class="q-no">Q6</span><p><strong>실적 수치</strong> — 설립연도, 누적 프로젝트 수, 임직원 수. 확보되면 S5 섹션 플래그를 켭니다.</p><span class="who">Phase 3</span></div>
+      <div class="q"><span class="q-no">Q7</span><p><strong>고객사 로고 사용 동의</strong> — 확보되면 S7 플래그를 켭니다. 계약상 비공개 조건이 있는지도 확인이 필요합니다.</p><span class="who">Phase 3</span></div>
+      <div class="q"><span class="q-no">Q8</span><p><strong>Resend 계정</strong> — 계정 생성 및 API 키 발급이 필요합니다. 도메인 인증(SPF/DKIM) 시 <strong>기존 그룹웨어 SPF와 합쳐야</strong> 합니다. 별도 추가 시 회사 메일이 스팸 처리될 수 있습니다.</p><span class="who">Phase 2</span></div>
+      <div class="q"><span class="q-no">Q9</span><p><strong>영문 페이지 노출 시점</strong> — 라우팅은 준비됐고 영문 문구도 초안이 있습니다. 1차 오픈에 포함할지, 국문만 먼저 열지 결정이 필요합니다.</p><span class="who">Phase 4</span></div>
+      <div class="q"><span class="q-no">Q10</span><p><strong>회사로고.bmp</strong> — 루트에 있던 세 번째 파일입니다. 용도가 무엇인지, 사용해야 하는지 알려주십시오. 현재는 보관만 하고 사용하지 않았습니다.</p><span class="who">작업 4 전</span></div>
+    </div>
+
+    <div class="note">
+      <span class="tag">다음 단계</span>
+      <p>
+        <strong>Q1(CTA 색상)</strong>만 정해주시면 작업 4~6(공통 컴포넌트 → 메인 골격)으로 바로 넘어갑니다.
+        Q2는 작업 6 전까지만 주시면 되고, 나머지는 현재 초안·비활성 상태로 두고 진행할 수 있습니다.
+      </p>
+    </div>
+  </section>
+
+  </main>
+
+  <footer class="end">
+    <span>INFOPATH · 웹사이트 구축 기획서 Rev.2</span>
+    <span>2026-08-29 · Phase 1 작업 1~3 완료</span>
+  </footer>
+
+</div>
+</div>
+
+<script>
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
+    var map = {};
+    links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    var sections = Array.prototype.slice.call(document.querySelectorAll('main section'));
+    if (!('IntersectionObserver' in window) || !sections.length) return;
+
+    var visible = {};
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+      var current = null;
+      for (var i = 0; i < sections.length; i++) {
+        if (visible[sections[i].id]) { current = sections[i].id; break; }
+      }
+      links.forEach(function (a) { a.classList.remove('on'); });
+      if (current && map[current]) map[current].classList.add('on');
+    }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { obs.observe(s); });
+  })();
+</script>
