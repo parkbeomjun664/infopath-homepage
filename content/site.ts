@@ -131,10 +131,22 @@ export const COMPANY = {
   domain: 'infopath.co.kr',
   email: 'gepark@infopath.co.kr',
 
+  /** 설립일 — 사업자등록증 개업연월일. JSON-LD foundingDate에 씁니다 */
+  foundingDate: '2022-03-31',
+
+  // 출처: 사업자등록증(화성세무서, 2024-07-29 발급)
+  ceo: { value: '박경은', pending: false },
+  bizNo: { value: '652-87-02324', pending: false },
+
+  /*
+     등록 주소는 아파트 세대(202동 904호)라 동·호수까지 적으면 사실상 거주지가
+     공개됩니다. 회사소개서(2025.04)가 대외 자료에서 이미 도로명까지만 쓰고 있어
+     같은 형식을 따릅니다. 동·호수 표기가 필요하면 여기만 고치면 됩니다.
+  */
+  address: { value: '경기도 화성시 수노을1로 191', pending: false },
+
   // 확인 대기 — 값이 채워지면 pending을 false로
-  ceo: { value: '', pending: true },
-  bizNo: { value: '', pending: true },
-  address: { value: '', pending: true },
+  /** 사업자등록증·회사소개서 어디에도 전화번호가 없습니다. 확인 후 기입 */
   tel: { value: '', pending: true },
 } as const;
 

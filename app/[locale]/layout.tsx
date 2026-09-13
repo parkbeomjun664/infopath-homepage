@@ -108,7 +108,8 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
         availableLanguage: ['ko', 'en'],
       },
     ],
-    // TODO(사업자 정보): 확보되면 address · telephone · foundingDate 추가
+    foundingDate: COMPANY.foundingDate,
+    // TODO(사업자 정보): 대표전화·주소 확보되면 telephone · address 추가
   };
 
   return (

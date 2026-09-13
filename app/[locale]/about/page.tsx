@@ -55,6 +55,33 @@ export default async function AboutPage({ params }: PageProps) {
           </div>
         </Reveal>
 
+        {/* 회사 개요 — 회사소개서(2025.04)·사업자등록증에서 확인된 값만 싣습니다 */}
+        <Reveal className="mt-20">
+          <div className="border-t border-line pt-10">
+            <h2 className="text-h3 font-medium tracking-[-0.02em] text-navy-900">
+              {t('profile.heading')}
+            </h2>
+
+            <dl className="mt-6 grid gap-px overflow-hidden rounded border border-line bg-line sm:grid-cols-2">
+              {[
+                { k: t('profile.foundedLabel'), v: t('profile.foundedValue') },
+                { k: t('profile.headcountLabel'), v: t('profile.headcountValue') },
+                { k: t('profile.fieldLabel'), v: t('profile.fieldValue') },
+                { k: t('profile.industriesLabel'), v: t('profile.industriesValue') },
+              ].map((row) => (
+                <div key={row.k} className="bg-white px-5 py-4">
+                  <dt className="label-mono text-fg-subtle">{row.k}</dt>
+                  <dd className="mt-1.5 text-caption font-medium text-navy-900">{row.v}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <p className="mt-5 max-w-prose text-[13px] leading-relaxed text-fg-subtle">
+              {t('profile.note')}
+            </p>
+          </div>
+        </Reveal>
+
         {/* 대표자 소개 — CEO_PROFILE.pending 동안은 공개 화면에 나가지 않습니다 */}
         {SECTIONS.ceo && <CeoProfile />}
 

@@ -377,6 +377,23 @@ const ko = {
     bizNote: '전자상거래법상 표기 의무 항목입니다. 확인되는 대로 게재합니다.',
     domainLabel: '도메인',
     lead: '인포패스는 제조 현장의 실행 시스템을 만듭니다. 자체 MES 플랫폼 INFOLINK를 보유하고 있어 백지에서 시작하지 않고, 그 위에서 현장에 맞춰 구축합니다.',
+
+    /**
+     * 회사 개요 — 출처: INFOPATH 회사소개서(2025.04) · 사업자등록증
+     * ⚠ 인원 · 수행 업종은 2025년 4월 기준입니다. 갱신 시 여기와 en.ts를 함께 고칩니다.
+     */
+    profile: {
+      heading: '회사 개요',
+      foundedLabel: '설립',
+      foundedValue: '2022년 3월 31일',
+      headcountLabel: '인원',
+      headcountValue: '10명 (특급 2 · 고급 5 · 중급 3)',
+      fieldLabel: '사업분야',
+      fieldValue: 'MES 솔루션 공급 · 스마트팩토리 컨설팅 · 시스템 구축 · 운영 관리',
+      industriesLabel: '수행 업종',
+      industriesValue: '광학필름 · 케미칼 · 자동차 부품 · 전자 부품 · LCD 부품',
+      note: '인원과 수행 업종은 2025년 4월 회사소개서 기준입니다.',
+    },
   },
 
   contact: {

@@ -306,6 +306,22 @@ const en: Messages = {
     bizNote: 'Required disclosure under Korean e-commerce law. Published once confirmed.',
     domainLabel: 'Domain',
     lead: 'INFOPATH builds execution systems for manufacturing floors. Because we own INFOLINK, our own MES platform, no project starts from an empty repository — we fit the platform to the plant.',
+
+    /** Company profile — source: INFOPATH company overview (2025.04), business registration */
+    profile: {
+      heading: 'Company profile',
+      foundedLabel: 'Founded',
+      foundedValue: 'March 31, 2022',
+      headcountLabel: 'Team',
+      headcountValue: '10 engineers (2 principal · 5 senior · 3 mid-level)',
+      fieldLabel: 'Services',
+      fieldValue:
+        'MES solutions · Smart factory consulting · System integration · Managed operations',
+      industriesLabel: 'Industries served',
+      industriesValue:
+        'Optical film · Chemicals · Automotive parts · Electronic components · LCD components',
+      note: 'Headcount and industries as of the April 2025 company overview.',
+    },
   },
 
   contact: {
