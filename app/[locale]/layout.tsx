@@ -105,11 +105,18 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
         '@type': 'ContactPoint',
         contactType: 'sales',
         email: COMPANY.email,
+        telephone: COMPANY.tel.value,
         availableLanguage: ['ko', 'en'],
       },
     ],
     foundingDate: COMPANY.foundingDate,
-    // TODO(사업자 정보): 대표전화·주소 확보되면 telephone · address 추가
+    telephone: COMPANY.tel.value,
+    /* 한 줄 주소를 그대로 넘깁니다. 시·도를 쪼개 두면 COMPANY.address와 값이 갈라집니다 */
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: COMPANY.address.value,
+      addressCountry: 'KR',
+    },
   };
 
   return (
