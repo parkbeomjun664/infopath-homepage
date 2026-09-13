@@ -4,7 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import PageShell from '@/components/layout/PageShell';
 import Reveal from '@/components/motion/Reveal';
 import { ACTIVE_LOCALES, DEFAULT_LOCALE, isActiveLocale } from '@/i18n/routing';
-import { COMPANY } from '@/content/site';
+import { COMPANY, PRIVACY_OFFICER } from '@/content/site';
 
 /**
  * /privacy — 개인정보처리방침
@@ -12,8 +12,8 @@ import { COMPANY } from '@/content/site';
  * ⚠️ 표준 양식 기반 초안입니다. 법무 검토 후 확정본으로 교체해야 합니다.
  * 문의 폼이 개인정보를 수집하므로 오픈 전 필수 항목입니다 (개인정보보호법 제30조).
  *
- * TODO(회사 정보): 아래가 확정되면 content/site.ts의 COMPANY에 채우고 pending을 false로.
- *   대표자명 · 사업자등록번호 · 주소 · 대표전화 · 개인정보 보호책임자 · 시행일
+ * 대표자명 · 사업자등록번호 · 주소 · 대표전화 · 개인정보 보호책임자는 반영을 마쳤습니다.
+ * TODO(시행일): 법무 검토로 확정본이 나오면 시행일을 넣고 draft 표시를 내립니다.
  */
 
 type PageProps = { params: Promise<{ locale: string }> };
@@ -90,14 +90,9 @@ export default async function PrivacyPage({ params }: PageProps) {
               {s.id === 'manager' && (
                 <dl className="mt-5 grid gap-px overflow-hidden rounded border border-line bg-line sm:grid-cols-2">
                   <div className="bg-white px-4 py-3">
-                    <dt className="label-mono text-fg-subtle">이메일</dt>
-                    <dd className="mt-1.5 text-caption font-medium">
-                      <a
-                        href={`mailto:${COMPANY.email}`}
-                        className="text-azure-600 underline-offset-4 hover:underline"
-                      >
-                        {COMPANY.email}
-                      </a>
+                    <dt className="label-mono text-fg-subtle">개인정보 보호책임자</dt>
+                    <dd className="mt-1.5 text-caption font-medium text-navy-900">
+                      {PRIVACY_OFFICER.name} ({PRIVACY_OFFICER.role})
                     </dd>
                   </div>
                   <div className="bg-white px-4 py-3">
@@ -107,15 +102,34 @@ export default async function PrivacyPage({ params }: PageProps) {
                     </dd>
                   </div>
                   <div className="bg-white px-4 py-3">
-                    <dt className="label-mono text-fg-subtle">개인정보 보호책임자</dt>
-                    <dd className="mt-1.5 text-caption font-medium text-navy-700/55">
-                      {PLACEHOLDER}
+                    <dt className="label-mono text-fg-subtle">대표전화</dt>
+                    {/* 회색은 미확보 표시 전용입니다 — 값이 있으면 본문 색으로 그립니다 */}
+                    <dd
+                      className={`mt-1.5 text-caption font-medium ${
+                        PRIVACY_OFFICER.tel.pending ? 'text-navy-700/55' : 'text-navy-900'
+                      }`}
+                    >
+                      {PRIVACY_OFFICER.tel.pending ? (
+                        PLACEHOLDER
+                      ) : (
+                        <a
+                          href={`tel:${PRIVACY_OFFICER.tel.value.replace(/[^0-9+]/g, '')}`}
+                          className="text-azure-600 underline-offset-4 hover:underline"
+                        >
+                          {PRIVACY_OFFICER.tel.value}
+                        </a>
+                      )}
                     </dd>
                   </div>
                   <div className="bg-white px-4 py-3">
-                    <dt className="label-mono text-fg-subtle">대표전화</dt>
-                    <dd className="mt-1.5 text-caption font-medium text-navy-700/55">
-                      {COMPANY.tel.pending ? PLACEHOLDER : COMPANY.tel.value}
+                    <dt className="label-mono text-fg-subtle">이메일</dt>
+                    <dd className="mt-1.5 text-caption font-medium">
+                      <a
+                        href={`mailto:${PRIVACY_OFFICER.email}`}
+                        className="text-azure-600 underline-offset-4 hover:underline"
+                      >
+                        {PRIVACY_OFFICER.email}
+                      </a>
                     </dd>
                   </div>
                 </dl>
