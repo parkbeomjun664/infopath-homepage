@@ -322,6 +322,52 @@ const en: Messages = {
         'Optical film · Chemicals · Automotive parts · Electronic components · LCD components',
       note: 'Headcount and industries as of the April 2025 company overview.',
     },
+
+    /** Track record — source: INFOPATH company overview (2025.04), section IV */
+    record: {
+      heading: 'Track record',
+      lead: 'We were building and running MES on factory floors long before INFOLINK.',
+      note: 'Client names are withheld under contract. Only the industry and the work are listed.',
+      fieldLabel: 'Industry',
+      items: [
+        {
+          id: 'ops',
+          field: 'Optical film · Chemicals',
+          title: 'MES managed operations',
+          body: 'Ran and extended the MES for production lines.',
+        },
+        {
+          id: 'overseas-build',
+          field: 'LCD components',
+          title: 'Overseas MES implementations',
+          body: 'Took part in MES implementation projects at three overseas plants.',
+        },
+        {
+          id: 'overseas-maint',
+          field: 'LCD components',
+          title: 'Production MES maintenance',
+          body: 'Supported MES operations for an overseas subsidiary.',
+        },
+        {
+          id: 'plant-maint',
+          field: 'Optical film · Chemicals',
+          title: 'Plant MES maintenance',
+          body: 'Handled operations and development for TD and MD line MES.',
+        },
+        {
+          id: 'web',
+          field: 'Optical film · Chemicals',
+          title: 'Web systems maintenance',
+          body: 'Operated and maintained groupware and internal portal systems.',
+        },
+        {
+          id: 'ai-quality',
+          field: 'Chemicals',
+          title: 'AI quality analytics',
+          body: 'Built an AI-based quality data analysis system.',
+        },
+      ],
+    },
   },
 
   contact: {

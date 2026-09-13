@@ -35,6 +35,14 @@ export default async function AboutPage({ params }: PageProps) {
   const t = await getTranslations('about');
   const tf = await getTranslations('footer');
 
+  /** 실적 카드 — 배열이라 raw로 꺼냅니다 (statsBand와 같은 방식) */
+  const records = t.raw('record.items') as {
+    id: string;
+    field: string;
+    title: string;
+    body: string;
+  }[];
+
   // 미확보 항목은 공개 화면에서 감추고 개발 중에만 표시합니다 (푸터와 같은 규칙).
   const showPending = process.env.NODE_ENV !== 'production';
 
@@ -78,6 +86,34 @@ export default async function AboutPage({ params }: PageProps) {
 
             <p className="mt-5 max-w-prose text-[13px] leading-relaxed text-fg-subtle">
               {t('profile.note')}
+            </p>
+          </div>
+        </Reveal>
+
+        {/* 수행 실적 — 고객사명 없이 업종과 수행 내용만. 지어낸 수치는 두지 않습니다 */}
+        <Reveal className="mt-20">
+          <div className="border-t border-line pt-10">
+            <h2 className="text-h3 font-medium tracking-[-0.02em] text-navy-900">
+              {t('record.heading')}
+            </h2>
+            <p className="mt-3 max-w-prose text-body leading-relaxed text-navy-700/70">
+              {t('record.lead')}
+            </p>
+
+            <ul className="mt-8 grid gap-px overflow-hidden rounded border border-line bg-line sm:grid-cols-2">
+              {records.map((r) => (
+                <li key={r.id} className="flex flex-col bg-white px-5 py-5">
+                  <p className="label-mono text-fg-subtle">
+                    {t('record.fieldLabel')} · {r.field}
+                  </p>
+                  <p className="mt-2 text-body font-medium text-navy-900">{r.title}</p>
+                  <p className="mt-2 text-caption leading-relaxed text-navy-700/70">{r.body}</p>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-5 max-w-prose text-[13px] leading-relaxed text-fg-subtle">
+              {t('record.note')}
             </p>
           </div>
         </Reveal>
