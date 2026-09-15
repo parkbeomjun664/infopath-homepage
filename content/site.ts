@@ -133,6 +133,30 @@ export type ClientLogo = {
 export const CLIENT_LOGOS: ReadonlyArray<ClientLogo> = [];
 
 /* ────────────────────────────────────────────────────────────
+   3-0-1. 로고가 오기 전까지 띠에 싣는 사진
+
+   로고 게재 동의를 받기 전에도 띠 자리가 비어 보이지 않도록 사진을 흘립니다.
+   CLIENT_LOGOS가 채워지고 SECTIONS.clients가 켜지면 이 사진들은 자동으로 물러납니다.
+
+   ⚠ 전부 무료 스톡 사진(Unsplash)이고 인포패스가 구축한 현장이 아닙니다.
+     그래서 제목에 「우리 고객사」나 「우리가 지은 공장」이라고 쓰지 않았습니다.
+     사진은 분야를 보여주는 삽화이고, 사실은 옆의 업종 문구가 담습니다.
+
+   고유한 사진이 4장뿐이라 띠에서 눈에 띄게 반복됩니다.
+   docs/자료요청.md 4-2에 요청해 둔 실제 현장 사진이 오면 먼저 교체하십시오.
+   ──────────────────────────────────────────────────────────── */
+export const STRIP_IMAGES: ReadonlyArray<{ id: string; src: string; alt: string }> = [
+  { id: 'line', src: '/images/strip/line.webp', alt: '컨베이어가 이어진 생산 라인 전경' },
+  { id: 'robot', src: '/images/strip/robot.webp', alt: '흰색 공간에 놓인 산업용 로봇 팔' },
+  {
+    id: 'dashboard',
+    src: '/images/strip/dashboard.webp',
+    alt: '지표와 추이 그래프가 표시된 대시보드 화면',
+  },
+  { id: 'layers', src: '/images/strip/layers.webp', alt: '데이터가 흘러드는 반투명 패널' },
+];
+
+/* ────────────────────────────────────────────────────────────
    3-1. 아키텍처 다이어그램
    회사에서 제공한 원본 3종. 모두 1536×1024 (3:2).
    문구는 messages의 architecture.views.{id}에 있습니다.

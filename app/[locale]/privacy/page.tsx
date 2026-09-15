@@ -64,25 +64,56 @@ export default async function PrivacyPage({ params }: PageProps) {
 
   return (
     <PageShell label={t('label')} heading={t('heading')} lead={t('lead')}>
-      {/* 확정 전 표시 */}
-      <Reveal className="mt-12">
-        <div className="max-w-prose border-l-2 border-state-warn bg-white py-5 pl-6 pr-5">
-          <p className="label-mono mb-2 text-state-warn">DRAFT</p>
-          <p className="text-caption font-medium text-navy-900">{t('draftTitle')}</p>
-          <p className="mt-1.5 text-caption leading-relaxed text-navy-700/70">{t('draftBody')}</p>
+      {/*
+        좌측 고정 목차 + 우측 본문.
+        전에는 10개 조항이 max-w-prose 한 줄로 쌓여 있어, 넓은 화면에서 오른쪽이
+        절반 가까이 비고 세로로만 끝없이 길었습니다. 방침은 처음부터 끝까지 읽는
+        글이 아니라 「내 정보를 얼마나 갖고 있나」 같은 한 조항을 찾으러 오는 글이라,
+        목차를 옆에 세워 두면 길이 자체가 문제가 되지 않습니다.
+        본문 줄 길이는 그대로 둡니다 — 법률 문장은 한 줄이 길어지면 더 안 읽힙니다.
+      */}
+      <div className="mt-12 grid gap-10 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-16">
+        <div className="lg:sticky lg:top-[136px] lg:self-start">
+          <Reveal>
+            <div className="border-l-2 border-state-warn bg-white py-5 pl-5 pr-4">
+              <p className="label-mono mb-2 text-state-warn">DRAFT</p>
+              <p className="text-caption font-medium text-navy-900">{t('draftTitle')}</p>
+              <p className="mt-1.5 text-caption leading-relaxed text-navy-700/70">
+                {t('draftBody')}
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal className="mt-6">
+            <p className="text-caption text-navy-700/60">
+              {t('effectiveLabel')} · {t('effectivePending')}
+            </p>
+          </Reveal>
+
+          {/* 목차 — 조항 제목이 이미 「1. 수집하는 …」 형태라 번호를 따로 붙이지 않습니다 */}
+          <Reveal className="mt-8">
+            <nav aria-label={t('tocLabel')} className="border-t border-line pt-4">
+              <ul className="flex flex-col">
+                {sections.map((s) => (
+                  <li key={s.id}>
+                    <a
+                      href={`#${s.id}`}
+                      className="block py-1.5 text-caption leading-snug text-navy-700/70 transition-colors hover:text-azure-600"
+                    >
+                      {s.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </Reveal>
         </div>
-      </Reveal>
 
-      <Reveal className="mt-8">
-        <p className="text-caption text-navy-700/60">
-          {t('effectiveLabel')} · {t('effectivePending')}
-        </p>
-      </Reveal>
-
-      <div className="mt-10 max-w-prose border-t border-line">
+        <div className="min-w-0">
+      <div className="max-w-prose border-t border-line">
         {sections.map((s, i) => (
           <Reveal key={s.id}>
-            <section className="border-b border-line py-7">
+            <section id={s.id} className="scroll-mt-[120px] border-b border-line py-7">
               <h2 className="text-body font-medium text-navy-900">{s.title}</h2>
               <Body text={s.body} />
 
@@ -145,6 +176,8 @@ export default async function PrivacyPage({ params }: PageProps) {
           <Body text={t('remedyBody')} />
         </div>
       </Reveal>
+        </div>
+      </div>
     </PageShell>
   );
 }

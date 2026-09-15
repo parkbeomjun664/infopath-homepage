@@ -249,8 +249,10 @@ const en: Messages = {
   },
 
   clients: {
-    heading: 'Companies we work with',
-    lead: 'We have built and run MES on their factory floors.',
+    heading: 'Where we work',
+    lead: 'Optical film · Chemicals · Automotive parts · Electronic components · LCD components',
+    logoHeading: 'Companies we work with',
+    logoLead: 'We have built and run MES on their factory floors.',
   },
 
   faq: {
@@ -457,6 +459,7 @@ const en: Messages = {
     label: 'PRIVACY',
     heading: 'Privacy Policy',
     lead: 'INFOPATH handles personal information with care and complies with applicable law.',
+    tocLabel: 'Sections',
     draftTitle: 'This is a draft',
     draftBody:
       'Written against a standard template. It must be replaced with a final version after legal review.',
