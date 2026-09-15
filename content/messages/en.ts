@@ -307,6 +307,24 @@ const en: Messages = {
     domainLabel: 'Domain',
     lead: 'INFOPATH builds execution systems for manufacturing floors. Because we own INFOLINK, our own MES platform, no project starts from an empty repository — we fit the platform to the plant.',
 
+    /** Number band — same device as the home page statsBand. Source: company overview, section III. */
+    stats: {
+      caption: 'The people behind INFOPATH',
+      captionSub: 'As of the April 2025 company overview',
+      items: [
+        { id: 'people', value: '10', name: 'Engineers' },
+        { id: 'senior', value: '7', name: 'Senior grade or above' },
+        { id: 'fields', value: '5', name: 'Industries served' },
+      ],
+    },
+
+    /** Company story — source: company overview, section I */
+    story: {
+      label: 'COMPANY',
+      heading: 'We do not stop at go-live',
+      body: 'INFOPATH builds and services MES for manufacturers.\nRather than handing over a system and walking away, we stay on through operations and maintenance — growing alongside the plants we work with.',
+    },
+
     /** Company profile — source: INFOPATH company overview (2025.04), business registration */
     profile: {
       heading: 'Company profile',
