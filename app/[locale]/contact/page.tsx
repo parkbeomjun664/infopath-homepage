@@ -50,9 +50,18 @@ export default async function ContactPage({ params }: PageProps) {
 
   return (
     <PageShell label={t('label')} heading={t('heading')} lead={t('lead')}>
-      <div className="mt-12 grid gap-12 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-16">
+      {/*
+        폼이 왼쪽입니다. 이 페이지에 온 사람은 읽으러 온 게 아니라 쓰러 왔고,
+        입력란이 오른쪽으로 밀리면 시선과 손이 매번 건너가야 합니다.
+        안내는 곁다리이므로 옆으로 보냅니다.
+
+        DOM 순서는 안내가 먼저입니다 — 좁은 화면에서는 무엇을 적으면 되는지
+        먼저 읽고 폼으로 내려가는 편이 자연스럽습니다.
+        넓은 화면에서만 격자 위치로 좌우를 바꿉니다.
+      */}
+      <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_296px] lg:gap-14">
         {/* ── 폼을 채우기 전에 읽을 것들 ───────────────── */}
-        <div className="flex flex-col gap-9">
+        <div className="flex flex-col gap-9 lg:col-start-2 lg:row-start-1">
           <Reveal>
             <p className="label-mono text-fg-subtle">{t('channelHeading')}</p>
             <div className="mt-4 flex flex-col gap-2">
@@ -118,7 +127,7 @@ export default async function ContactPage({ params }: PageProps) {
         </div>
 
         {/* ── 폼 ───────────────────────────────────── */}
-        <Reveal className="min-w-0">
+        <Reveal className="min-w-0 lg:col-start-1 lg:row-start-1">
           <ContactForm />
         </Reveal>
       </div>
