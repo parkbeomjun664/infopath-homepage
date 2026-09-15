@@ -354,6 +354,40 @@ const en: Messages = {
       ],
     },
 
+    /** History — years are only used where verified. See ko.ts for the reasoning. */
+    history: {
+      label: 'HISTORY',
+      heading: 'From keeping systems running to owning the platform',
+      lead: 'How a company that maintained other vendors’ systems came to build its own.',
+      nowLabel: 'Now',
+      items: [
+        {
+          id: 'founded',
+          period: '2022.03',
+          title: 'INFOPATH founded',
+          body: 'Started as a specialist in manufacturing execution systems.',
+        },
+        {
+          id: 'operate',
+          period: '2022 – 2025',
+          title: 'Learned the floor by running it',
+          body: 'Operated MES for optical film and chemical lines on proven platforms. We ran systems before we built them.',
+        },
+        {
+          id: 'build',
+          period: '2022 – 2025',
+          title: 'Moved into implementation',
+          body: 'Joined MES implementation projects at overseas plants and built an AI-based quality analytics system.',
+        },
+        {
+          id: 'platform',
+          period: '',
+          title: 'INFOLINK, our own platform',
+          body: 'No project starts from an empty repository. All eight stages are already built; we fit the platform to the plant.',
+        },
+      ],
+    },
+
     /** Track record — source: INFOPATH company overview (2025.04), section IV */
     record: {
       heading: 'Track record',

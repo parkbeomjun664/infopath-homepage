@@ -30,6 +30,7 @@ type PageProps = { params: Promise<{ locale: string }> };
 
 type Stat = { id: string; value: string; unit: string; name: string };
 type Record = { id: string; field: string; title: string; body: string };
+type History = { id: string; period: string; title: string; body: string };
 
 export function generateStaticParams() {
   return ACTIVE_LOCALES.map((locale) => ({ locale }));
@@ -51,6 +52,7 @@ export default async function AboutPage({ params }: PageProps) {
 
   const stats = t.raw('stats.items') as Stat[];
   const services = t.raw('story.services') as string[];
+  const history = t.raw('history.items') as History[];
   const records = t.raw('record.items') as Record[];
 
   // 미확보 항목은 공개 화면에서 감추고 개발 중에만 표시합니다 (푸터와 같은 규칙).
@@ -153,7 +155,7 @@ export default async function AboutPage({ params }: PageProps) {
 
         {/* ── 회사 소개 + 개요 ───────────────────────
             문장은 왼쪽, 사실은 오른쪽. 한 덩어리로 쌓으면 둘 다 흘려 읽힙니다. */}
-        <section className="bg-bg py-16 lg:py-[96px]">
+        <section className="bg-bg py-20 lg:py-[120px]">
           <Container>
             <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,42%)_minmax(0,1fr)] lg:gap-16">
               <Reveal>
@@ -184,9 +186,87 @@ export default async function AboutPage({ params }: PageProps) {
           </Container>
         </section>
 
+        {/* ── 연혁 ─────────────────────────────────
+            가로로 눕힌 연혁입니다. 세로로 세우면 네 항목이 화면 두 개를 먹는데,
+            여기서 읽혀야 하는 건 각 항목의 상세가 아니라 「어디서 시작해 어디로 왔는가」라는
+            방향 하나입니다. 가로로 두면 그 흐름이 한눈에 들어옵니다.
+            좁은 화면에서는 세로로 쌓이고, 그때는 왼쪽 세로선이 축이 됩니다. */}
+        <section className="border-t border-line bg-white py-20 lg:py-[120px]">
+          <Container>
+            <Reveal>
+              <SectionLabel tone="green">{t('history.label')}</SectionLabel>
+              <h2 className="mt-5 max-w-[24ch] text-h2 font-medium tracking-[-0.022em] text-navy-900">
+                {t('history.heading')}
+              </h2>
+              <p className="mt-5 max-w-[46rem] text-body-lg leading-relaxed text-navy-700/70">
+                {t('history.lead')}
+              </p>
+            </Reveal>
+
+            <Reveal>
+              <ol className="mt-14 grid gap-y-10 border-l border-line pl-7 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-7 lg:border-l-0 lg:pl-0">
+                {history.map((h, i) => {
+                  const isNow = h.period === '';
+                  return (
+                    <li key={h.id} className="relative min-w-0">
+                      {/* 좁은 화면 — 왼쪽 세로선 위의 점 */}
+                      <span
+                        aria-hidden="true"
+                        className={`absolute -left-[34px] top-1.5 h-2.5 w-2.5 rounded-full ring-4 ring-white lg:hidden ${
+                          isNow ? 'bg-green-500' : 'bg-navy-700/25'
+                        }`}
+                      />
+
+                      {/* 넓은 화면 — 항목 위를 가로지르는 선과 점 */}
+                      <span
+                        aria-hidden="true"
+                        className={`hidden h-px w-full lg:block ${
+                          isNow ? 'bg-green-500/50' : 'bg-line-strong'
+                        }`}
+                      />
+                      <span
+                        aria-hidden="true"
+                        className={`absolute -top-[4px] left-0 hidden h-2.5 w-2.5 rounded-full lg:block ${
+                          isNow ? 'bg-green-500' : 'bg-navy-700/25'
+                        }`}
+                      />
+
+                      <div className="lg:pt-6">
+                        <p
+                          className={`font-mono text-[12px] font-semibold tracking-[0.1em] ${
+                            isNow ? 'text-green-600' : 'text-navy-700/45'
+                          }`}
+                        >
+                          {isNow ? t('history.nowLabel') : h.period}
+                        </p>
+                        <h3 className="mt-3 text-body font-medium leading-snug tracking-[-0.01em] text-navy-900">
+                          {h.title}
+                        </h3>
+                        <p className="mt-2.5 text-caption leading-relaxed text-navy-700/65">
+                          {h.body}
+                        </p>
+                      </div>
+
+                      {/* 진행 방향 — 한 줄로 늘어서는 폭에서만 */}
+                      {i < history.length - 1 && (
+                        <span
+                          aria-hidden="true"
+                          className="absolute -right-4 top-[18px] hidden text-caption leading-none text-navy-700/25 lg:block"
+                        >
+                          →
+                        </span>
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
+            </Reveal>
+          </Container>
+        </section>
+
         {/* ── 수행 실적 ─────────────────────────────
-            흰 배경으로 바꿔 카드가 뜨게 합니다. 이 페이지에서 가장 강한 신뢰 요소입니다. */}
-        <section className="border-y border-line bg-white py-16 lg:py-[96px]">
+            연혁이 흐름이라면 여기는 내역입니다. 배경을 바꿔 구역을 나눕니다. */}
+        <section className="border-y border-line bg-white py-20 lg:py-[120px]">
           <Container>
             <Reveal>
               <SectionLabel tone="green">TRACK RECORD</SectionLabel>
