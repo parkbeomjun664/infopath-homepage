@@ -25,7 +25,7 @@ export default function ProductTeaser() {
   const t = useTranslations('product.teaser');
 
   return (
-    <section className="overflow-x-clip border-t border-line bg-bg py-20 lg:py-[120px]">
+    <section className="overflow-x-clip border-t border-line bg-bg py-16 lg:py-[96px]">
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,46%)] lg:gap-16">
           <Reveal className="min-w-0">
@@ -47,13 +47,19 @@ export default function ProductTeaser() {
 
           {/* 사진 한 장 — 「제품이 실제로 있다」를 문장보다 빠르게 말합니다 */}
           <Reveal className="min-w-0">
+            {/*
+              object-cover입니다. 원본이 2947×2121(약 1.39:1)이라 16/10 박스에
+              contain으로 넣으면 좌우에 네이비 여백이 남아 액자가 어긋나 보였습니다.
+              스톡 사진이라 잘려도 잃는 정보가 없습니다.
+              ⚠ 실제 제품 화면 캡처로 교체할 때는 contain으로 되돌려야 합니다 — UI는 잘리면 안 됩니다.
+            */}
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-navy-900">
               <Image
                 src={ASSETS.dashboard}
                 alt={t('imageAlt')}
                 fill
                 sizes="(max-width: 1023px) calc(100vw - 40px), 46vw"
-                className="object-contain p-3"
+                className="object-cover"
               />
             </div>
           </Reveal>

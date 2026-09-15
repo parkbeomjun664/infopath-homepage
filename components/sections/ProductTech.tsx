@@ -25,7 +25,7 @@ export default function ProductTech() {
   const strengths = t.raw('strengths') as Strength[];
 
   return (
-    <section id="tech" className="scroll-mt-[136px] lg:scroll-mt-[144px] overflow-x-clip border-t border-line bg-white py-20 lg:py-[120px]">
+    <section id="tech" className="scroll-mt-[136px] lg:scroll-mt-[144px] overflow-x-clip border-t border-line bg-white py-16 lg:py-[96px]">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:gap-20">
           <Reveal className="min-w-0">

@@ -72,7 +72,7 @@ export default function SolutionFeature() {
 
   return (
     // overflow-x-clip — 안쪽 요소가 새어나가도 페이지 가로 스크롤로 번지지 않게 하는 마지막 방어선
-    <section id="how" className="scroll-mt-[136px] overflow-x-clip border-t border-line bg-white py-20 lg:scroll-mt-[144px] lg:py-[120px]">
+    <section id="how" className="scroll-mt-[136px] overflow-x-clip border-t border-line bg-white py-16 lg:scroll-mt-[144px] lg:py-[96px]">
       <Container>
         <Reveal>
           <SectionLabel tone="green">{t('label')}</SectionLabel>

@@ -37,25 +37,39 @@ export default function Faq() {
   };
 
   return (
-    <section className="overflow-x-clip border-t border-line bg-white py-20 lg:py-[120px]">
+    <section className="overflow-x-clip border-t border-line bg-white py-16 lg:py-[96px]">
       <script
         type="application/ld+json"
         // 자체 메시지 파일에서만 온 값이라 사용자 입력이 섞이지 않습니다.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
 
-      <Container>
-        <Reveal>
+      {/*
+        제목과 목록을 좌우로 나눕니다.
+        한 단으로 쌓으면 목록 폭이 52rem에 묶여 넓은 화면에서 오른쪽 40%가 빈 채로 남고,
+        질문을 펼칠 때마다 제목이 화면 밖으로 밀려 무엇에 대한 FAQ인지 사라집니다.
+        제목은 왼쪽에 세워 두고 오른쪽만 늘어나게 했습니다.
+      */}
+      <Container className="grid items-start gap-10 lg:grid-cols-[minmax(0,32%)_minmax(0,1fr)] lg:gap-16">
+        <Reveal className="lg:sticky lg:top-[140px]">
           <SectionLabel tone="green">{t('label')}</SectionLabel>
-          <h2 className="mt-6 max-w-[24ch] text-[clamp(1.875rem,3.6vw,2.625rem)] font-medium leading-[1.35] tracking-[-0.02em] text-navy-900">
+          <h2 className="mt-6 text-[clamp(1.875rem,3.6vw,2.625rem)] font-medium leading-[1.35] tracking-[-0.02em] text-navy-900">
             {t('heading')}
           </h2>
-          <p className="mt-5 max-w-[42rem] text-body-lg leading-relaxed text-navy-700/70">
-            {t('lead')}
+          <p className="mt-5 text-body-lg leading-relaxed text-navy-700/70">{t('lead')}</p>
+
+          <p className="mt-8 text-caption text-navy-700/70">
+            {t('ctaText')}{' '}
+            <Link
+              href="/contact"
+              className="font-medium text-azure-600 underline-offset-4 hover:underline"
+            >
+              {t('ctaLink')} →
+            </Link>
           </p>
         </Reveal>
 
-        <div className="mt-12 max-w-[52rem] border-t border-line">
+        <div className="min-w-0 border-t border-line lg:mt-2">
           {items.map((item, i) => (
             <Reveal key={item.id}>
               <Disclosure
@@ -85,18 +99,6 @@ export default function Faq() {
             </Reveal>
           ))}
         </div>
-
-        <Reveal className="mt-10">
-          <p className="text-caption text-navy-700/70">
-            {t('ctaText')}{' '}
-            <Link
-              href="/contact"
-              className="font-medium text-azure-600 underline-offset-4 hover:underline"
-            >
-              {t('ctaLink')} →
-            </Link>
-          </p>
-        </Reveal>
       </Container>
     </section>
   );

@@ -38,7 +38,7 @@ export default function BuildProcess() {
   if ((!SECTIONS.buildProcess || empty) && process.env.NODE_ENV === 'production') return null;
 
   return (
-    <section className="overflow-x-clip border-t border-line bg-white py-20 lg:py-[120px]">
+    <section className="overflow-x-clip border-t border-line bg-white py-16 lg:py-[96px]">
       <Container>
         <Reveal>
           <SectionLabel tone="green">{t('label')}</SectionLabel>

@@ -53,7 +53,7 @@ export default function ProductFeatures() {
   const items = t.raw('items') as Item[];
 
   return (
-    <section id="features" className="scroll-mt-[136px] lg:scroll-mt-[144px] overflow-x-clip border-t border-line bg-bg py-20 lg:py-[120px]">
+    <section id="features" className="scroll-mt-[136px] lg:scroll-mt-[144px] overflow-x-clip border-t border-line bg-bg py-16 lg:py-[96px]">
       <Container>
         <Reveal>
           <SectionLabel tone="green">{t('label')}</SectionLabel>

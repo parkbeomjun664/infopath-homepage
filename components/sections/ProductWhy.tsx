@@ -33,7 +33,7 @@ export default function ProductWhy() {
   return (
     <section
       id="why"
-      className="scroll-mt-[136px] overflow-x-clip border-t border-line bg-bg py-20 lg:scroll-mt-[144px] lg:py-[120px]"
+      className="scroll-mt-[136px] overflow-x-clip border-t border-line bg-bg py-16 lg:scroll-mt-[144px] lg:py-[96px]"
     >
       <Container>
         <Reveal>
