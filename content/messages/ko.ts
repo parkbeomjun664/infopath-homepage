@@ -385,12 +385,29 @@ const ko = {
      * ⚠ 근거 없는 수치는 넣지 않습니다. 이 업계는 문의 단계에서 바로 검증됩니다.
      */
     stats: {
-      caption: '인포패스를 이루는 사람들',
-      captionSub: '2025년 4월 회사소개서 기준',
+      caption: '회사 개요',
       items: [
-        { id: 'people', value: '10명', name: '전문 인력' },
-        { id: 'senior', value: '7명', name: '고급 기술등급 이상' },
-        { id: 'fields', value: '5개', name: '수행 업종' },
+        {
+          id: 'founded',
+          value: '2022',
+          unit: '년',
+          name: '설립',
+          note: '2022년 3월 31일 법인 설립',
+        },
+        {
+          id: 'people',
+          value: '10',
+          unit: '명',
+          name: '전문 인력',
+          note: '특급 2 · 고급 5 · 중급 3',
+        },
+        {
+          id: 'fields',
+          value: '5',
+          unit: '개',
+          name: '수행 업종',
+          note: '광학필름 · 케미칼 · 자동차 부품 · 전자 부품 · LCD 부품',
+        },
       ],
     },
 
@@ -399,23 +416,17 @@ const ko = {
       label: 'COMPANY',
       heading: '구축에서 끝내지 않습니다',
       body: '인포패스는 제조 기업에 MES 솔루션과 서비스를 제공하는 전문기업입니다.\n시스템을 넘기고 떠나는 대신 운영과 유지보수까지 이어가며, 고객의 전략적 동반자로 함께 성장하는 것을 목표로 합니다.',
-    },
 
-    /**
-     * 회사 개요 — 출처: INFOPATH 회사소개서(2025.04) · 사업자등록증
-     * ⚠ 인원 · 수행 업종은 2025년 4월 기준입니다. 갱신 시 여기와 en.ts를 함께 고칩니다.
-     */
-    profile: {
-      heading: '회사 개요',
-      foundedLabel: '설립',
-      foundedValue: '2022년 3월 31일',
-      headcountLabel: '인원',
-      headcountValue: '10명 (특급 2 · 고급 5 · 중급 3)',
-      fieldLabel: '사업분야',
-      fieldValue: 'MES 솔루션 공급 · 스마트팩토리 컨설팅 · 시스템 구축 · 운영 관리',
-      industriesLabel: '수행 업종',
-      industriesValue: '광학필름 · 케미칼 · 자동차 부품 · 전자 부품 · LCD 부품',
-      note: '인원과 수행 업종은 2025년 4월 회사소개서 기준입니다.',
+      /* 회사소개서 II장의 네 단계. 순서가 실제 진행 순서라 번호를 붙입니다. */
+      servicesLabel: '사업분야',
+      services: [
+        'MES 솔루션 공급',
+        '스마트팩토리 컨설팅',
+        '시스템 구축',
+        '운영 관리',
+      ],
+      /* 출처는 지웁니다가 아니라 옮깁니다 — 수치 옆이 아니라 본문 끝에 조용히 둡니다 */
+      source: '인원과 수행 업종은 2025년 4월 회사소개서 기준입니다.',
     },
 
     /**

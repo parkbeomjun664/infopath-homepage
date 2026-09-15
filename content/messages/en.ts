@@ -309,12 +309,29 @@ const en: Messages = {
 
     /** Number band — same device as the home page statsBand. Source: company overview, section III. */
     stats: {
-      caption: 'The people behind INFOPATH',
-      captionSub: 'As of the April 2025 company overview',
+      caption: 'Company overview',
       items: [
-        { id: 'people', value: '10', name: 'Engineers' },
-        { id: 'senior', value: '7', name: 'Senior grade or above' },
-        { id: 'fields', value: '5', name: 'Industries served' },
+        {
+          id: 'founded',
+          value: '2022',
+          unit: '',
+          name: 'Founded',
+          note: 'Incorporated 31 March 2022',
+        },
+        {
+          id: 'people',
+          value: '10',
+          unit: '',
+          name: 'Engineers',
+          note: '2 principal · 5 senior · 3 mid-level',
+        },
+        {
+          id: 'fields',
+          value: '5',
+          unit: '',
+          name: 'Industries served',
+          note: 'Optical film · Chemicals · Automotive parts · Electronic components · LCD components',
+        },
       ],
     },
 
@@ -323,22 +340,16 @@ const en: Messages = {
       label: 'COMPANY',
       heading: 'We do not stop at go-live',
       body: 'INFOPATH builds and services MES for manufacturers.\nRather than handing over a system and walking away, we stay on through operations and maintenance — growing alongside the plants we work with.',
-    },
 
-    /** Company profile — source: INFOPATH company overview (2025.04), business registration */
-    profile: {
-      heading: 'Company profile',
-      foundedLabel: 'Founded',
-      foundedValue: 'March 31, 2022',
-      headcountLabel: 'Team',
-      headcountValue: '10 engineers (2 principal · 5 senior · 3 mid-level)',
-      fieldLabel: 'Services',
-      fieldValue:
-        'MES solutions · Smart factory consulting · System integration · Managed operations',
-      industriesLabel: 'Industries served',
-      industriesValue:
-        'Optical film · Chemicals · Automotive parts · Electronic components · LCD components',
-      note: 'Headcount and industries as of the April 2025 company overview.',
+      /* The four stages from section II of the company overview — the order is the real sequence. */
+      servicesLabel: 'What we do',
+      services: [
+        'MES solutions',
+        'Smart factory consulting',
+        'System integration',
+        'Managed operations',
+      ],
+      source: 'Headcount and industries as of the April 2025 company overview.',
     },
 
     /** Track record — source: INFOPATH company overview (2025.04), section IV */

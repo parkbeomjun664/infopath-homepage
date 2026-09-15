@@ -8,7 +8,6 @@ import CtaBanner from '@/components/sections/CtaBanner';
 import CeoProfile from '@/components/sections/CeoProfile';
 import Reveal from '@/components/motion/Reveal';
 import SectionLabel from '@/components/ui/SectionLabel';
-import CountUp from '@/components/ui/CountUp';
 import { ACTIVE_LOCALES, DEFAULT_LOCALE, isActiveLocale } from '@/i18n/routing';
 import { ASSETS, ASSET_DIMENSIONS, COMPANY, SECTIONS } from '@/content/site';
 
@@ -29,7 +28,7 @@ import { ASSETS, ASSET_DIMENSIONS, COMPANY, SECTIONS } from '@/content/site';
 
 type PageProps = { params: Promise<{ locale: string }> };
 
-type Stat = { id: string; value: string; name: string };
+type Stat = { id: string; value: string; unit: string; name: string; note: string };
 type Record = { id: string; field: string; title: string; body: string };
 
 export function generateStaticParams() {
@@ -51,6 +50,7 @@ export default async function AboutPage({ params }: PageProps) {
   const tf = await getTranslations('footer');
 
   const stats = t.raw('stats.items') as Stat[];
+  const services = t.raw('story.services') as string[];
   const records = t.raw('record.items') as Record[];
 
   // 미확보 항목은 공개 화면에서 감추고 개발 중에만 표시합니다 (푸터와 같은 규칙).
@@ -67,12 +67,6 @@ export default async function AboutPage({ params }: PageProps) {
     { k: t('domainLabel'), v: COMPANY.domain, pending: false },
   ].filter((row) => !row.pending || showPending);
 
-  const profileRows = [
-    { k: t('profile.foundedLabel'), v: t('profile.foundedValue') },
-    { k: t('profile.headcountLabel'), v: t('profile.headcountValue') },
-    { k: t('profile.fieldLabel'), v: t('profile.fieldValue') },
-    { k: t('profile.industriesLabel'), v: t('profile.industriesValue') },
-  ];
 
   return (
     <>
@@ -107,33 +101,52 @@ export default async function AboutPage({ params }: PageProps) {
           </Reveal>
         </Container>
 
-        {/* ── 숫자 띠 ───────────────────────────────
-            메인 히어로 직후의 StatsBand와 같은 장치입니다.
-            페이지 안에서 규모가 가장 먼저 읽혀야 그다음 글이 근거를 갖습니다. */}
+        {/* ── 회사 개요 숫자 ─────────────────────────
+            국내 대기업 회사소개 페이지가 쓰는 표기를 따랐습니다.
+              · 라벨이 숫자 위에 옵니다 — 무엇의 숫자인지 먼저 읽힙니다
+              · 숫자와 단위를 크기로 나눕니다 (2022 년) — 숫자가 도드라집니다
+              · 세로 구분선으로 항목을 끊습니다 — 넓은 화면에서 셋이 흩어지지 않습니다
+              · 항목마다 근거 한 줄을 답니다 — 「10명」만 있으면 되묻게 됩니다
+            숫자가 올라가는 연출은 넣지 않았습니다. 회사 개요는 성과 자랑이 아니라
+            사실 고지라서, 움직이면 오히려 가벼워 보입니다. */}
         <section className="mt-16 border-y border-line bg-white lg:mt-20">
           <Container>
-            <div className="py-10 lg:py-14">
+            <div className="py-12 lg:py-16">
               <Reveal>
-                <p className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
-                  <span className="text-body font-medium text-navy-900">{t('stats.caption')}</span>
-                  <span className="text-caption text-navy-700/60">{t('stats.captionSub')}</span>
-                </p>
+                <div className="flex items-center gap-5">
+                  <h2 className="shrink-0 text-h4 font-medium tracking-[-0.01em] text-navy-900">
+                    {t('stats.caption')}
+                  </h2>
+                  <span aria-hidden="true" className="h-px flex-1 bg-line" />
+                </div>
               </Reveal>
 
               <Reveal>
-                <ul className="mt-7 grid grid-cols-3 gap-x-6 border-t border-line pt-7 lg:gap-x-12">
-                  {stats.map((s) => (
-                    <li key={s.id} className="min-w-0">
-                      <CountUp
-                        value={s.value}
-                        className="block text-[clamp(1.75rem,3.2vw,2.5rem)] font-medium leading-none tracking-[-0.03em] text-navy-900"
-                      />
-                      <span className="mt-3 block text-body font-medium leading-snug text-navy-700/75">
-                        {s.name}
-                      </span>
-                    </li>
+                <dl className="mt-10 grid gap-y-10 sm:grid-cols-3 sm:gap-y-0">
+                  {stats.map((s, i) => (
+                    <div
+                      key={s.id}
+                      className={
+                        i === 0
+                          ? 'min-w-0 sm:pr-8'
+                          : 'min-w-0 sm:border-l sm:border-line sm:pl-8 sm:pr-8'
+                      }
+                    >
+                      <dt className="label-mono text-fg-subtle">{s.name}</dt>
+                      <dd className="mt-3 flex items-baseline gap-1.5">
+                        <span className="text-[clamp(2.25rem,4.2vw,3.25rem)] font-medium leading-none tracking-[-0.04em] text-navy-900 [font-variant-numeric:tabular-nums]">
+                          {s.value}
+                        </span>
+                        {s.unit && (
+                          <span className="text-h4 font-normal leading-none text-navy-700/55">
+                            {s.unit}
+                          </span>
+                        )}
+                      </dd>
+                      <p className="mt-4 text-caption leading-relaxed text-navy-700/60">{s.note}</p>
+                    </div>
                   ))}
-                </ul>
+                </dl>
               </Reveal>
             </div>
           </Container>
@@ -154,20 +167,21 @@ export default async function AboutPage({ params }: PageProps) {
                 </p>
               </Reveal>
 
+              {/* 사업분야 — 공급에서 운영까지가 실제 진행 순서라 번호를 붙입니다 */}
               <Reveal>
-                <dl className="border-t border-line-strong">
-                  {profileRows.map((row) => (
-                    <div
-                      key={row.k}
-                      className="grid gap-1 border-b border-line py-5 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-6"
-                    >
-                      <dt className="label-mono pt-0.5 text-fg-subtle">{row.k}</dt>
-                      <dd className="text-body font-medium text-navy-900">{row.v}</dd>
-                    </div>
+                <p className="label-mono text-fg-subtle">{t('story.servicesLabel')}</p>
+                <ol className="mt-5 border-t border-line-strong">
+                  {services.map((s, i) => (
+                    <li key={s} className="flex items-baseline gap-5 border-b border-line py-4">
+                      <span className="font-mono text-[12px] leading-none text-green-600">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span className="text-body font-medium text-navy-900">{s}</span>
+                    </li>
                   ))}
-                </dl>
+                </ol>
                 <p className="mt-5 text-[13px] leading-relaxed text-fg-subtle">
-                  {t('profile.note')}
+                  {t('story.source')}
                 </p>
               </Reveal>
             </div>
