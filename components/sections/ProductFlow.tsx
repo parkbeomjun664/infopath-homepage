@@ -28,7 +28,7 @@ export default function ProductFlow() {
   const modules = t.raw('modules') as Module[];
 
   return (
-    <section id="process" className="scroll-mt-[136px] lg:scroll-mt-[144px] overflow-x-clip border-t border-line bg-white py-16 lg:py-[96px]">
+    <section id="process" className="scroll-mt-[136px] lg:scroll-mt-[144px] overflow-x-clip border-t border-line bg-white py-20 lg:py-[120px]">
       <Container>
         <Reveal>
           <SectionLabel tone="green">{t('label')}</SectionLabel>

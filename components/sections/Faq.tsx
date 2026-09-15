@@ -37,7 +37,7 @@ export default function Faq() {
   };
 
   return (
-    <section className="overflow-x-clip border-t border-line bg-white py-16 lg:py-[96px]">
+    <section className="overflow-x-clip border-t border-line bg-white py-20 lg:py-[120px]">
       <script
         type="application/ld+json"
         // 자체 메시지 파일에서만 온 값이라 사용자 입력이 섞이지 않습니다.

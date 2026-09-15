@@ -25,7 +25,7 @@ export default function ProductTeaser() {
   const t = useTranslations('product.teaser');
 
   return (
-    <section className="overflow-x-clip border-t border-line bg-bg py-16 lg:py-[96px]">
+    <section className="overflow-x-clip border-t border-line bg-bg py-20 lg:py-[120px]">
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,46%)] lg:gap-16">
           <Reveal className="min-w-0">

@@ -44,7 +44,7 @@ export default function Approach() {
   const items = t.raw('items') as Item[];
 
   return (
-    <section className="overflow-x-clip border-t border-line bg-bg py-16 lg:py-[96px]">
+    <section className="overflow-x-clip border-t border-line bg-bg py-20 lg:py-[120px]">
       <Container>
         <Reveal>
           <SectionLabel tone="green">{t('label')}</SectionLabel>
