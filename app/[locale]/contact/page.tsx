@@ -7,7 +7,22 @@ import Reveal from '@/components/motion/Reveal';
 import { ACTIVE_LOCALES, DEFAULT_LOCALE, isActiveLocale } from '@/i18n/routing';
 import { COMPANY } from '@/content/site';
 
+/**
+ * /contact — 도입 문의
+ *
+ * 전에는 폼만 덩그러니 있었고 넓은 화면에서 오른쪽 40%가 비었습니다.
+ * 빈 자리를 장식으로 채우지 않고, 문의를 멈추게 하는 이유들을 옆에 놓았습니다.
+ *
+ *   「뭘 써야 할지 모르겠다」  → 무엇을 적어주시면 되는지
+ *   「보내고 나면 어떻게 되나」 → 접수 · 검토 · 회신
+ *   「폼 말고 그냥 전화하고 싶다」 → 전화 · 이메일을 위에
+ *
+ * 제조 담당자는 메일보다 전화를 먼저 겁니다. 그래서 연락 수단을 폼보다 앞에 둡니다.
+ */
+
 type PageProps = { params: Promise<{ locale: string }> };
+
+type Step = { id: string; title: string; body: string };
 
 export function generateStaticParams() {
   return ACTIVE_LOCALES.map((locale) => ({ locale }));
@@ -30,50 +45,83 @@ export default async function ContactPage({ params }: PageProps) {
 
   const t = await getTranslations('contact');
 
+  const guideItems = t.raw('guide.items') as string[];
+  const steps = t.raw('flow.steps') as Step[];
+
   return (
     <PageShell label={t('label')} heading={t('heading')} lead={t('lead')}>
-      {/*
-        폼 앞에 회신 기준과 전화 문의를 둡니다.
-        제조 담당자는 메일보다 전화를 먼저 걸고, 언제 답이 오는지 모르면 보내고 나서 불안합니다.
-        대표전화는 COMPANY.tel이 확보되면 자동으로 나타납니다 — 값을 지어내지 않습니다.
-      */}
-      <Reveal className="mt-10">
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-2 border-t border-line pt-6 text-caption">
-          <p className="text-navy-700/70">{t('responseNote')}</p>
-          {!COMPANY.tel.pending && (
-            <a
-              href={`tel:${COMPANY.tel.value.replace(/[^0-9+]/g, '')}`}
-              className="font-medium text-azure-600 underline-offset-4 hover:underline"
-            >
-              {t('phoneLabel')} {COMPANY.tel.value}
-            </a>
-          )}
+      <div className="mt-12 grid gap-12 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-16">
+        {/* ── 폼을 채우기 전에 읽을 것들 ───────────────── */}
+        <div className="flex flex-col gap-9">
+          <Reveal>
+            <p className="label-mono text-fg-subtle">{t('channelHeading')}</p>
+            <div className="mt-4 flex flex-col gap-2">
+              {/* 대표전화는 COMPANY.tel이 확보되면 나타납니다 — 값을 지어내지 않습니다 */}
+              {!COMPANY.tel.pending && (
+                <a
+                  href={`tel:${COMPANY.tel.value.replace(/[^0-9+]/g, '')}`}
+                  className="text-h4 font-medium tracking-[-0.01em] text-navy-900 underline-offset-4 hover:text-azure-600 hover:underline"
+                >
+                  {COMPANY.tel.value}
+                </a>
+              )}
+              <a
+                href={`mailto:${COMPANY.email}`}
+                className="text-caption font-medium text-azure-600 underline-offset-4 hover:underline"
+              >
+                {COMPANY.email}
+              </a>
+            </div>
+            <p className="mt-4 text-caption leading-relaxed text-navy-700/65">
+              {t('responseNote')}
+            </p>
+          </Reveal>
+
+          <Reveal>
+            <div className="border-t border-line pt-7">
+              <h2 className="text-body font-medium text-navy-900">{t('guide.heading')}</h2>
+              <ul className="mt-4 flex flex-col gap-2.5">
+                {guideItems.map((item) => (
+                  <li key={item} className="grid grid-cols-[auto_1fr] gap-2.5">
+                    <span
+                      aria-hidden="true"
+                      className="mt-[9px] h-1 w-1 rounded-full bg-green-500"
+                    />
+                    <span className="text-caption leading-relaxed text-navy-700/75">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-caption leading-relaxed text-navy-700/60">
+                {t('guide.note')}
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div className="border-t border-line pt-7">
+              <h2 className="text-body font-medium text-navy-900">{t('flow.heading')}</h2>
+              <ol className="mt-4 flex flex-col gap-4">
+                {steps.map((s, i) => (
+                  <li key={s.id} className="grid grid-cols-[auto_1fr] gap-3.5">
+                    <span className="mt-0.5 font-mono text-[12px] leading-none text-green-600">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <div>
+                      <p className="text-caption font-medium text-navy-900">{s.title}</p>
+                      <p className="mt-1 text-caption leading-relaxed text-navy-700/65">{s.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </Reveal>
         </div>
-      </Reveal>
 
-      <Reveal className="mt-12">
-        <ContactForm />
-      </Reveal>
-
-      {/*
-        전에는 여기서 form.errorBody("잠시 후 다시 시도해주세요...")를 무조건 그렸습니다.
-        아무것도 보내지 않은 사람에게 전송 실패 문구가 먼저 보였고,
-        실제 실패했을 때는 폼 안의 에러 상자와 같은 문장이 두 번 나왔습니다.
-
-        전송 실패 안내는 ContactForm이 status.kind === 'error'일 때만 그립니다.
-        여기 남는 것은 「폼 말고 다른 방법」이라는 중립적인 안내여야 합니다.
-      */}
-      <Reveal className="mt-12">
-        <p className="text-caption text-navy-700/70">
-          {t('altContact')}{' '}
-          <a
-            href={`mailto:${COMPANY.email}`}
-            className="font-medium text-azure-600 underline-offset-4 hover:underline"
-          >
-            {COMPANY.email}
-          </a>
-        </p>
-      </Reveal>
+        {/* ── 폼 ───────────────────────────────────── */}
+        <Reveal className="min-w-0">
+          <ContactForm />
+        </Reveal>
+      </div>
     </PageShell>
   );
 }

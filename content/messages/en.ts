@@ -405,8 +405,30 @@ const en: Messages = {
     heading: 'Get in touch',
     lead: 'Tell us about your processes and where you are stuck. Our team will get back to you.',
     responseNote: 'We reply within three business days.',
+    channelHeading: 'Reach us directly',
+    guide: {
+      heading: 'What to tell us',
+      items: [
+        'What you make, and how many processes are involved',
+        'How you manage it today — spreadsheets, paper, an existing system',
+        'The one thing you want solved first',
+        'Your target timing, if you have one',
+      ],
+      note: 'You do not need all of it. Tell us what you know and we will ask about the rest.',
+    },
+    flow: {
+      heading: 'After you send',
+      steps: [
+        { id: 'receive', title: 'Received', body: 'It goes straight to the person who handles it.' },
+        { id: 'review', title: 'Reviewed', body: 'We read through the processes and scope you described.' },
+        {
+          id: 'reply',
+          title: 'Reply',
+          body: 'We answer to the email you left. No separate acknowledgement email is sent.',
+        },
+      ],
+    },
     phoneLabel: 'Call us',
-    altContact: 'If the form is inconvenient, email us directly.',
     form: {
       name: 'Name',
       company: 'Company',
