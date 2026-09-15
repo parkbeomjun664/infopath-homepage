@@ -488,3 +488,62 @@
     transition: none !important;
   }
 }
+
+/* ────────────────────────────────────────────────────────────
+   고객사 로고 띠 — 끊기지 않고 흐르는 가로 슬라이드
+
+   같은 목록을 두 벌 이어 붙이고 정확히 절반만큼 밀면,
+   한 바퀴가 끝나는 순간의 화면이 시작할 때와 같아 이음매가 보이지 않습니다.
+   그래서 JS 없이 CSS만으로 무한 반복이 됩니다.
+
+   속도는 --marquee-duration으로 조절합니다. 로고 수가 늘면 길이도 늘어나므로
+   같은 체감 속도를 유지하려면 값을 함께 키워야 합니다.
+   ──────────────────────────────────────────────────────────── */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-slide var(--marquee-duration, 40s) linear infinite;
+}
+
+/* 커서를 올리면 멈춥니다 — 읽고 싶은 로고를 따라가지 않아도 됩니다 */
+.marquee-viewport:hover .marquee,
+.marquee-viewport:focus-within .marquee {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-slide {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* 양 끝을 배경색으로 흐리게 지워 로고가 잘린 채 나타나지 않게 합니다 */
+.marquee-viewport {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 72px,
+    #000 calc(100% - 72px),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 72px,
+    #000 calc(100% - 72px),
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none !important;
+    /* 멈춘 상태에서는 두 벌이 겹쳐 보이지 않도록 첫 벌만 남깁니다 */
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
+}

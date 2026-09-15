@@ -248,6 +248,11 @@ const en: Messages = {
     note: 'Scope reflects the current implementation. Actual configuration depends on site conditions.',
   },
 
+  clients: {
+    heading: 'Companies we work with',
+    lead: 'We have built and run MES on their factory floors.',
+  },
+
   faq: {
     label: 'FAQ',
     heading: 'Frequently asked questions',

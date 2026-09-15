@@ -317,6 +317,15 @@ const ko = {
    *
    * ⚠️ 답변은 확인 전 초안입니다. 회사 확인 후 확정해야 합니다 (자료요청 2-5).
    */
+  /**
+   * 고객사 로고 띠 — 실제 로고는 content/site.ts의 CLIENT_LOGOS에 있습니다.
+   * 여기에는 제목만 둡니다.
+   */
+  clients: {
+    heading: '함께한 기업',
+    lead: '제조 현장의 MES를 맡아 구축하고 운영해 왔습니다.',
+  },
+
   faq: {
     label: 'FAQ',
     heading: '자주 묻는 질문',

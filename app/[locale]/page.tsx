@@ -6,6 +6,7 @@ import Approach from '@/components/sections/Approach';
 import BuildProcess from '@/components/sections/BuildProcess';
 import ProductTeaser from '@/components/sections/ProductTeaser';
 import Faq from '@/components/sections/Faq';
+import ClientLogos from '@/components/sections/ClientLogos';
 import CtaBanner from '@/components/sections/CtaBanner';
 import { ACTIVE_LOCALES, DEFAULT_LOCALE, isActiveLocale } from '@/i18n/routing';
 import { SECTIONS } from '@/content/site';
@@ -52,6 +53,7 @@ export default async function HomePage({ params }: PageProps) {
       <BuildProcess />
       {SECTIONS.productTeaser && <ProductTeaser />}
       {SECTIONS.faq && <Faq />}
+      <ClientLogos />
       {SECTIONS.cta && <CtaBanner />}
     </main>
   );
