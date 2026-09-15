@@ -40,6 +40,11 @@ export default function ContactForm() {
 
   const [errors, setErrors] = useState<InquiryFieldError>({});
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
+  /** 지금 커서가 놓인 칸. 그 칸의 힌트만 보입니다. */
+  const [focused, setFocused] = useState<string | null>(null);
+
+  /* 칸마다 붙는 한 줄 힌트. 빈 값이면 그리지 않습니다. */
+  const hints = t.raw('hints') as Record<string, string>;
 
   const errText = (code?: string) => (code ? t(`validation.${code}`) : '');
 
@@ -135,7 +140,7 @@ export default function ContactForm() {
     <div>
       <label
         htmlFor={`${formId}-${name}`}
-        className="mb-2 flex items-center gap-2 text-caption font-medium text-navy-900"
+        className="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-caption font-medium text-navy-900"
       >
         {label}
         <span
@@ -145,6 +150,23 @@ export default function ContactForm() {
         >
           {required ? t('required') : t('optional')}
         </span>
+
+        {/*
+          힌트는 라벨 줄 오른쪽 끝에 둡니다. 칸 아래에 넣으면 커서를 옮길 때마다
+          아래 내용이 밀려 폼 전체가 들썩입니다.
+          숨길 때 display를 끄지 않고 opacity만 내리는 이유 — 화면 낭독기는
+          display:none을 읽지 않습니다. 눈에는 안 보여도 낭독은 되어야 합니다.
+        */}
+        {hints[name] && (
+          <span
+            id={`${formId}-${name}-hint`}
+            className={`ml-auto text-[12px] font-normal text-navy-700/60 transition-opacity duration-200 ${
+              focused === name ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            {hints[name]}
+          </span>
+        )}
       </label>
       {input}
       {errors[name] && (
@@ -155,13 +177,22 @@ export default function ContactForm() {
     </div>
   );
 
-  const inputProps = (name: keyof InquiryFieldError) => ({
-    id: `${formId}-${name}`,
-    name,
-    'aria-invalid': errors[name] ? (true as const) : undefined,
-    'aria-describedby': errors[name] ? `${formId}-${name}-error` : undefined,
-    className: `${FIELD} ${errors[name] ? 'border-state-error' : 'border-line'}`,
-  });
+  const inputProps = (name: keyof InquiryFieldError) => {
+    const describedBy = [
+      errors[name] ? `${formId}-${name}-error` : null,
+      hints[name] ? `${formId}-${name}-hint` : null,
+    ].filter(Boolean);
+
+    return {
+      id: `${formId}-${name}`,
+      name,
+      onFocus: () => setFocused(name),
+      onBlur: () => setFocused((cur) => (cur === name ? null : cur)),
+      'aria-invalid': errors[name] ? (true as const) : undefined,
+      'aria-describedby': describedBy.length ? describedBy.join(' ') : undefined,
+      className: `${FIELD} ${errors[name] ? 'border-state-error' : 'border-line'}`,
+    };
+  };
 
   return (
     <form onSubmit={onSubmit} noValidate className="max-w-[46rem]">

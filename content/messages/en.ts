@@ -406,16 +406,6 @@ const en: Messages = {
     lead: 'Tell us about your processes and where you are stuck. Our team will get back to you.',
     responseNote: 'We reply within three business days.',
     channelHeading: 'Reach us directly',
-    guide: {
-      heading: 'What to tell us',
-      items: [
-        'What you make, and how many processes are involved',
-        'How you manage it today — spreadsheets, paper, an existing system',
-        'The one thing you want solved first',
-        'Your target timing, if you have one',
-      ],
-      note: 'You do not need all of it. Tell us what you know and we will ask about the rest.',
-    },
     flow: {
       heading: 'After you send',
       steps: [
@@ -430,6 +420,15 @@ const en: Messages = {
     },
     phoneLabel: 'Call us',
     form: {
+      hints: {
+        name: '',
+        company: '',
+        position: '',
+        phone: 'A number we can reach you on',
+        email: 'Where we send the reply',
+        inquiryType: 'Whichever is closest',
+        message: 'What you make · how many processes · how you manage it now · what to solve first',
+      },
       name: 'Name',
       company: 'Company',
       position: 'Job title',

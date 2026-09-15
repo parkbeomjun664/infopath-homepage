@@ -10,14 +10,17 @@ import { COMPANY } from '@/content/site';
 /**
  * /contact — 도입 문의
  *
- * 전에는 폼만 덩그러니 있었고 넓은 화면에서 오른쪽 40%가 비었습니다.
- * 빈 자리를 장식으로 채우지 않고, 문의를 멈추게 하는 이유들을 옆에 놓았습니다.
+ * 폼이 본체이고 옆의 두 블록은 곁다리입니다.
  *
- *   「뭘 써야 할지 모르겠다」  → 무엇을 적어주시면 되는지
- *   「보내고 나면 어떻게 되나」 → 접수 · 검토 · 회신
- *   「폼 말고 그냥 전화하고 싶다」 → 전화 · 이메일을 위에
+ *   「보내고 나면 어떻게 되나」  → 접수 · 검토 · 회신
+ *   「폼 말고 그냥 전화하고 싶다」 → 전화 · 이메일
  *
- * 제조 담당자는 메일보다 전화를 먼저 겁니다. 그래서 연락 수단을 폼보다 앞에 둡니다.
+ * 제조 담당자는 메일보다 전화를 먼저 겁니다. 그래서 대표전화를 가장 크게 둡니다.
+ *
+ * 「무엇을 적어주시면 되나요」 목록은 여기 두지 않습니다.
+ *   옆에 세워두면 칸을 채우는 내내 눈이 좌우로 오가야 하고, 정작 어느 칸 이야기인지는
+ *   본인이 맞춰 읽어야 합니다. 그래서 각 입력란을 클릭했을 때 그 칸의 힌트만
+ *   라벨 줄에 뜨도록 폼 안으로 옮겼습니다 (components/forms/ContactForm.tsx).
  */
 
 type PageProps = { params: Promise<{ locale: string }> };
@@ -45,7 +48,6 @@ export default async function ContactPage({ params }: PageProps) {
 
   const t = await getTranslations('contact');
 
-  const guideItems = t.raw('guide.items') as string[];
   const steps = t.raw('flow.steps') as Step[];
 
   return (
@@ -59,7 +61,7 @@ export default async function ContactPage({ params }: PageProps) {
         먼저 읽고 폼으로 내려가는 편이 자연스럽습니다.
         넓은 화면에서만 격자 위치로 좌우를 바꿉니다.
       */}
-      <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_296px] lg:gap-14">
+      <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_264px] lg:gap-14">
         {/* ── 폼을 채우기 전에 읽을 것들 ───────────────── */}
         <div className="flex flex-col gap-9 lg:col-start-2 lg:row-start-1">
           <Reveal>
@@ -86,25 +88,6 @@ export default async function ContactPage({ params }: PageProps) {
             </p>
           </Reveal>
 
-          <Reveal>
-            <div className="border-t border-line pt-7">
-              <h2 className="text-body font-medium text-navy-900">{t('guide.heading')}</h2>
-              <ul className="mt-4 flex flex-col gap-2.5">
-                {guideItems.map((item) => (
-                  <li key={item} className="grid grid-cols-[auto_1fr] gap-2.5">
-                    <span
-                      aria-hidden="true"
-                      className="mt-[9px] h-1 w-1 rounded-full bg-green-500"
-                    />
-                    <span className="text-caption leading-relaxed text-navy-700/75">{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-4 text-caption leading-relaxed text-navy-700/60">
-                {t('guide.note')}
-              </p>
-            </div>
-          </Reveal>
 
           <Reveal>
             <div className="border-t border-line pt-7">
