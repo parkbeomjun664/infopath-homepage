@@ -28,7 +28,7 @@ import { ASSETS, ASSET_DIMENSIONS, COMPANY, SECTIONS } from '@/content/site';
 
 type PageProps = { params: Promise<{ locale: string }> };
 
-type Stat = { id: string; value: string; unit: string; name: string; note: string };
+type Stat = { id: string; value: string; unit: string; name: string };
 type Record = { id: string; field: string; title: string; body: string };
 
 export function generateStaticParams() {
@@ -143,7 +143,6 @@ export default async function AboutPage({ params }: PageProps) {
                           </span>
                         )}
                       </dd>
-                      <p className="mt-4 text-caption leading-relaxed text-navy-700/60">{s.note}</p>
                     </div>
                   ))}
                 </dl>
@@ -180,9 +179,6 @@ export default async function AboutPage({ params }: PageProps) {
                     </li>
                   ))}
                 </ol>
-                <p className="mt-5 text-[13px] leading-relaxed text-fg-subtle">
-                  {t('story.source')}
-                </p>
               </Reveal>
             </div>
           </Container>
@@ -225,9 +221,6 @@ export default async function AboutPage({ params }: PageProps) {
               ))}
             </ul>
 
-            <Reveal className="mt-6">
-              <p className="text-[13px] leading-relaxed text-fg-subtle">{t('record.note')}</p>
-            </Reveal>
           </Container>
         </section>
 
@@ -240,12 +233,9 @@ export default async function AboutPage({ params }: PageProps) {
         <section className="bg-bg py-14 lg:py-16">
           <Container>
             <Reveal>
-              <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                <h2 className="text-h4 font-medium tracking-[-0.01em] text-navy-900">
-                  {t('bizHeading')}
-                </h2>
-                <p className="text-[13px] text-fg-subtle">{t('bizNote')}</p>
-              </div>
+              <h2 className="text-h4 font-medium tracking-[-0.01em] text-navy-900">
+                {t('bizHeading')}
+              </h2>
 
               <dl className="mt-6 grid gap-x-10 gap-y-0 sm:grid-cols-2">
                 {bizRows.map((row) => (

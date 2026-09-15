@@ -1,0 +1,757 @@
+<title>박범준 프론트엔드 포트폴리오</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#EEF1F4;
+  --surface:#FFFFFF;
+  --sunken:#E4E9ED;
+  --ink:#0E141A;
+  --body:#2C3841;
+  --muted:#5C6874;
+  --faint:#8D98A3;
+  --rule:#D7DEE4;
+  --rule-2:#C0CAD3;
+
+  --meet:#E24A3C;
+  --meet-soft:#FBE9E6;
+  --info:#0B3B66;
+  --info-2:#3E8E41;
+  --info-soft:#E6EDF4;
+
+  --bug:#A63B27;
+  --bug-soft:#F7EAE6;
+
+  --f-sans:'IBM Plex Sans KR',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Consolas,monospace;
+
+  --maxw:1140px;
+}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1114;
+    --surface:#151B20;
+    --sunken:#1C242A;
+    --ink:#E7ECF0;
+    --body:#C3CCD4;
+    --muted:#97A2AC;
+    --faint:#6B7680;
+    --rule:#252E35;
+    --rule-2:#37434C;
+
+    --meet:#FF7D6F;
+    --meet-soft:#2E1713;
+    --info:#79AEDC;
+    --info-2:#6BBE6F;
+    --info-soft:#14212D;
+
+    --bug:#E28974;
+    --bug-soft:#2B1611;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1114;
+  --surface:#151B20;
+  --sunken:#1C242A;
+  --ink:#E7ECF0;
+  --body:#C3CCD4;
+  --muted:#97A2AC;
+  --faint:#6B7680;
+  --rule:#252E35;
+  --rule-2:#37434C;
+
+  --meet:#FF7D6F;
+  --meet-soft:#2E1713;
+  --info:#79AEDC;
+  --info-2:#6BBE6F;
+  --info-soft:#14212D;
+
+  --bug:#E28974;
+  --bug-soft:#2B1611;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  background:var(--ground);
+  color:var(--body);
+  font-family:var(--f-sans);
+  font-weight:400;
+  font-size:15px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding-inline:20px;
+  padding-block:0 72px;
+}
+
+h1,h2,h3,h4{margin:0;color:var(--ink);text-wrap:balance;letter-spacing:-.02em;font-weight:600;}
+p{margin:0;}
+ul,ol{margin:0;padding:0;list-style:none;}
+a{color:inherit;}
+img{max-width:100%;display:block;}
+
+a:focus-visible,summary:focus-visible{outline:2px solid var(--info-2);outline-offset:3px;border-radius:2px;}
+
+.mono{font-family:var(--f-mono);}
+
+/* ── 식별 헤더 ───────────────────────────── */
+.ident{
+  display:flex;flex-wrap:wrap;align-items:flex-end;gap:20px 32px;
+  padding-block:44px 22px;
+  border-bottom:2px solid var(--ink);
+}
+.ident__name{
+  font-size:clamp(1.9rem,4.4vw,2.6rem);
+  font-weight:700;line-height:1.1;letter-spacing:-.035em;
+}
+.ident__name span{color:var(--faint);font-weight:300;}
+.ident__meta{
+  display:flex;flex-direction:column;gap:2px;
+  font-size:13px;color:var(--muted);
+  margin-inline-start:auto;text-align:right;
+}
+.ident__role{
+  font-family:var(--f-mono);font-size:11px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:6px;
+}
+
+.summary{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1px;background:var(--rule);
+  border:1px solid var(--rule);border-top:none;
+}
+.summary div{background:var(--surface);padding:14px 16px;}
+.summary dt{
+  font-family:var(--f-mono);font-size:10.5px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
+}
+.summary dd{margin:4px 0 0;font-size:14px;color:var(--ink);font-weight:500;}
+
+/* ── 프로젝트 ───────────────────────────── */
+.proj{margin-top:56px;}
+.proj--meet{--accent:var(--meet);--accent-soft:var(--meet-soft);}
+.proj--info{--accent:var(--info);--accent-soft:var(--info-soft);}
+
+.head{
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-left:4px solid var(--accent);
+  padding:22px 24px;
+  display:grid;gap:14px;
+}
+.head__top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;}
+.head__no{
+  font-family:var(--f-mono);font-size:12px;font-weight:600;
+  color:var(--accent);letter-spacing:.1em;
+}
+.head__title{font-size:clamp(1.35rem,2.8vw,1.75rem);font-weight:700;letter-spacing:-.03em;}
+.head__kind{
+  font-family:var(--f-mono);font-size:10.5px;font-weight:500;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--accent);
+  background:var(--accent-soft);padding:3px 8px;border-radius:2px;
+}
+.head__desc{font-size:15.5px;line-height:1.6;color:var(--body);max-width:68ch;}
+
+.head__rows{display:grid;gap:8px;padding-top:12px;border-top:1px solid var(--rule);}
+.row{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;}
+.row__k{
+  font-family:var(--f-mono);font-size:10.5px;font-weight:500;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--faint);min-width:52px;
+}
+.chip{
+  font-family:var(--f-mono);font-size:11.5px;
+  border:1px solid var(--rule-2);color:var(--muted);
+  padding:2px 8px;border-radius:11px;white-space:nowrap;
+}
+.fact{font-size:13px;color:var(--muted);}
+.fact b{color:var(--ink);font-weight:600;}
+.sep{color:var(--rule-2);}
+.link{
+  font-family:var(--f-mono);font-size:12px;color:var(--accent);
+  text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;
+}
+.link:hover{opacity:.72;}
+
+/* ── 섹션 공통 ───────────────────────────── */
+.sec{margin-top:28px;}
+.sec__h{
+  display:flex;align-items:baseline;gap:10px;
+  margin-bottom:14px;padding-bottom:7px;
+  border-bottom:1px solid var(--rule-2);
+}
+.sec__h h3{font-size:15px;font-weight:600;letter-spacing:-.01em;}
+.sec__h span{font-size:12.5px;color:var(--faint);}
+
+/* 기능 + 화면 나란히 */
+.split{display:grid;grid-template-columns:minmax(0,0.94fr) minmax(0,1.06fr);gap:22px;align-items:start;}
+@media (max-width:860px){.split{grid-template-columns:1fr;}}
+
+.feats{display:grid;gap:11px;}
+.feat{display:grid;grid-template-columns:auto 1fr;gap:10px;}
+.feat__b{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--accent);margin-top:9px;
+}
+.feat b{display:block;color:var(--ink);font-weight:600;font-size:14px;}
+.feat p{font-size:13.5px;color:var(--muted);line-height:1.55;}
+
+.shots{display:grid;gap:10px;}
+.shot{border:1px solid var(--rule);background:var(--surface);}
+.shot img{width:100%;}
+.shot figcaption{
+  font-family:var(--f-mono);font-size:10.5px;color:var(--faint);
+  padding:6px 9px;border-top:1px solid var(--rule);letter-spacing:.04em;
+}
+.shots--pair{grid-template-columns:1fr 1fr;}
+@media (max-width:620px){.shots--pair{grid-template-columns:1fr;}}
+
+/* 핵심 구현 — 다단으로 촘촘히 */
+.cards{columns:2;column-gap:16px;}
+@media (max-width:860px){.cards{columns:1;}}
+.card{
+  break-inside:avoid;-webkit-column-break-inside:avoid;
+  background:var(--surface);border:1px solid var(--rule);
+  padding:15px 17px;margin-bottom:16px;
+}
+.card h4{
+  font-size:14px;font-weight:600;margin-bottom:7px;
+  display:flex;gap:8px;align-items:baseline;
+}
+.card h4 i{
+  font-family:var(--f-mono);font-style:normal;font-size:11.5px;
+  font-weight:600;color:var(--accent);flex:none;
+}
+.card__q{
+  font-size:12.5px;color:var(--muted);font-style:italic;
+  padding:6px 10px;background:var(--sunken);
+  border-left:2px solid var(--rule-2);margin-bottom:9px;line-height:1.5;
+}
+.card p{font-size:13.5px;line-height:1.62;color:var(--body);}
+.card p + p{margin-top:7px;}
+code{
+  font-family:var(--f-mono);font-size:.88em;
+  background:var(--sunken);padding:1px 4px;border-radius:2px;
+  color:var(--ink);word-break:break-word;
+}
+.card strong{color:var(--ink);font-weight:600;}
+
+/* 트러블슈팅 표 */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--rule);background:var(--surface);}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:13px;}
+thead th{
+  font-family:var(--f-mono);font-size:10.5px;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
+  text-align:left;padding:9px 13px;border-bottom:1px solid var(--rule-2);
+  background:var(--sunken);
+}
+tbody td{padding:11px 13px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.55;color:var(--muted);}
+tbody tr:last-child td{border-bottom:none;}
+td.sym{color:var(--bug);font-weight:600;width:24%;}
+td.fix{color:var(--ink);width:38%;}
+
+/* 아키텍처 */
+.arch{
+  background:var(--surface);border:1px solid var(--rule);
+  padding:18px 18px 12px;overflow-x:auto;
+}
+.arch svg{display:block;min-width:560px;margin:0 auto;}
+.arch p{font-size:12.5px;color:var(--muted);margin-top:12px;line-height:1.55;}
+
+/* 배운 것 */
+.learn{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);
+}
+.learn li{background:var(--surface);padding:13px 15px;font-size:13.5px;line-height:1.55;color:var(--muted);}
+.learn li b{color:var(--ink);font-weight:600;}
+
+.foot{
+  margin-top:56px;padding-top:18px;border-top:1px solid var(--rule-2);
+  display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;
+  font-family:var(--f-mono);font-size:11px;color:var(--faint);letter-spacing:.04em;
+}
+
+@media print{
+  body{background:#fff;}
+  .proj{break-inside:avoid;}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+</style>
+
+<div class="wrap">
+
+  <header class="ident">
+    <div>
+      <p class="ident__role">Front-end Portfolio</p>
+      <h1 class="ident__name">박범준 <span>朴汎俊</span></h1>
+    </div>
+    <div class="ident__meta">
+      <span>동국대학교 산업시스템공학과</span>
+      <span>프론트엔드 개발자</span>
+      <span class="mono">github.com/parkbeomjun664</span>
+    </div>
+  </header>
+
+  <dl class="summary">
+    <div><dt>주력</dt><dd>React · Next.js · TypeScript</dd></div>
+    <div><dt>프로젝트</dt><dd>2건 — 실무 1 · 개인 1</dd></div>
+    <div><dt>공통점</dt><dd>기획부터 배포까지 1인</dd></div>
+    <div><dt>현재</dt><dd>두 서비스 모두 운영 중</dd></div>
+  </dl>
+
+  <!-- ═══════════ 01 · INFOPATH ═══════════ -->
+  <section class="proj proj--info">
+    <div class="head">
+      <div class="head__top">
+        <span class="head__no">01</span>
+        <h2 class="head__title">INFOPATH 홈페이지</h2>
+        <span class="head__kind">실무 · 운영 중</span>
+      </div>
+      <p class="head__desc">
+        제조 IT 기업의 회사 홈페이지. 국문·영문 이중 언어로 5개 페이지를 만들고
+        도메인 연결과 배포까지 단독으로 진행해, 현재 <b>infopath.co.kr</b>에서 운영 중입니다.
+      </p>
+      <div class="head__rows">
+        <div class="row">
+          <span class="row__k">Stack</span>
+          <span class="chip">Next.js 15</span><span class="chip">React 19</span>
+          <span class="chip">TypeScript</span><span class="chip">Tailwind CSS</span>
+          <span class="chip">next-intl</span><span class="chip">zod</span>
+          <span class="chip">Resend</span><span class="chip">Vercel</span>
+        </div>
+        <div class="row">
+          <span class="row__k">Facts</span>
+          <span class="fact"><b>2026.08</b> ~ 운영 중</span><span class="sep">·</span>
+          <span class="fact">기획 · 설계 · 개발 <b>1인</b></span><span class="sep">·</span>
+          <span class="fact">정적 생성 <b>25면</b></span><span class="sep">·</span>
+          <span class="fact">서버 함수 <b>1개</b></span>
+        </div>
+        <div class="row">
+          <span class="row__k">Live</span>
+          <a class="link" href="https://infopath.co.kr" target="_blank" rel="noopener">infopath.co.kr</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec__h"><h3>주요 기능</h3><span>회사 소개부터 도입 문의 접수까지</span></div>
+      <div class="split">
+        <ul class="feats">
+          <li class="feat"><span class="feat__b"></span><div>
+            <b>한·영 이중 언어</b>
+            <p>번역을 상태가 아니라 경로로 다뤄 <code>/ko</code>, <code>/en</code>이 각각 실제 주소를 가집니다. 링크를 공유해도 언어가 유지됩니다.</p>
+          </div></li>
+          <li class="feat"><span class="feat__b"></span><div>
+            <b>도입 문의 폼</b>
+            <p>서버 사이드 재검증 후 메일 발송. 레이트 리밋과 허니팟으로 어뷰징을 막습니다.</p>
+          </div></li>
+          <li class="feat"><span class="feat__b"></span><div>
+            <b>자료 대기 항목 자동 감춤</b>
+            <p>회사에서 아직 받지 못한 정보는 빈칸으로 두지 않고 섹션째 렌더링하지 않습니다.</p>
+          </div></li>
+          <li class="feat"><span class="feat__b"></span><div>
+            <b>검색 노출 스위치</b>
+            <p>개인정보처리방침 확정 전까지 환경변수 하나로 색인을 전면 차단해 둡니다.</p>
+          </div></li>
+          <li class="feat"><span class="feat__b"></span><div>
+            <b>SEO · OG 이미지</b>
+            <p>사이트맵과 메타를 언어별로 생성하고, 공유 카드 이미지도 파일이 아니라 코드로 만듭니다.</p>
+          </div></li>
+        </ul>
+        <div class="shots">
+          <figure class="shot">
+            <img src="assets/infopath-hero.webp" width="1600" height="1000" alt="INFOPATH 홈페이지 첫 화면 — MES 도입에 필요한 건 예산이 아니라 순서입니다">
+            <figcaption>메인 — 히어로 슬라이드와 언어 전환</figcaption>
+          </figure>
+          <div class="shots shots--pair">
+            <figure class="shot">
+              <img src="assets/infopath-about.webp" width="1600" height="1089" alt="회사소개 페이지의 수행 실적 카드와 사업자 정보 표">
+              <figcaption>회사소개 — 수행 실적 · 사업자 정보</figcaption>
+            </figure>
+            <figure class="shot">
+              <img src="assets/infopath-contact.webp" width="1600" height="1089" alt="도입 문의 폼 화면">
+              <figcaption>문의 — 서버 검증 후 메일 발송</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec__h"><h3>핵심 구현 &amp; 기술 판단</h3><span>왜 이렇게 만들었는가</span></div>
+      <div class="cards">
+
+        <article class="card">
+          <h4><i>①</i> 정보가 없는 상태를 설계 대상으로</h4>
+          <p class="card__q">문제 — 오픈 일정은 정해졌는데 사업자 정보 · 대표자 소개 · 실적이 회사에서 오지 않았다.</p>
+          <p>빠진 값을 빈칸으로 남기면 「대표자 —」가 됩니다. 그건 정보가 아니라 <strong>미완성 신호</strong>입니다.
+          값마다 <code>pending</code> 플래그를, 섹션마다 스위치를 두고 확인되지 않은 항목은 렌더링 자체를 건너뛰게 했습니다.</p>
+          <p>개발 모드에서만 점선 상자로 "여기에 무엇이 들어가야 하는지"를 띄워, 자료가 오면 값만 채우고 플래그를 바꿉니다.
+          실제로 사업자등록증을 받은 날 <strong>코드 수정 없이</strong> 푸터 · 회사소개 · 방침 다섯 곳이 한꺼번에 켜졌습니다.</p>
+        </article>
+
+        <article class="card">
+          <h4><i>②</i> 문의 폼을 백엔드 없이</h4>
+          <p class="card__q">문제 — 폼 하나 때문에 상시 서버를 띄우면 비용과 관리 지점이 생긴다.</p>
+          <p>API Route 하나에서 <code>zod</code>로 서버 사이드 재검증 후 메일을 보냅니다.
+          클라이언트 검증은 사용성을 위한 것일 뿐 신뢰하지 않습니다.</p>
+          <p>레이트 리밋과 허니팟 필드를 붙이되, <strong>봇이 걸리면 오류 대신 정상 응답</strong>을 돌려줘 탐지를 피하게 했습니다.
+          메일 발송 모듈에는 <code>server-only</code>를 걸어, 클라이언트로 새면 런타임이 아니라 빌드에서 실패합니다.</p>
+        </article>
+
+        <article class="card">
+          <h4><i>③</i> 다국어를 번역이 아니라 라우팅으로</h4>
+          <p class="card__q">문제 — 언어를 상태로 두면 공유한 링크가 상대에게 다른 언어로 열린다.</p>
+          <p>미들웨어로 <code>/ko</code> · <code>/en</code>을 실제 경로로 만들었습니다. 언어별로 메타와 사이트맵이 따로 생성됩니다.</p>
+          <p>두 메시지 파일은 <code>Record&lt;Locale, typeof ko&gt;</code>로 묶어, <strong>한쪽에만 키를 추가하면 타입 검사에서 걸리게</strong> 했습니다.
+          문구가 400줄을 넘어가면 사람 눈으로는 누락을 못 찾습니다.</p>
+        </article>
+
+        <article class="card">
+          <h4><i>④</i> 전 페이지 정적 생성</h4>
+          <p class="card__q">문제 — 회사 홈페이지에 상시 서버를 두면 비용과 장애 지점이 함께 는다.</p>
+          <p>25면을 빌드 시점에 미리 만들고, 런타임 서버 함수는 문의 처리용 <strong>하나만</strong> 남겼습니다.
+          공유 카드(OG) 이미지도 디자인 파일로 만들지 않고 코드로 생성해, 문구가 바뀌면 이미지가 따라옵니다.</p>
+        </article>
+
+        <article class="card">
+          <h4><i>⑤</i> 공개하면 안 되는 것을 코드로 막기</h4>
+          <p class="card__q">문제 — 사내 인프라 도면은 화면에서 빼도 <code>public/</code>에 있으면 URL로 직접 열린다.</p>
+          <p>목록에서 제외하는 것만으로는 부족해 파일 자체를 <code>public/</code>에서 지우고 저장소 밖에 뒀습니다.</p>
+          <p>개인정보처리방침이 법무 검토 전이라 <code>robots.txt</code>도 <strong>환경변수 하나로 전체 차단</strong>해 두고,
+          확정된 뒤에만 열리도록 했습니다. 초안 상태의 방침이 검색에 잡히면 되돌릴 수 없습니다.</p>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec__h"><h3>트러블슈팅</h3><span>실제로 겪고 고친 것</span></div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>문제</th><th>원인</th><th>해결</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="sym">프로덕션 전 페이지 프리렌더 실패</td>
+              <td>환경변수 값 앞에 UTF-8 BOM이 섞여 <code>new URL()</code>이 예외를 던짐. 오류가 프로덕션 빌드에서 가려져 원인 파악이 늦어짐</td>
+              <td class="fix">값을 넣는 경로가 대시보드 · CLI · 붙여넣기로 여러 개라, 읽는 쪽 한 곳에서 BOM과 공백을 걷어내도록 통일. API 키에 BOM이 붙으면 인증이 조용히 실패해 더 위험</td>
+            </tr>
+            <tr>
+              <td class="sym">문의 메일이 회사 주소로 발송되지 않음</td>
+              <td>메일 서비스의 도메인 인증(DKIM) 전에는 테스트 발신 주소만 쓸 수 있고, 계정 소유자에게만 전달됨</td>
+              <td class="fix">미인증 상태에서도 폼이 실패하지 않도록 대체 발신 주소로 동작시키고, 인증 절차를 문서로 남겨 전환 시점을 분리</td>
+            </tr>
+            <tr>
+              <td class="sym">도메인 연결이 회사 메일을 끊을 뻔함</td>
+              <td>같은 도메인에 그룹웨어 MX · SPF 레코드가 함께 걸려 있어, 웹 연결만 생각하고 손대면 회사 메일이 멈춤</td>
+              <td class="fix">건드리면 안 되는 레코드를 배포 문서와 README 맨 앞에 명시하고, 실제 변경은 A 레코드 한 줄로 한정</td>
+            </tr>
+            <tr>
+              <td class="sym">자동 배포 연동 실패</td>
+              <td>호스팅 계정이 두 개였고, GitHub이 사이트를 서비스하지 않는 쪽 계정에 연결돼 있었음</td>
+              <td class="fix">도메인 · 환경변수가 묶인 프로젝트를 옮기는 대신 <strong>GitHub 연결만 이전</strong>. DNS를 건드리지 않는 쪽을 선택</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec__h"><h3>아키텍처</h3><span>빌드 시점과 런타임의 분리</span></div>
+      <div class="arch">
+        <svg viewBox="0 0 700 232" width="700" height="232" role="img" aria-label="콘텐츠 파일이 빌드 시점에 25면으로 정적 생성되어 CDN으로 나가고, 런타임에는 문의 API 하나만 동작하는 구조">
+          <defs>
+            <marker id="ar-i" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M0 0 L10 5 L0 10 z" fill="var(--rule-2)"/>
+            </marker>
+          </defs>
+          <g font-family="IBM Plex Mono, monospace" font-size="11">
+
+            <text x="12" y="16" fill="var(--faint)" font-size="10" letter-spacing="1.4">BUILD TIME</text>
+            <rect x="12" y="26" width="176" height="50" fill="var(--sunken)" stroke="var(--rule-2)"/>
+            <text x="24" y="46" fill="var(--ink)">content/site.ts</text>
+            <text x="24" y="63" fill="var(--muted)" font-size="10">회사정보 · pending 플래그</text>
+
+            <rect x="12" y="86" width="176" height="50" fill="var(--sunken)" stroke="var(--rule-2)"/>
+            <text x="24" y="106" fill="var(--ink)">messages/ko · en</text>
+            <text x="24" y="123" fill="var(--muted)" font-size="10">문구 — 구조 타입으로 강제</text>
+
+            <line x1="188" y1="51" x2="236" y2="72" stroke="var(--rule-2)" marker-end="url(#ar-i)"/>
+            <line x1="188" y1="111" x2="236" y2="90" stroke="var(--rule-2)" marker-end="url(#ar-i)"/>
+
+            <rect x="240" y="56" width="150" height="50" fill="var(--info-soft)" stroke="var(--info)"/>
+            <text x="252" y="76" fill="var(--ink)">next build</text>
+            <text x="252" y="93" fill="var(--muted)" font-size="10">SSG 25면 + OG 4종</text>
+
+            <line x1="390" y1="81" x2="438" y2="81" stroke="var(--rule-2)" marker-end="url(#ar-i)"/>
+
+            <rect x="442" y="56" width="150" height="50" fill="var(--surface)" stroke="var(--rule-2)"/>
+            <text x="454" y="76" fill="var(--ink)">CDN 정적 파일</text>
+            <text x="454" y="93" fill="var(--muted)" font-size="10">서버 없음</text>
+
+            <line x1="12" y1="158" x2="688" y2="158" stroke="var(--rule)" stroke-dasharray="3 4"/>
+
+            <text x="12" y="178" fill="var(--faint)" font-size="10" letter-spacing="1.4">RUNTIME — 서버 함수는 하나뿐</text>
+
+            <rect x="12" y="188" width="132" height="34" fill="var(--surface)" stroke="var(--rule-2)"/>
+            <text x="24" y="209" fill="var(--ink)">문의 폼</text>
+
+            <line x1="144" y1="205" x2="186" y2="205" stroke="var(--rule-2)" marker-end="url(#ar-i)"/>
+
+            <rect x="190" y="188" width="222" height="34" fill="var(--info-soft)" stroke="var(--info)"/>
+            <text x="202" y="203" fill="var(--ink)">/api/inquiry</text>
+            <text x="202" y="217" fill="var(--muted)" font-size="10">zod 재검증 · 레이트리밋 · 허니팟</text>
+
+            <line x1="412" y1="205" x2="454" y2="205" stroke="var(--rule-2)" marker-end="url(#ar-i)"/>
+
+            <rect x="458" y="188" width="134" height="34" fill="var(--surface)" stroke="var(--rule-2)"/>
+            <text x="470" y="209" fill="var(--ink)">메일 발송</text>
+          </g>
+        </svg>
+        <p>화면에 나가는 값은 <code>content/</code> 두 곳에 모여 있고, 나머지는 전부 빌드 시점에 결정됩니다.
+        런타임에 살아 있는 것은 문의 처리 하나뿐이라 장애 지점과 비용이 그만큼만 존재합니다.</p>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec__h"><h3>이 프로젝트에서 배운 것</h3></div>
+      <ul class="learn">
+        <li><b>정보가 없는 상태도 설계 대상</b>이라는 것 — 기능보다 "아직 모르는 값"을 어떻게 다룰지가 더 오래 걸렸습니다</li>
+        <li><b>추측으로 쓴 문장은 회사의 약속이 된다</b> — 확인 못 한 수치와 절차는 비워 두는 편이 낫습니다</li>
+        <li><b>위험은 코드 밖에도 있다</b> — 같은 DNS에 걸린 회사 메일처럼, 내 화면 밖의 것을 먼저 확인하는 습관</li>
+        <li><b>일정을 지배하는 건 코드가 아니었다</b> — 자료 수급 속도에 맞춰 켜고 끌 수 있게 만드는 것이 실제 해법이었습니다</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════ 02 · 여기서 만나! ═══════════ -->
+  <section class="proj proj--meet">
+    <div class="head">
+      <div class="head__top">
+        <span class="head__no">02</span>
+        <h2 class="head__title">여기서 만나!</h2>
+        <span class="head__kind">개인 프로젝트 · 진행 중</span>
+      </div>
+      <p class="head__desc">
+        여러 사람의 출발지와 이동수단을 입력하면 이동시간 · 교통비를 함께 계산해
+        모두에게 가장 공평한 중간지점을 찾아주는 약속 장소 추천 웹앱.
+      </p>
+      <div class="head__rows">
+        <div class="row">
+          <span class="row__k">Stack</span>
+          <span class="chip">React 19</span><span class="chip">TypeScript</span>
+          <span class="chip">Vite</span><span class="chip">Zustand</span>
+          <span class="chip">CSS Modules</span><span class="chip">Kakao Maps / Local / Mobility</span>
+          <span class="chip">ODsay API</span>
+        </div>
+        <div class="row">
+          <span class="row__k">Facts</span>
+          <span class="fact"><b>2026.04</b> ~ 진행 중</span><span class="sep">·</span>
+          <span class="fact">기획 · 설계 · 개발 <b>1인</b></span><span class="sep">·</span>
+          <span class="fact">배포 완료</span>
+        </div>
+        <div class="row">
+          <span class="row__k">Live</span>
+          <a class="link" href="https://meet-here-kr.vercel.app" target="_blank" rel="noopener">meet-here-kr.vercel.app</a>
+          <span class="sep">·</span>
+          <a class="link" href="https://github.com/parkbeomjun664/Meet-here-" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec__h"><h3>주요 기능</h3><span>약속 잡기부터 주변 인프라 검색까지</span></div>
+      <div class="split">
+        <ul class="feats">
+          <li class="feat"><span class="feat__b"></span><div>
+            <b>참여자 등록</b>
+            <p>이름 + 출발지(주소검색 · 현재위치) + 이동수단(대중교통 / 자동차 / 도보)</p>
+          </div></li>
+          <li class="feat"><span class="feat__b"></span><div>
+            <b>공평한 중간지점 계산</b>
+            <p>후보 지점마다 멤버별 경로를 계산해 공평성 · 시간 · 비용을 가중 점수화</p>
+          </div></li>
+          <li class="feat"><span class="feat__b"></span><div>
+            <b>지도 시각화</b>
+            <p>참여자 · 중간지점 마커, 멤버별 경로선, 전원이 보이도록 자동 축소</p>
+          </div></li>
+          <li class="feat"><span class="feat__b"></span><div>
+            <b>주변 인프라 검색</b>
+            <p>중간지점 기준 반경 · 카테고리별 맛집 · 카페 · 놀거리 검색</p>
+          </div></li>
+          <li class="feat"><span class="feat__b"></span><div>
+            <b>자동 저장</b>
+            <p>새로고침해도 상태와 지도가 복원됩니다. 저장 형식 변경에 대비한 마이그레이션 포함</p>
+          </div></li>
+        </ul>
+        <div class="shots">
+          <figure class="shot">
+            <img src="assets/meethere-plan.webp" width="1040" height="665" alt="참여자 3명을 등록하고 가장 공평한 중간지점으로 한남역 경의중앙선이 추천된 화면">
+            <figcaption>약속잡기 — 참여자 · 시간 입력 후 중간지점 추천</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/meethere-places.webp" width="1040" height="665" alt="중간지점 주변 반경과 카테고리로 장소를 검색한 화면">
+            <figcaption>주변 인프라 — 반경 · 카테고리 검색</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec__h"><h3>핵심 구현 &amp; 기술 판단</h3><span>왜 이렇게 설계했는가</span></div>
+      <div class="cards">
+
+        <article class="card">
+          <h4><i>①</i> 명령형 지도 SDK를 선언형 React에 통합</h4>
+          <p class="card__q">문제 — 카카오 지도 SDK는 React의 렌더링 방식과 맞지 않는 명령형 라이브러리다.</p>
+          <p>지도 인스턴스와 마커를 컴포넌트 내부 <code>useRef</code>에 캡슐화하고,
+          <code>forwardRef</code> + <code>useImperativeHandle</code>로 <code>addMarker</code> · <code>drawRoute</code> · <code>clearAll</code> 같은
+          메서드만 부모에 노출했습니다.</p>
+          <p>부모는 SDK API를 몰라도 되고, <strong>인터페이스만 지키면 지도 구현체를 교체해도 부모 코드는 그대로</strong>입니다.
+          마커는 SDK가 직접 DOM에 그리므로 <code>useState</code>가 아닌 <code>useRef</code>에 담아 불필요한 리렌더를 없앴습니다.</p>
+        </article>
+
+        <article class="card">
+          <h4><i>②</i> 단위가 다른 지표를 함께 비교</h4>
+          <p class="card__q">문제 — 좌표 평균은 아무것도 없는 곳이 나올 수 있고, 거리 평균이 이동시간 평균과 다르다.</p>
+          <p>중심점은 검색 시작점으로만 쓰고, 주변 교통 허브(역 · 터미널)를 후보로 여러 개 찾아 평가합니다.</p>
+          <p>후보마다 공평성(이동시간 편차) · 평균 소요시간 · 교통비를 계산하는데, 단위가 분과 원이라 그냥 더하면
+          <strong>숫자가 큰 비용이 결과를 지배</strong>합니다. min-max 정규화(0~1) 후 가중치(공평성 0.5 · 시간 0.3 · 비용 0.2)로
+          합산했습니다. 가중치는 상수로 분리해 튜닝이 쉽습니다.</p>
+        </article>
+
+        <article class="card">
+          <h4><i>③</i> 병렬 / 순차 절충으로 요청 제한 회피</h4>
+          <p class="card__q">문제 — 후보 × 멤버를 모두 병렬 처리하면 동시 요청이 폭증한다.</p>
+          <p>멤버별 경로는 서로 독립적이라 <code>Promise.all</code>로 병렬 처리해, 후보당 소요 시간을 "가장 느린 멤버 한 명" 수준으로 줄였습니다.</p>
+          <p>다만 후보까지 병렬로 돌리면 동시 요청이 <code>후보수 × 멤버수</code>로 늘어 외부 API의 429에 걸립니다.
+          <strong>멤버는 병렬 · 후보는 순차</strong>로 속도와 안정성을 절충했습니다.</p>
+        </article>
+
+        <article class="card">
+          <h4><i>④</i> 상태 영속화 + 버전 마이그레이션</h4>
+          <p class="card__q">문제 — 저장 형식이 바뀌자 기존 사용자의 화면이 빈 페이지로 죽었다.</p>
+          <p>상태를 localStorage에 저장하되 일시적 상태(계산 중 여부)는 제외했습니다.
+          필드가 추가되며 옛 데이터가 <code>undefined.toLocaleString()</code>으로 크래시하자,
+          <code>version</code>과 <code>migrate</code>로 <strong>크래시를 유발하는 결과만 비우고 사용자가 입력한 참여자 정보는 보존</strong>했습니다.
+          렌더링 단계에도 방어 코드를 한 겹 더 뒀습니다.</p>
+        </article>
+
+        <article class="card">
+          <h4><i>⑤</i> 비동기 검색의 경쟁 상태 방어</h4>
+          <p class="card__q">문제 — 반경 필터를 빠르게 바꾸면 늦게 출발한 이전 요청이 최신 결과를 덮어쓴다.</p>
+          <p>주변 인프라 검색에서 <code>useEffect</code> cleanup의 <code>cancelled</code> 플래그로 낡은 요청의 응답을 상태에 반영하지 않도록 무효화했습니다.
+          개선 방향으로 <code>AbortController</code>를 통한 요청 자체 취소를 계획하고 있습니다.</p>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec__h"><h3>트러블슈팅</h3><span>실제로 겪고 고친 것</span></div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>문제</th><th>원인</th><th>해결</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="sym">모바일에서 지도가 0px로 사라짐</td>
+              <td>Flex 아이템 기본값 <code>min-height:auto</code> 때문에 사이드바가 콘텐츠 높이 밑으로 줄지 않아 지도 몫이 0이 됨</td>
+              <td class="fix"><code>min-height:0</code>으로 축소를 허용 → 사이드바 56% / 지도 44% 분할</td>
+            </tr>
+            <tr>
+              <td class="sym">지도 마커 라벨 XSS 취약점</td>
+              <td>커스텀 오버레이가 HTML 문자열을 받는 구조라 React의 자동 이스케이프가 적용되지 않음</td>
+              <td class="fix">사용자 이름을 <code>escapeHtml</code>로 이스케이프 처리</td>
+            </tr>
+            <tr>
+              <td class="sym">동명이인 마커 충돌</td>
+              <td>마커 저장 키가 이름이라, 같은 이름이면 덮어써지고 삭제 시 엉뚱한 마커가 지워짐</td>
+              <td class="fix">키를 고유 <code>id</code>(UUID)로 변경해 충돌 방지</td>
+            </tr>
+            <tr>
+              <td class="sym">서울 외 장거리 대중교통 미표시</td>
+              <td>ODsay가 도시내 경로 위주라 서울↔부산 같은 도시간 경로를 반환하지 않음</td>
+              <td class="fix">거리 임계값 초과 시 KTX / 고속버스 추정 + 도로 경로선으로 표시</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec__h"><h3>아키텍처</h3><span>선언형 상태와 명령형 지도의 경계</span></div>
+      <div class="arch">
+        <svg viewBox="0 0 700 236" width="700" height="236" role="img" aria-label="모든 컴포넌트가 Zustand 스토어를 거쳐 통신하고, 명령형 지도만 ref로 직접 제어되는 구조">
+          <defs>
+            <marker id="ar-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M0 0 L10 5 L0 10 z" fill="var(--rule-2)"/>
+            </marker>
+          </defs>
+          <g font-family="IBM Plex Mono, monospace" font-size="11">
+
+            <rect x="176" y="16" width="348" height="48" fill="var(--meet-soft)" stroke="var(--meet)"/>
+            <text x="190" y="36" fill="var(--ink)">전역 상태 · Zustand</text>
+            <text x="190" y="53" fill="var(--muted)" font-size="10">users · midpointResult · time — 모두 이 저장소를 거친다</text>
+
+            <line x1="240" y1="106" x2="240" y2="68" stroke="var(--rule-2)" marker-end="url(#ar-m)"/>
+            <text x="248" y="88" fill="var(--faint)" font-size="9.5">쓰기</text>
+
+            <line x1="430" y1="68" x2="430" y2="106" stroke="var(--rule-2)" marker-end="url(#ar-m)"/>
+            <text x="438" y="88" fill="var(--faint)" font-size="9.5">구독 → 자동 리렌더</text>
+
+            <rect x="150" y="110" width="180" height="34" fill="var(--surface)" stroke="var(--rule-2)"/>
+            <text x="162" y="131" fill="var(--ink)">AppointmentTab</text>
+
+            <rect x="346" y="110" width="252" height="34" fill="var(--surface)" stroke="var(--rule-2)"/>
+            <text x="358" y="125" fill="var(--ink)">RouteTab · ResultBanner</text>
+            <text x="358" y="138" fill="var(--muted)" font-size="10">ProfileTab · PlaceTab</text>
+
+            <line x1="240" y1="144" x2="240" y2="186" stroke="var(--rule-2)" stroke-dasharray="4 3" marker-end="url(#ar-m)"/>
+            <text x="250" y="168" fill="var(--faint)" font-size="9.5">명령형 지도는 예외 — ref로 직접 제어</text>
+
+            <rect x="150" y="190" width="180" height="34" fill="var(--meet-soft)" stroke="var(--meet)"/>
+            <text x="162" y="211" fill="var(--ink)">KakaoMap</text>
+
+            <line x1="330" y1="207" x2="372" y2="207" stroke="var(--rule-2)" marker-end="url(#ar-m)"/>
+            <rect x="376" y="190" width="222" height="34" fill="var(--surface)" stroke="var(--rule-2)"/>
+            <text x="388" y="205" fill="var(--ink)">useImperativeHandle</text>
+            <text x="388" y="218" fill="var(--muted)" font-size="10">addMarker · drawRoute · clearAll</text>
+
+            <rect x="12" y="110" width="120" height="114" fill="none" stroke="var(--rule)" stroke-dasharray="3 4"/>
+            <text x="24" y="132" fill="var(--faint)" font-size="9.5">lib/midpoint.ts</text>
+            <text x="24" y="150" fill="var(--muted)" font-size="10">UI와 분리된</text>
+            <text x="24" y="164" fill="var(--muted)" font-size="10">순수 함수</text>
+            <text x="24" y="186" fill="var(--faint)" font-size="9.5">테스트 · 재사용</text>
+          </g>
+        </svg>
+        <p>컴포넌트끼리 직접 대화하지 않고 모두 스토어를 거칩니다.
+        선언형 상태와 명령형 지도 사이는 <code>useEffect</code>가 동기화하고, 알고리즘은 UI와 분리된 순수 함수로 두었습니다.</p>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec__h"><h3>이 프로젝트에서 배운 것</h3></div>
+      <ul class="learn">
+        <li><b>배포한 코드는 내 손을 떠난다</b> — 다양한 브라우저 · 기기 · 저장 상태에서 돌아간다는 감각</li>
+        <li><b>경계 설계</b> — 명령형 라이브러리와 선언형 프레임워크를 안전하게 잇는 법</li>
+        <li><b>정답 없는 문제에 기준을 정의하는 판단</b> — 무엇을 공평하다고 볼지부터 정해야 했습니다</li>
+        <li><b>AI는 속도를 위한 도구로</b> — 핵심 설계와 판단은 직접, 코드의 모든 결정을 설명할 수 있게</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span>박범준 · Front-end Portfolio</span>
+    <span>infopath.co.kr · meet-here-kr.vercel.app</span>
+  </div>
+
+</div>
