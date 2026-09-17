@@ -92,9 +92,15 @@ export default function ClientLogos() {
             <li key={copy} aria-hidden={copy > 0} className="flex shrink-0">
               {logoMode
                 ? CLIENT_LOGOS.map((logo) => (
+                    /*
+                       커서를 올리면 띠가 멈추고(.marquee-viewport:hover) 그 로고만
+                       떠오릅니다. 멈추기만 하면 어디를 보고 있는지 표시가 나지 않아
+                       그림자로 지금 보는 하나를 집어줍니다.
+                       움직임을 꺼둔 사용자에게는 떠오름 없이 그림자만 남습니다.
+                    */
                     <span
                       key={logo.id}
-                      className="mx-8 flex h-14 shrink-0 items-center lg:mx-11 lg:h-16"
+                      className="mx-5 flex shrink-0 items-center rounded-xl px-6 py-3 transition duration-300 ease-out hover:shadow-[0_10px_30px_rgba(0,48,96,0.16)] motion-safe:hover:-translate-y-1 lg:mx-7 lg:px-8"
                     >
                       <Image
                         src={logo.src}
@@ -106,7 +112,7 @@ export default function ClientLogos() {
                            회색으로 눕히면 어느 회사인지 한 박자 늦게 읽힙니다.
                            높이만 맞추고 가로는 비율대로 둡니다 — 억지로 같은 폭에
                            넣으면 가로로 긴 로고가 찌그러집니다. */
-                        className="h-full w-auto max-w-none"
+                        className="h-14 w-auto max-w-none lg:h-16"
                       />
                     </span>
                   ))
