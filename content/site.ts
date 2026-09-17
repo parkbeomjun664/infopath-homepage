@@ -109,6 +109,12 @@ export const SECTIONS = {
      고객사별 서면 사용 동의 없이 올리면 실제 분쟁 사유가 됩니다.
      계약서에 비밀유지 조항이 있으면 회사명 자체도 공개할 수 없습니다.
 
+   ⚠ 지금 파일은 회사소개서 PDF에 박혀 있던 이미지를 그대로 꺼낸 것입니다.
+     원본 해상도가 작습니다 — 동우화인켐 186×33, TUNGHSU 155×55,
+     SEMV 184×57, SEMB 409×58. 이보다 선명하게 만들 방법은 없습니다.
+     고해상도 화면에서 뭉개져 보이는 것은 이 한계 때문입니다.
+     고객사에서 CI 원본(AI · SVG · 큰 PNG)을 받으면 그때 교체해야 합니다.
+
    TODO(고객사 로고): 동의를 받은 건만
      ① public/images/clients/ 에 로고 저장
         - 배경 투명 PNG 또는 SVG
@@ -131,10 +137,10 @@ export type ClientLogo = {
 };
 
 export const CLIENT_LOGOS: ReadonlyArray<ClientLogo> = [
-  { id: 'dongwoo', name: '동우화인켐', src: '/images/clients/dongwoo.png', width: 1221, height: 200 },
-  { id: 'tunghsu', name: 'TUNGHSU GROUP', src: '/images/clients/tunghsu.png', width: 754, height: 200 },
-  { id: 'semv', name: 'SEMV', src: '/images/clients/semv.png', width: 753, height: 200 },
-  { id: 'semb', name: 'SEMB', src: '/images/clients/semb.png', width: 1398, height: 200 },
+  { id: 'dongwoo', name: '동우화인켐', src: '/images/clients/dongwoo.png', width: 789, height: 140 },
+  { id: 'tunghsu', name: 'TUNGHSU GROUP', src: '/images/clients/tunghsu.png', width: 395, height: 140 },
+  { id: 'semv', name: 'SEMV', src: '/images/clients/semv.png', width: 452, height: 140 },
+  { id: 'semb', name: 'SEMB', src: '/images/clients/semb.png', width: 987, height: 140 },
 ];
 
 /* ────────────────────────────────────────────────────────────
