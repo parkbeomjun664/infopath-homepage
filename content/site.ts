@@ -94,8 +94,8 @@ export const SECTIONS = {
   buildProcess: false,
   /** 적용 사례 — 실제 사례가 CASE_STUDIES에 들어오면 true로 */
   cases: false,
-  /** 고객사 로고 띠 — 로고 파일과 서면 동의가 확보되면 true로 */
-  clients: false,
+  /** 고객사 로고 띠 — 대표 확인(2026-09-17)으로 켰습니다 */
+  clients: true,
 } as const;
 
 /* ────────────────────────────────────────────────────────────
@@ -130,7 +130,12 @@ export type ClientLogo = {
   height: number;
 };
 
-export const CLIENT_LOGOS: ReadonlyArray<ClientLogo> = [];
+export const CLIENT_LOGOS: ReadonlyArray<ClientLogo> = [
+  { id: 'dongwoo', name: '동우화인켐', src: '/images/clients/dongwoo.png', width: 420, height: 96 },
+  { id: 'tunghsu', name: 'TUNGHSU GROUP', src: '/images/clients/tunghsu.png', width: 316, height: 96 },
+  { id: 'semv', name: 'SEMV', src: '/images/clients/semv.png', width: 335, height: 96 },
+  { id: 'semb', name: 'SEMB', src: '/images/clients/semb.png', width: 672, height: 96 },
+];
 
 /* ────────────────────────────────────────────────────────────
    3-0-1. 로고가 오기 전까지 띠에 싣는 사진

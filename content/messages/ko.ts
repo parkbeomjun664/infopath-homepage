@@ -503,7 +503,7 @@ const ko = {
         {
           id: 'overseas-build',
           field: 'LCD 부품',
-          client: '동욱그룹 (쉬우 · 푸저우) · SEMV',
+          client: 'TUNGHSU GROUP (쉬우 · 푸저우) · SEMV',
           title: '해외 생산라인 MES 구축 참여',
           body: '해외 공장 세 곳의 생산관리 MES 구축 프로젝트에 참여했습니다.',
         },
