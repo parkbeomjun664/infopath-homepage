@@ -29,7 +29,7 @@ import { ASSETS, ASSET_DIMENSIONS, COMPANY, SECTIONS } from '@/content/site';
 type PageProps = { params: Promise<{ locale: string }> };
 
 type Stat = { id: string; value: string; unit: string; name: string };
-type Record = { id: string; field: string; title: string; body: string };
+type Record = { id: string; field: string; client: string; title: string; body: string };
 type History = { id: string; period: string; title: string; body: string };
 
 export function generateStaticParams() {
@@ -296,6 +296,13 @@ export default async function AboutPage({ params }: PageProps) {
                       {r.title}
                     </p>
                     <p className="mt-2.5 text-caption leading-relaxed text-navy-700/70">{r.body}</p>
+
+                    {/* 고객사 — 대표 확인으로 실명 게재가 허용됐습니다. 카드에서 가장 강한 근거라
+                        아래에 선을 긋고 따로 세웁니다. */}
+                    <div className="mt-5 border-t border-line pt-4">
+                      <p className="label-mono text-fg-subtle">{t('record.clientLabel')}</p>
+                      <p className="mt-1.5 text-caption font-medium text-navy-900">{r.client}</p>
+                    </div>
                   </div>
                 </Reveal>
               ))}

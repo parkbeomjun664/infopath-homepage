@@ -370,7 +370,7 @@ const ko = {
   /** S8 — CTA */
   cta: {
     heading: '우리 공장에는 무엇이 필요할까요?',
-    body: '무엇을 만드는지, 지금 무엇으로 관리하시는지만 알려주세요. 3일 안에 적용 가능한 범위를 정리해 회신드립니다. (주말 · 공휴일 제외)',
+    body: '무엇을 만드는지, 지금 무엇으로 관리하시는지만 알려주세요. 영업일 기준 하루 안에 적용 가능한 범위를 정리해 회신드립니다.',
     button: '도입 문의하기',
     /* 대표전화(COMPANY.tel)가 확보되면 자동으로 나타납니다 */
     phoneButton: '전화 상담',
@@ -462,7 +462,7 @@ const ko = {
           id: 'operate',
           period: '2022 – 2025',
           title: '운영 · 유지보수로 현장을 배웠습니다',
-          body: '검증된 MES 솔루션 위에서 광학필름 · 케미칼 라인의 운영을 맡았습니다. 만드는 것보다 돌리는 일을 먼저 했습니다.',
+          body: '검증된 MES 솔루션 위에서 동우화인켐 평택 · 익산 라인의 운영을 맡았습니다. 만드는 것보다 돌리는 일을 먼저 했습니다.',
         },
         {
           id: 'build',
@@ -491,40 +491,47 @@ const ko = {
       heading: '수행 실적',
       lead: 'INFOLINK 이전부터 제조 현장의 MES를 구축하고 운영해 왔습니다.',
       fieldLabel: '업종',
+      clientLabel: '고객사',
       items: [
         {
           id: 'ops',
           field: '광학필름 · 케미칼',
+          client: '동우화인켐',
           title: 'MES 운영 서비스',
-          body: '생산라인 MES의 운영과 기능 개발을 맡아 수행했습니다.',
+          body: '평택(광학) · 익산(케미컬) 라인 MES의 운영과 기능 개발을 맡아 수행했습니다.',
         },
         {
           id: 'overseas-build',
           field: 'LCD 부품',
+          client: '동욱그룹 (쉬우 · 푸저우) · SEMV',
           title: '해외 생산라인 MES 구축 참여',
           body: '해외 공장 세 곳의 생산관리 MES 구축 프로젝트에 참여했습니다.',
         },
         {
           id: 'overseas-maint',
           field: 'LCD 부품',
+          client: 'SEMB (중국 베이징)',
           title: '생산관리 MES 유지보수',
-          body: '해외 법인의 MES 운영을 지원했습니다.',
+          body: '해외 법인의 생산관리 MES 운영을 지원했습니다.',
         },
         {
           id: 'plant-maint',
           field: '광학필름 · 케미칼',
+          client: '동우화인켐',
           title: '공장 MES 유지보수',
-          body: 'TD · MD 라인 MES의 운영 관리와 개발을 담당했습니다.',
+          body: '평택공장 TD · MD 라인 MES의 운영 관리와 개발을 담당했습니다.',
         },
         {
           id: 'web',
           field: '광학필름 · 케미칼',
+          client: '동우화인켐',
           title: '웹 시스템 유지보수',
-          body: '그룹웨어와 사내 포털 시스템의 운영 · 관리를 수행했습니다.',
+          body: '그룹웨어와 POVIS 시스템의 운영 · 관리를 수행했습니다.',
         },
         {
           id: 'ai-quality',
           field: '케미칼',
+          client: '동우화인켐',
           title: '품질 AI 솔루션 구축',
           body: 'AI 기반 품질데이터 분석 시스템을 구축했습니다.',
         },
@@ -537,7 +544,7 @@ const ko = {
     heading: '도입 문의',
     lead: '공정 현황과 고민을 남겨주시면 담당자가 확인 후 회신드립니다.',
     /** ⚠ 실제 회신 기준 확인 후 확정 — 이 한 줄만 바꾸면 폼 상단과 완료 화면에 함께 반영됩니다. */
-    responseNote: '보내주시면 3일 안에 회신드립니다. (주말 · 공휴일 제외)',
+    responseNote: '보내주시면 영업일 기준 하루 안에 회신드립니다.',
     /* 폼 옆 안내 — 「뭘 써야 할지 몰라서」가 문의를 멈추는 가장 큰 이유입니다 */
     channelHeading: '바로 연락',
     flow: {
@@ -583,7 +590,7 @@ const ko = {
       submitting: '전송 중…',
       successTitle: '문의가 접수되었습니다',
       successBody: '담당자가 확인 후 회신드리겠습니다. 감사합니다.',
-      successNote: '3일 안에 회신드립니다. (주말 · 공휴일 제외)',
+      successNote: '영업일 기준 하루 안에 회신드립니다.',
       successAgain: '새 문의 작성하기',
       errorTitle: '전송에 실패했습니다',
       errorBody: '잠시 후 다시 시도해주세요. 계속 실패하면 아래 이메일로 직접 보내주시기 바랍니다.',

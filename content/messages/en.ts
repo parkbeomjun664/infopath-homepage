@@ -294,7 +294,7 @@ const en: Messages = {
 
   cta: {
     heading: 'What does your plant actually need?',
-    body: 'Just tell us what you make and how you track it today. We will map out what fits and reply within three business days.',
+    body: 'Just tell us what you make and how you track it today. We will map out what fits and reply within one business day.',
     button: 'Talk to us',
     phoneButton: 'Call us',
     mailLabel: 'Email us',
@@ -371,7 +371,7 @@ const en: Messages = {
           id: 'operate',
           period: '2022 – 2025',
           title: 'Learned the floor by running it',
-          body: 'Operated MES for optical film and chemical lines on proven platforms. We ran systems before we built them.',
+          body: 'Operated MES for Dongwoo Fine-Chem’s Pyeongtaek and Iksan lines on proven platforms. We ran systems before we built them.',
         },
         {
           id: 'build',
@@ -393,40 +393,47 @@ const en: Messages = {
       heading: 'Track record',
       lead: 'We were building and running MES on factory floors long before INFOLINK.',
       fieldLabel: 'Industry',
+      clientLabel: 'Client',
       items: [
         {
           id: 'ops',
           field: 'Optical film · Chemicals',
+          client: 'Dongwoo Fine-Chem',
           title: 'MES managed operations',
-          body: 'Ran and extended the MES for production lines.',
+          body: 'Ran and extended MES for the Pyeongtaek (optical) and Iksan (chemical) lines.',
         },
         {
           id: 'overseas-build',
           field: 'LCD components',
+          client: 'Tunghsu Group (Wuxi · Fuzhou) · SEMV',
           title: 'Overseas MES implementations',
           body: 'Took part in MES implementation projects at three overseas plants.',
         },
         {
           id: 'overseas-maint',
           field: 'LCD components',
+          client: 'SEMB (Beijing, China)',
           title: 'Production MES maintenance',
-          body: 'Supported MES operations for an overseas subsidiary.',
+          body: 'Supported production MES operations for an overseas subsidiary.',
         },
         {
           id: 'plant-maint',
           field: 'Optical film · Chemicals',
+          client: 'Dongwoo Fine-Chem',
           title: 'Plant MES maintenance',
-          body: 'Handled operations and development for TD and MD line MES.',
+          body: 'Handled operations and development for the TD and MD line MES at the Pyeongtaek plant.',
         },
         {
           id: 'web',
           field: 'Optical film · Chemicals',
+          client: 'Dongwoo Fine-Chem',
           title: 'Web systems maintenance',
-          body: 'Operated and maintained groupware and internal portal systems.',
+          body: 'Operated and maintained the groupware and POVIS systems.',
         },
         {
           id: 'ai-quality',
           field: 'Chemicals',
+          client: 'Dongwoo Fine-Chem',
           title: 'AI quality analytics',
           body: 'Built an AI-based quality data analysis system.',
         },
@@ -438,7 +445,7 @@ const en: Messages = {
     label: 'CONTACT',
     heading: 'Get in touch',
     lead: 'Tell us about your processes and where you are stuck. Our team will get back to you.',
-    responseNote: 'We reply within three business days.',
+    responseNote: 'We reply within one business day.',
     channelHeading: 'Reach us directly',
     flow: {
       heading: 'After you send',
@@ -482,7 +489,7 @@ const en: Messages = {
       submitting: 'Sending…',
       successTitle: 'Your inquiry has been received',
       successBody: 'Our team will review it and get back to you shortly. Thank you.',
-      successNote: 'We reply within three business days.',
+      successNote: 'We reply within one business day.',
       successAgain: 'Write another inquiry',
       errorTitle: 'Sending failed',
       errorBody:
