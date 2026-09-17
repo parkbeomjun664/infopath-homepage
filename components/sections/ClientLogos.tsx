@@ -85,7 +85,7 @@ export default function ClientLogos() {
       </Container>
 
       {/* 컨테이너 밖에 둡니다 — 안에 가두면 띠가 중간에서 잘려 멈춘 것처럼 보입니다 */}
-      <div className="marquee-viewport mt-11 overflow-hidden">
+      <div className="marquee-viewport mt-12 overflow-hidden">
         <ul className="marquee" style={{ ['--marquee-duration' as string]: duration }}>
           {/* 첫 벌만 읽어줍니다. 나머지는 이음매를 메우기 위한 복제본입니다 */}
           {Array.from({ length: copies }, (_, copy) => (
@@ -94,14 +94,14 @@ export default function ClientLogos() {
                 ? CLIENT_LOGOS.map((logo) => (
                     <span
                       key={logo.id}
-                      className="mx-7 flex h-10 shrink-0 items-center lg:mx-9 lg:h-11"
+                      className="mx-8 flex h-14 shrink-0 items-center lg:mx-11 lg:h-16"
                     >
                       <Image
                         src={logo.src}
                         alt={copy === 0 ? logo.name : ''}
                         width={logo.width}
                         height={logo.height}
-                        sizes="240px"
+                        sizes="(max-width: 1023px) 260px, 340px"
                         /* 원래 색 그대로 둡니다. 로고는 색이 곧 식별 정보라
                            회색으로 눕히면 어느 회사인지 한 박자 늦게 읽힙니다.
                            높이만 맞추고 가로는 비율대로 둡니다 — 억지로 같은 폭에
