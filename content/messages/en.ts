@@ -249,6 +249,9 @@ const en: Messages = {
   },
 
   clients: {
+    label: 'CLIENTS',
+    more: 'See the full track record',
+
     heading: 'Where we work',
     lead: 'Optical film · Chemicals · Automotive parts · Electronic components · LCD components',
     logoHeading: 'Companies we work with',

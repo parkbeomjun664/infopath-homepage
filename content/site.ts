@@ -131,10 +131,10 @@ export type ClientLogo = {
 };
 
 export const CLIENT_LOGOS: ReadonlyArray<ClientLogo> = [
-  { id: 'dongwoo', name: '동우화인켐', src: '/images/clients/dongwoo.png', width: 420, height: 96 },
-  { id: 'tunghsu', name: 'TUNGHSU GROUP', src: '/images/clients/tunghsu.png', width: 316, height: 96 },
-  { id: 'semv', name: 'SEMV', src: '/images/clients/semv.png', width: 335, height: 96 },
-  { id: 'semb', name: 'SEMB', src: '/images/clients/semb.png', width: 672, height: 96 },
+  { id: 'dongwoo', name: '동우화인켐', src: '/images/clients/dongwoo.png', width: 737, height: 120 },
+  { id: 'tunghsu', name: 'TUNGHSU GROUP', src: '/images/clients/tunghsu.png', width: 451, height: 120 },
+  { id: 'semv', name: 'SEMV', src: '/images/clients/semv.png', width: 453, height: 120 },
+  { id: 'semb', name: 'SEMB', src: '/images/clients/semb.png', width: 840, height: 120 },
 ];
 
 /* ────────────────────────────────────────────────────────────

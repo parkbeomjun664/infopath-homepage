@@ -525,15 +525,15 @@
   -webkit-mask-image: linear-gradient(
     to right,
     transparent,
-    #000 72px,
-    #000 calc(100% - 72px),
+    #000 40px,
+    #000 calc(100% - 40px),
     transparent
   );
   mask-image: linear-gradient(
     to right,
     transparent,
-    #000 72px,
-    #000 calc(100% - 72px),
+    #000 40px,
+    #000 calc(100% - 40px),
     transparent
   );
 }
