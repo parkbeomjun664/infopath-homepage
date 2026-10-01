@@ -9,11 +9,14 @@ import { COMPANY, PRIVACY_OFFICER } from '@/content/site';
 /**
  * /privacy — 개인정보처리방침
  *
- * ⚠️ 표준 양식 기반 초안입니다. 법무 검토 후 확정본으로 교체해야 합니다.
- * 문의 폼이 개인정보를 수집하므로 오픈 전 필수 항목입니다 (개인정보보호법 제30조).
+ * 개인정보보호법 제30조에 따른 공개 항목입니다. 문의 폼이 개인정보를 수집하므로 필수입니다.
  *
- * 대표자명 · 사업자등록번호 · 주소 · 대표전화 · 개인정보 보호책임자는 반영을 마쳤습니다.
- * TODO(시행일): 법무 검토로 확정본이 나오면 시행일을 넣고 draft 표시를 내립니다.
+ * 2026-10-01 확정 — 개인정보보호위원회 표준 처리방침 양식과 대조해 12개 조항을 갖췄습니다.
+ * 추가한 것: 국외 이전(제28조의8 — Resend · Vercel 모두 미국),
+ *            쿠키 등 자동 수집 장치(next-intl이 NEXT_LOCALE을 1년간 저장).
+ *
+ * ⚠ 변호사 검토를 거친 문서가 아닙니다. 수집 항목이나 처리 방식이 바뀌면
+ *   이 방침도 함께 고쳐야 합니다 — 적어둔 것과 실제가 다르면 그게 위반입니다.
  */
 
 type PageProps = { params: Promise<{ locale: string }> };
@@ -31,8 +34,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: t('heading'),
     description: t('lead'),
-    // 확정 전까지는 색인에서 제외합니다.
-    robots: { index: false, follow: true },
   };
 }
 
@@ -75,16 +76,6 @@ export default async function PrivacyPage({ params }: PageProps) {
       <div className="mt-12 grid gap-10 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-16">
         <div className="lg:sticky lg:top-[136px] lg:self-start">
           <Reveal>
-            <div className="border-l-2 border-state-warn bg-white py-5 pl-5 pr-4">
-              <p className="label-mono mb-2 text-state-warn">DRAFT</p>
-              <p className="text-caption font-medium text-navy-900">{t('draftTitle')}</p>
-              <p className="mt-1.5 text-caption leading-relaxed text-navy-700/70">
-                {t('draftBody')}
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal className="mt-6">
             <p className="text-caption text-navy-700/60">
               {t('effectiveLabel')} · {t('effectivePending')}
             </p>

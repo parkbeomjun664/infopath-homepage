@@ -525,11 +525,10 @@ const en: Messages = {
     heading: 'Privacy Policy',
     lead: 'INFOPATH handles personal information with care and complies with applicable law.',
     tocLabel: 'Sections',
-    draftTitle: 'This is a draft',
-    draftBody:
-      'Written against a standard template. It must be replaced with a final version after legal review.',
+    draftTitle: '',
+    draftBody: '',
     effectiveLabel: 'Effective date',
-    effectivePending: 'To be set on approval',
+    effectivePending: '1 October 2026',
     sections: [
       {
         id: 'items',
@@ -562,23 +561,33 @@ const en: Messages = {
         body: 'We entrust email delivery to the following provider.\n\n· Provider: Resend (email delivery)\n· Scope: delivering your inquiry by email\n\nOur agreement requires the provider to keep personal information secure.',
       },
       {
+        id: 'overseas',
+        title: '7. Transfers abroad',
+        body: 'We transfer personal data outside Korea to operate this site and deliver inquiry email.\n\n· Recipient: Resend, Inc. (United States)\n  Data: name, company, job title, phone, email, inquiry content\n  When and how: sent over the internet when you submit an inquiry\n  Purpose: delivering the inquiry by email\n  Retention: until delivery completes\n\n· Recipient: Vercel Inc. (United States)\n  Data: IP address, access logs\n  When and how: sent over the internet when you visit the site\n  Purpose: website hosting and operation\n  Retention: for the duration of the service\n\nYou may refuse these transfers, in which case we cannot accept your inquiry.',
+      },
+      {
+        id: 'cookie',
+        title: '8. Cookies',
+        body: 'We use one cookie, to remember your language.\n\n· Name: NEXT_LOCALE\n· Stores: the language you chose (Korean or English)\n· Purpose: showing the same language on your next visit\n· Retention: one year\n\nIt holds nothing that identifies you. We use no advertising or behavioural analytics cookies.\n\nYou can refuse cookies in your browser settings. You will then need to choose the language on every visit.\n\n· Chrome: Settings > Privacy and security > Third-party cookies\n· Edge: Settings > Cookies and site permissions\n· Safari: Preferences > Privacy',
+      },
+      {
         id: 'rights',
-        title: '7. Your rights',
+        title: '9. Your rights',
         body: 'You may request access, correction, deletion or suspension of processing at any time. Contact us below and we will act without delay.\n\nYou may decline consent, in which case we cannot accept your inquiry.',
       },
       {
         id: 'safety',
-        title: '8. How we keep it safe',
+        title: '10. How we keep it safe',
         body: '· Encryption in transit (HTTPS)\n· Access limited to those who need it\n· Spam and automated-submission blocking',
       },
       {
         id: 'manager',
-        title: '9. Privacy contact',
+        title: '11. Privacy contact',
         body: 'For questions, complaints or remedies regarding personal information, contact us below.',
       },
       {
         id: 'change',
-        title: '10. Changes to this policy',
+        title: '12. Changes to this policy',
         body: 'If this policy is added to, removed from or amended, we announce it on this site at least seven days before it takes effect.',
       },
     ],
