@@ -52,6 +52,17 @@ export async function generateMetadata({
       canonical: absoluteUrl(locale, ''),
       languages: alternateLanguages(''),
     },
+    /*
+      검색엔진 소유권 확인.
+      구글은 public/google….html 파일로, 네이버는 파일과 메타태그 둘 다 두었습니다.
+      네이버는 파일 조회가 간헐적으로 실패하는 경우가 있어 태그를 함께 둡니다.
+      ⚠ 확인이 끝난 뒤에도 지우면 안 됩니다 — 주기적으로 다시 조회해 소유권을 유지합니다.
+    */
+    verification: {
+      other: {
+        'naver-site-verification': 'a06fc98aa89dc2a64f8d60f53eaa10dd81e4e47c',
+      },
+    },
     openGraph: {
       type: 'website',
       siteName: t('siteName'),
