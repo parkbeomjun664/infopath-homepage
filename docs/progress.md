@@ -247,12 +247,28 @@ Search Console의 **임시 삭제는 약 6개월 뒤 자동으로 풀립니다.*
 차단 기간의 흔적이 아니라, 차단 방식(robots.txt 차단 + noindex 동시)이 만든 상태였습니다.
 경위는 세션 2 참고.
 
-지금 해야 할 일 — [deploy.md](deploy.md) 9-2 절차대로:
+절차는 [deploy.md](deploy.md) 9-2.
 
-1. Vercel에 `NEXT_PUBLIC_INDEXING_MODE=hidden` 등록 → **Redeploy**
-2. 배포본 4가지 검증 (robots.txt · 메타 · 헤더 · sitemap)
+**2026-10-05 완료**
+
+1. ✅ Vercel Production에 `NEXT_PUBLIC_INDEXING_MODE=hidden` 등록 → Redeploy
+   (Type은 `Config`. `NEXT_PUBLIC_` 값은 브라우저 번들에 박히므로 Secret이 될 수 없고,
+   앞으로 계속 바꿀 설정이라 값을 다시 읽을 수 있어야 함)
+2. ✅ 배포본 검증 — 전부 통과
+
+   | 항목 | 결과 |
+   |---|---|
+   | robots.txt | `Allow: /` (크롤러 들여보냄) |
+   | 메타 | `noindex, nofollow, nocache` |
+   | X-Robots-Tag | 전 페이지 + 이미지(도면·고객사 로고) |
+   | sitemap.xml · robots.txt | 헤더 없음 · 8 URL 유지 |
+   | 방문자 | 전 페이지 200 |
+   | 소유권 확인 파일 | 구글·네이버 200 — **안 깨짐** |
+
+**남은 일**
+
 3. Search Console — URL 검사로 `noindex` 인식 확인 → 임시 삭제 요청
-4. 네이버 — 웹페이지 수집 요청으로 재수집 유도
+4. 네이버 — 요청 → 웹페이지 수집으로 재수집 유도
 5. 주 1회 `site:` 검색으로 색인 소멸 관찰
 
 ⚠ 임시 삭제는 **6개월 뒤 자동 해제**됩니다. 그 전에 복귀냐 `blocked`냐를 정해야 합니다.
