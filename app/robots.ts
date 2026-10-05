@@ -1,18 +1,27 @@
 import type { MetadataRoute } from 'next';
 
-import { ALLOW_INDEXING, SITE_URL } from '@/lib/seo';
+import { INDEXING_MODE, SITE_URL } from '@/lib/seo';
 
 /**
  * robots.txt
  *
- * 색인이 허용되지 않은 동안에는 전체를 차단합니다.
- * 검토용 배포가 검색 결과에 잡히면 초안 상태의 방침과 빈 사업자 정보가 그대로 노출됩니다.
+ * 모드별 동작은 lib/indexing.ts 의 주석을 보십시오. 요점만 적으면,
+ * **hidden 에서도 크롤링을 허용합니다.**
  *
- * 정식 오픈: 환경변수 NEXT_PUBLIC_ALLOW_INDEXING=true 후 재배포
+ * 색인에서 빼려면 크롤러가 페이지를 가져가 noindex 를 읽어야 합니다.
+ * 여기서 Disallow 로 막으면 그걸 못 읽어서, 이미 등록된 주소가
+ * 색인에 그대로 남습니다. 빼는 중에는 열어두는 것이 맞습니다.
+ *
+ * sitemap 도 hidden 에서 유지합니다 — 크롤러가 빨리 다시 와서
+ * noindex 를 읽고 가는 편이 색인 소멸이 빠릅니다.
  */
 
 export default function robots(): MetadataRoute.Robots {
-  if (!ALLOW_INDEXING) {
+  /**
+   * 완전 차단. 검색 결과에서 다 빠진 것을 확인한 뒤에만 쓰십시오.
+   * sitemap 도 함께 내립니다 — 크롤링을 거부하면서 수집 목록을 주는 것은 모순입니다.
+   */
+  if (INDEXING_MODE === 'blocked') {
     return { rules: [{ userAgent: '*', disallow: '/' }] };
   }
 

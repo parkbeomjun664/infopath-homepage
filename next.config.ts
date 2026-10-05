@@ -1,6 +1,15 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
+/**
+ * 색인 모드를 헤더 생성에도 씁니다.
+ *
+ * 상대 경로로 가져오는 이유 — next.config.ts 는 Next 가 앱 번들과 별도로 읽습니다.
+ * tsconfig 의 '@/' 별칭이 여기서는 해석되지 않습니다.
+ * lib/indexing.ts 가 lib/env.ts 하나만 (역시 상대 경로로) 쓰는 이유도 이것입니다.
+ */
+import { INDEXING_MODE } from './lib/indexing';
+
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const nextConfig: NextConfig = {
@@ -55,7 +64,30 @@ const nextConfig: NextConfig = {
   },
 
   async headers() {
+    /**
+     * X-Robots-Tag — 메타 태그가 닿지 않는 곳을 덮습니다.
+     *
+     * public/ 에는 고객사 로고 4개와 아키텍처 도면(architecture-solution.png)이
+     * 있습니다. 이미지 파일에는 <meta> 를 달 수 없어서, 메타 태그만으로는
+     * 본문은 빠지고 이미지 검색에는 남습니다. 응답 헤더는 파일에도 붙습니다.
+     *
+     * sitemap.xml 과 robots.txt 는 제외합니다. hidden 모드는 크롤러가 빨리 다시 와서
+     * noindex 를 읽고 가기를 기대하는 상태이고, 그 경로를 안내하는 두 파일에
+     * noindex 를 붙이는 것은 목적과 어긋납니다. 둘 다 검색 결과에 뜨는 문서가
+     * 아니므로 덮을 이유도 없습니다.
+     */
+    const noindexHeader =
+      INDEXING_MODE === 'public'
+        ? []
+        : [
+            {
+              source: '/:path((?!sitemap\\.xml$|robots\\.txt$).*)',
+              headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+            },
+          ];
+
     return [
+      ...noindexHeader,
       {
         source: '/:path*',
         headers: [

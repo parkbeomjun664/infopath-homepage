@@ -14,15 +14,11 @@ export const SITE_URL = cleanEnv(
 ).replace(/\/$/, '');
 
 /**
- * 검색엔진 색인 허용 여부.
- *
- * 기본값은 "차단"입니다. 실수로 공개되는 쪽보다 실수로 막히는 쪽이 회복이 쉽습니다.
- * 개인정보처리방침이 법무 검토 전이고 사업자 정보가 비어 있는 동안에는
- * 검색 결과에 올라가지 않아야 합니다.
- *
- * 정식 오픈 시 Vercel 환경변수에 NEXT_PUBLIC_ALLOW_INDEXING=true 를 넣고 재배포하십시오.
+ * 검색엔진 색인 모드는 lib/indexing.ts 에서 결정합니다.
+ * 여기서 다시 내보내는 것은 SEO 관련 값을 한 곳에서 가져오게 하기 위한 편의입니다.
+ * 판단 로직을 이 파일에 복사하지 마십시오 — 기준이 둘로 갈라집니다.
  */
-export const ALLOW_INDEXING = cleanEnv(process.env.NEXT_PUBLIC_ALLOW_INDEXING, '') === 'true';
+export { INDEXING_MODE, ALLOW_CRAWLING, ALLOW_INDEXING, type IndexingMode } from '@/lib/indexing';
 
 /** 검색엔진에 노출할 경로. /privacy는 법무 검토 전이라 제외합니다. */
 export const INDEXABLE_PATHS = ['', '/infolink', '/about', '/contact'] as const;

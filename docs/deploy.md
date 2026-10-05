@@ -66,6 +66,7 @@ Vercel → **Settings → Environment Variables** 에서 등록합니다.
 | `NEXT_PUBLIC_SITE_URL` | | `https://infopath.co.kr` | Production |
 | `INQUIRY_TO` | | `gepark@infopath.co.kr` | Production, Preview |
 | `INQUIRY_FROM` | | `INFOPATH 문의 <noreply@infopath.co.kr>` | Production |
+| `NEXT_PUBLIC_INDEXING_MODE` | | `public` · `hidden` · `blocked` (9장) | Production |
 
 > 환경변수를 추가·수정한 뒤에는 **재배포해야 반영됩니다.**
 > Deployments → 최신 배포 → ⋯ → **Redeploy**
@@ -196,6 +197,134 @@ nslookup infopath.co.kr
 nslookup -type=MX infopath.co.kr     # 그룹웨어 MX가 그대로인지 확인
 nslookup -type=TXT infopath.co.kr    # SPF가 하나인지 확인
 ```
+
+---
+
+## 9. 검색 노출 전환 (색인 모드)
+
+`NEXT_PUBLIC_INDEXING_MODE` 하나로 세 단계를 전환합니다.
+판단 로직은 [../lib/indexing.ts](../lib/indexing.ts) 한 곳에 있습니다.
+
+| 모드 | robots.txt | 메타 태그 | X-Robots-Tag | 쓰는 때 |
+|---|---|---|---|---|
+| `public` | 허용 + sitemap | `index, follow` | 없음 | 정식 공개 |
+| `hidden` | **허용** + sitemap | `noindex, nofollow` | `noindex, nofollow` | 검색에서 빼는 중 |
+| `blocked` | `Disallow: /` | `noindex, nofollow` | `noindex, nofollow` | 색인에서 다 빠진 뒤 |
+
+미설정 시 `blocked`입니다 (로컬·프리뷰 배포 보호).
+
+### ⚠️ 9-1. 순서를 지켜야 하는 이유
+
+**`hidden`을 건너뛰고 바로 `blocked`로 가면 검색에서 빠지지 않습니다.**
+
+색인에서 빼려면 크롤러가 페이지를 가져가서 `noindex`를 읽어야 합니다.
+`robots.txt`로 크롤링을 막으면 그걸 읽을 수 없고, 이미 등록된 주소는 색인에 그대로
+남아 제목·설명만 사라진 「이 페이지에 관한 정보가 없습니다」 상태로 굳습니다.
+
+구글도 같은 말을 합니다 — robots.txt 차단은 색인 삭제 수단이 **아니고**, 영구적으로
+빼는 방법은 `noindex`입니다.
+
+> **빼려면 먼저 읽히게 해야 합니다.**
+> `public` → `hidden` → (검색 결과에서 소멸 확인) → `blocked`
+
+`hidden`에서 `sitemap.xml`을 유지하는 것도 같은 이유입니다. 크롤러가 빨리 다시 와서
+`noindex`를 읽고 가는 편이 색인 소멸이 빠릅니다. 수집 목록을 치우는 것은
+`blocked`로 넘어갈 때 함께 합니다.
+
+### 9-2. 전환 절차 — 검색에서 내리기 (`hidden`)
+
+**1단계 · 환경변수**
+
+Vercel → Settings → Environment Variables
+
+| 키 | 값 | 적용 환경 |
+|---|---|---|
+| `NEXT_PUBLIC_INDEXING_MODE` | `hidden` | Production |
+
+기존 `NEXT_PUBLIC_ALLOW_INDEXING`은 지워도 되고 둬도 됩니다.
+새 변수가 있으면 그쪽이 먼저 읽힙니다 (없을 때만 `true` → `public`으로 해석).
+
+**2단계 · 재배포**
+
+환경변수만 바꿔도 **재배포해야 반영됩니다.** 빌드 시점에 값이 박히기 때문입니다.
+`main`에 푸시할 코드 변경이 함께 있으면 그 배포로 같이 반영됩니다.
+없으면 Deployments → 최신 배포 → ⋯ → **Redeploy**.
+
+**3단계 · 배포본 검증** — 넷 다 맞아야 합니다.
+
+```bash
+# robots.txt — "Allow: /" 여야 합니다 (Disallow 가 아님)
+curl -s https://infopath.co.kr/robots.txt
+
+# 메타 태그 — noindex
+curl -s https://infopath.co.kr/ | grep -o '<meta name="robots"[^>]*>'
+
+# 응답 헤더 — 페이지와 이미지 모두 noindex
+curl -sI https://infopath.co.kr/ | grep -i x-robots-tag
+curl -sI https://infopath.co.kr/images/architecture-solution.png | grep -i x-robots-tag
+
+# sitemap 은 유지 — 헤더가 붙지 않아야 하고, URL 8개가 나와야 합니다
+curl -sI https://infopath.co.kr/sitemap.xml | grep -i x-robots-tag   # 출력 없음이 정상
+curl -s https://infopath.co.kr/sitemap.xml | grep -c "<url>"
+```
+
+**4단계 · Google Search Console**
+
+1. **URL 검사**에 `https://infopath.co.kr/` 입력 → **실시간 테스트**
+   → 「색인 생성이 허용됨: 아니요 (`noindex` 감지됨)」가 나오는지 확인.
+   이게 확인되면 재수집될 때마다 자동으로 빠집니다.
+2. **색인 생성 → 삭제**(Removals) → **임시 삭제** → 주요 URL을 넣어
+   즉시 검색 결과에서 가립니다.
+3. **사이트맵은 제출 상태로 둡니다.** 지금은 크롤러를 빨리 불러들여야 합니다.
+
+> ⚠️ **임시 삭제는 약 6개월 뒤 자동으로 풀립니다.** 가리는 것일 뿐 빼는 것이 아닙니다.
+> 실제로 빼는 일은 `noindex`가 합니다. 그 안에 `public` 복귀든 `blocked` 전환이든
+> 결론을 내야 합니다. 방치하면 6개월 뒤 조용히 다시 나타납니다.
+
+**5단계 · 네이버 서치어드바이저**
+
+네이버에는 Search Console의 임시 삭제에 해당하는 도구가 없습니다.
+웹마스터도구에서 재수집을 유도하고 현황을 지켜보는 방식입니다.
+
+1. **요청 → 웹페이지 수집**에 주요 URL을 넣어 재수집을 요청합니다.
+   Yeti가 다시 가져가면서 `noindex`를 읽습니다.
+2. **요청 → robots.txt**에서 수집 허용 상태를 확인합니다 (`hidden`이므로 허용이 맞습니다).
+3. **리포트 → 사이트 진단 · 수집 현황**에서 색인 수가 줄어드는지 관찰합니다.
+4. 급하면 네이버 고객센터로 검색 제외를 따로 요청합니다.
+
+> 네이버 콘솔 메뉴 이름은 개편이 잦습니다. 위 경로가 보이지 않으면
+> searchadvisor.naver.com 의 현재 메뉴에서 「수집」·「robots.txt」 항목을 찾으십시오.
+
+**6단계 · 관찰**
+
+```bash
+# 주기적으로 (주 1회) 확인
+# site: 검색으로 남은 색인 수를 봅니다
+#   구글: https://www.google.com/search?q=site:infopath.co.kr
+#   네이버: https://search.naver.com/search.naver?query=site:infopath.co.kr
+```
+
+색인에서 **다 빠진 것을 확인한 뒤**에야 `blocked`를 검토합니다.
+그 전에 `blocked`로 가면 9-1의 유령 항목이 생깁니다.
+
+### 9-3. 다시 공개하기 (`public`)
+
+1. `NEXT_PUBLIC_INDEXING_MODE` → `public` → **Redeploy**
+2. 9-2의 3단계 검증을 반대로 확인 (`index, follow`, `X-Robots-Tag` 없음)
+3. Search Console → **삭제 → 임시 삭제** 목록에 남아 있는 요청을 **취소**합니다.
+   이걸 안 하면 코드가 공개로 돌아와도 최대 6개월간 계속 가려집니다.
+4. Search Console → 사이트맵 **재제출**, 주요 URL **색인 요청**
+5. 네이버 → **요청 → 웹페이지 수집**으로 재수집 요청
+
+> 재수집에는 **2~4주**가 걸립니다. 공개 즉시 검색에 다시 뜨지 않습니다.
+
+### 9-4. 건드리면 안 되는 것
+
+| 대상 | 이유 |
+|---|---|
+| `public/google*.html` · `public/naver*.html` | 검색엔진 소유권 확인 파일. 지우면 소유권이 풀려 삭제 요청·재등록을 다시 해야 합니다. `noindex`가 걸려도 확인 기능은 그대로 작동합니다 |
+| `app/[locale]/layout.tsx`의 `verification` 설정 | 위와 같은 이유 |
+| `sitemap.xml` (`hidden` 동안) | 크롤러를 빨리 불러들여야 색인이 빨리 빠집니다 |
 
 ---
 

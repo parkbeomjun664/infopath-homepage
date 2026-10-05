@@ -76,7 +76,17 @@ export async function generateMetadata({
       title: t('titleDefault'),
       description: t('description'),
     },
-    // 검토용 배포에서는 메타 태그로도 색인을 막습니다 (robots.txt와 이중 방어).
+    /**
+     * public 이 아닌 모든 모드(hidden · blocked)에서 noindex 를 내보냅니다.
+     *
+     * hidden 에서는 이 메타 태그가 **색인 제외를 실행하는 주체**입니다.
+     * robots.txt 는 크롤러를 들여보내는 역할만 하고, 빼라는 지시는 여기서 합니다.
+     * 그래서 hidden 일 때 robots.txt 를 Disallow 로 바꾸면 안 됩니다 —
+     * 이 태그가 읽히지 않아 아무것도 빠지지 않습니다.
+     *
+     * HTML 밖의 파일(이미지 · PDF)은 메타 태그를 달 수 없어 이것만으로는
+     * 이미지 검색에서 빠지지 않습니다. next.config.ts 의 X-Robots-Tag 헤더가 그쪽을 덮습니다.
+     */
     robots: ALLOW_INDEXING
       ? { index: true, follow: true }
       : { index: false, follow: false, nocache: true },

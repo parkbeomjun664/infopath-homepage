@@ -82,9 +82,33 @@ npm run dev
 
 ## 검색 노출
 
-현재 **의도적으로 차단**되어 있습니다 (`robots.txt`가 `Disallow: /`). 개인정보처리방침이
-법무 검토 전 초안이기 때문입니다. 확정 후 Vercel에 `NEXT_PUBLIC_ALLOW_INDEXING=true`를
-등록하고 재배포하면 열립니다.
+`NEXT_PUBLIC_INDEXING_MODE` 하나로 세 단계를 전환합니다. 판단 로직은
+[lib/indexing.ts](lib/indexing.ts)에 모여 있습니다.
+
+| 모드 | robots.txt | 메타 · 헤더 | 쓰는 때 |
+|---|---|---|---|
+| `public` | 크롤링 허용 + sitemap | `index, follow` | 정식 공개 |
+| `hidden` | **크롤링 허용** + sitemap | `noindex, nofollow` | 검색에서 빼는 중 |
+| `blocked` | `Disallow: /` | `noindex, nofollow` | 색인에서 다 빠진 뒤 |
+
+미설정 시 `blocked`입니다. 로컬과 프리뷰 배포를 보호하기 위한 기본값입니다.
+
+> **`hidden`에서 크롤링을 허용하는 이유** — 색인에서 빼려면 크롤러가 페이지를 가져가
+> `noindex`를 읽어야 합니다. `robots.txt`로 막으면 그걸 읽지 못해, 이미 등록된 주소가
+> 색인에 그대로 남고 제목·설명만 사라진 「이 페이지에 관한 정보가 없습니다」 상태로 굳습니다.
+> **빼려면 먼저 읽히게 해야 합니다.** 그래서 `blocked`는 소멸을 확인한 **뒤에** 씁니다.
+
+HTML 밖의 파일(이미지·PDF)은 메타 태그를 달 수 없어 `public`이 아닌 모드에서는
+`X-Robots-Tag` 응답 헤더로 함께 덮습니다 ([next.config.ts](next.config.ts)).
+`sitemap.xml`·`robots.txt`는 그 헤더에서 제외합니다 — 크롤러를 빨리 불러들여야 하는
+경로에 `noindex`를 붙이는 것은 목적과 어긋납니다.
+
+**현재 상태: `hidden`** — INFOLINK가 마무리되지 않아 2026-10-05부터 검색에서 내리는 중입니다.
+경위와 복귀 절차는 [docs/progress.md](docs/progress.md), 실행 순서는
+[docs/deploy.md](docs/deploy.md) 9장을 보십시오.
+
+> 이전 변수 `NEXT_PUBLIC_ALLOW_INDEXING=true`는 `public`으로 해석되도록 호환을 남겨
+> 두었습니다. 새 변수를 등록한 뒤에는 지워도 됩니다.
 
 ## 저장소에 없는 것
 
